@@ -1,0 +1,32 @@
+.tabText {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--irt-space-sm);
+  outline: none;
+
+  border: none;
+  cursor: pointer;
+  user-select: none;
+
+  font-weight: var(--irt-font-weight-medium);
+  font-size: var(--irt-font-size-sm);
+  background-color: transparent;
+  padding: 0 var(--irt-space-xs);
+}
+
+.tabText:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 2px;
+}
+
+.active {
+  border-bottom: var(--irt-border-width-thick) solid var(--irt-color-primary);
+}
+
+.label {
+  max-width: 15ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

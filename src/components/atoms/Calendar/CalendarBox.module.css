@@ -1,0 +1,144 @@
+.calendarBox {
+  height: var(--irt-c-height);
+  width: var(--irt-c-width);
+  overflow-y: auto;
+  box-sizing: border-box;
+  border-radius: var(--irt-radius-lg);
+  box-shadow: var(--irt-shadow-md);
+  background: var(--irt-color-surface);
+  color: var(--irt-color-text);
+  padding: var(--irt-space-lg);
+}
+
+.calendarBox.isSmall {
+  padding: 5px;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.calendarHeader h2 {
+  margin: 0;
+}
+
+.headerButton {
+  all: unset;
+  cursor: pointer;
+  font-weight: var(--irt-font-weight-bold);
+  border-radius: var(--irt-radius-sm);
+}
+
+.headerButton:focus-visible,
+.contentBox:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 1px;
+}
+
+.calendarHeader h2 {
+  font-size: calc(var(--irt-font-size-lg));
+}
+
+.calendarBox.isSmall .calendarHeader h2 {
+  font-size: calc(var(--irt-font-size-xs));
+}
+
+.calendarBody {
+  margin-top: 20px;
+}
+
+.calendarBody.isSmall {
+  margin-top: 5px;
+}
+
+.calendarDays,
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+.calendar.gridOf4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.calendarDays.isSmall,
+.calendar.isSmall {
+  gap: 5px;
+}
+
+.calendarDays div {
+  font-weight: var(--irt-font-weight-bold);
+  text-align: center;
+}
+
+.calendar div {
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+  border-radius: var(--irt-radius-sm);
+  transition: background var(--irt-duration-normal);
+}
+
+.calendarDays.isSmall div {
+  font-size: calc(var(--irt-font-size-xs));
+}
+
+.calendar.isSmall div {
+  font-size: calc(var(--irt-font-size-xs));
+  padding: 2px 0;
+}
+
+.contentBox:hover {
+  background-color: var(--irt-c-color);
+  color: var(--irt-color-on-primary);
+  opacity: 0.7;
+}
+
+.restrictedCells {
+  color: var(--irt-color-border);
+  cursor: not-allowed;
+}
+
+.restrictedCells:hover {
+  background-color: transparent;
+  cursor: not-allowed;
+  color: var(--irt-color-border);
+}
+
+.emptyBox:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+.currentCell {
+  background: var(--irt-c-color);
+  color: var(--irt-color-on-primary);
+}
+
+.currentCell:hover {
+  background: var(--irt-c-color);
+  color: var(--irt-color-on-primary);
+  cursor: pointer;
+}
+
+.iconBtn {
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.calendarHeader svg {
+  margin: 0 3px;
+}
+
+.calendarBox.isSmall .calendarHeader {
+  padding: 0 10px;
+}
+
+.calendarBox.isSmall .calendarHeader svg {
+  margin: 0 1px;
+}

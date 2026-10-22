@@ -1,0 +1,211 @@
+/* begin cubes css */
+.cubes {
+    width: 40px;
+    height: 40px;
+}
+
+.cubes .skCube {
+    width: 33%;
+    height: 33%;
+    background-color: var(--irt-c-color);
+    float: left;
+    animation: skCubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+
+.cubes .skCube1 {
+    animation-delay: 0.2s;
+}
+
+.cubes .skCube2 {
+    animation-delay: 0.3s;
+}
+
+.cubes .skCube3 {
+    animation-delay: 0.4s;
+}
+
+.cubes .skCube4 {
+    animation-delay: 0.1s;
+}
+
+.cubes .skCube5 {
+    animation-delay: 0.2s;
+}
+
+.cubes .skCube6 {
+    animation-delay: 0.3s;
+}
+
+.cubes .skCube7 {
+    animation-delay: 0s;
+}
+
+.cubes .skCube8 {
+    animation-delay: 0.1s;
+}
+
+.cubes .skCube9 {
+    animation-delay: 0.2s;
+}
+
+@keyframes skCubeGridScaleDelay {
+
+    0%,
+    70%,
+    100% {
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+/* begin folding css */
+.folding {
+    margin: 10px;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    transform: rotateZ(45deg);
+}
+
+.folding .skCube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    transform: scale(1.1);
+}
+
+.folding .skCube:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--irt-c-color);
+    animation: skFoldCubeAngle 2.4s infinite linear both;
+    transform-origin: 100% 100%;
+}
+
+.folding .skCube2 {
+    transform: scale(1.1) rotateZ(90deg);
+}
+
+.folding .skCube3 {
+    transform: scale(1.1) rotateZ(180deg);
+}
+
+.folding .skCube4 {
+    transform: scale(1.1) rotateZ(270deg);
+}
+
+.folding .skCube2:before {
+    animation-delay: 0.3s;
+}
+
+.folding .skCube3:before {
+    animation-delay: 0.6s;
+}
+
+.folding .skCube4:before {
+    animation-delay: 0.9s;
+}
+
+@keyframes skFoldCubeAngle {
+
+    0%,
+    10% {
+        transform: perspective(140px) rotateX(-180deg);
+        opacity: 0;
+    }
+
+    25%,
+    75% {
+        transform: perspective(140px) rotateX(0deg);
+        opacity: 1;
+    }
+
+    90%,
+    100% {
+        transform: perspective(140px) rotateY(180deg);
+        opacity: 0;
+    }
+}
+
+/* begin bounce css */
+.bounce {
+    margin: 2px;
+    width: 70px;
+    text-align: center;
+}
+
+.bounce>div {
+    width: 18px;
+    height: 18px;
+    background-color: var(--irt-c-color);
+    border-radius: 100%;
+    display: inline-block;
+    animation: skBounceDelay 1.4s infinite ease-in-out both;
+}
+
+.bounce .bounce1 {
+    animation-delay: -0.32s;
+}
+
+.bounce .bounce2 {
+    animation-delay: -0.16s;
+}
+
+@keyframes skBounceDelay {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1.0);
+    }
+}
+
+
+/* Begin Pulse Design */
+.pulse {
+    width: 200px;
+    height: 100px;
+}
+
+.svg {
+    width: 100%;
+    height: 100%;
+    /* position: absolute; */
+    animation: 2s pulse linear infinite;
+    clip: rect(0, 0, 0, 0);
+}
+
+.polyline  {
+    stroke: var(--irt-color-danger);
+    font-size: 3rem;
+    width: 100%;
+    height: 100%;
+    /* Change stroke color here */
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0.4;
+    }
+}

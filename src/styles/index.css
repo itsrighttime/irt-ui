@@ -1,0 +1,32 @@
+/*
+ * irt-ui base stylesheet. Shipped as `@itsrighttime/irt-ui/styles.css`
+ * together with every component's CSS Module.
+ */
+@import "./tokens.css";
+
+/* Library-wide focus ring for keyboard users. */
+.irt-focus-ring:focus-visible,
+[data-irt-focusable]:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 2px;
+}
+
+.irt-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-irt-animated] {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

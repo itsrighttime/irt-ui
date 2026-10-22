@@ -1,0 +1,71 @@
+.stepperContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  width: var(--irt-c-width);
+}
+
+.stepperLabel {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.stepperControls {
+  display: flex;
+  align-items: center;
+}
+
+.stepperButton {
+  background-color: var(--irt-c-color);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: var(--irt-color-white);
+  font-weight: var(--irt-font-weight-semibold);
+}
+.stepperButton:hover {
+  opacity: 0.7;
+}
+
+.stepperButton:disabled {
+  background-color: var(--irt-color-border);
+  cursor: not-allowed;
+}
+
+.stepperButton,
+.stepperOutput {
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.stepperOutput {
+  border: 1px solid var(--irt-c-color);
+  width: 60px;
+  margin: 0 10px;
+  outline: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.required {
+  padding-top: 5px;
+  margin: 0 5px;
+  color: var(--irt-color-danger);
+  font-weight: var(--irt-font-weight-bold);
+  text-align: end;
+  width: 100%;
+}
+
+/* <p> elements: no reliance on a host-app CSS reset */
+.required {
+  margin: 0;
+}

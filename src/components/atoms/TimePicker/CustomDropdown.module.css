@@ -1,0 +1,75 @@
+.dropdown {
+  position: relative;
+  min-width: 50px;
+}
+
+.dropdownSelected {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: var(--irt-space-sm);
+  border: var(--irt-border-width-thin) solid transparent;
+  border-radius: var(--irt-radius-sm);
+  background-color: var(--irt-color-surface);
+  cursor: pointer;
+  text-align: center;
+  box-shadow: var(--irt-shadow-md);
+  margin-bottom: var(--irt-space-xs);
+  font-weight: var(--irt-font-weight-bold);
+  color: var(--irt-c-color);
+}
+
+.dropdownSelected:focus-visible {
+  box-shadow: var(--irt-shadow-focus);
+}
+
+.dropdownSelected:disabled {
+  cursor: not-allowed;
+}
+
+.dropdownOptions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-shadow: var(--irt-shadow-md);
+  border-radius: var(--irt-radius-sm);
+  background-color: var(--irt-color-surface);
+  z-index: var(--irt-z-dropdown);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdownOptions.above {
+  bottom: 100%;
+}
+
+.dropdownOption {
+  padding: var(--irt-space-sm) 0;
+  cursor: pointer;
+  text-align: center;
+  color: var(--irt-color-text);
+  outline: none;
+}
+
+.dropdownOption:hover,
+.dropdownOption:focus-visible,
+.dropdownOption[aria-selected="true"] {
+  background-color: var(--irt-c-color);
+  color: var(--irt-color-on-primary);
+  font-weight: var(--irt-font-weight-bold);
+}
+
+.dropdownOption:hover {
+  opacity: 0.7;
+}
+
+/* Error state */
+.error.dropdownSelected {
+  border-color: var(--irt-color-danger);
+  color: var(--irt-color-danger);
+  box-shadow: 0 0 4px color-mix(in srgb, var(--irt-color-danger) 60%, transparent);
+}

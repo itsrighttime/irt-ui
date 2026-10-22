@@ -1,0 +1,24 @@
+.btn {
+  all: unset;
+  cursor: pointer;
+  color: var(--irt-c-color);
+  font-weight: var(--irt-c-font-weight);
+  font-size: var(--irt-c-font-size);
+  text-decoration: var(--irt-c-underline);
+}
+
+.btn:hover {
+  opacity: 0.7;
+  text-decoration: var(--irt-c-underline-hover);
+}
+
+.btn:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: var(--irt-opacity-disabled);
+  text-decoration: none;
+}

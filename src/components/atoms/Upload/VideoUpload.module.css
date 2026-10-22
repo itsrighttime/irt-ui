@@ -1,0 +1,81 @@
+.videoUploadContainer {
+  width: var(--irt-c-width);
+  min-height: var(--irt-c-height);
+  /* border: var(--irt-border-width-thin) solid var(--irt-color-border); */
+  border-radius: var(--irt-radius-sm);
+}
+
+.videoUpload {
+  width: 100%;
+  height: var(--irt-c-height);
+  border: 2px dashed var(--irt-c-color);
+  border-radius: var(--irt-radius-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  color: var(--irt-c-color);
+}
+
+.dragging {
+  border-color: var(--irt-color-primary);
+  background-color: var(--irt-color-gray1);
+  color: var(--irt-c-color);
+}
+
+.formControl {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.label {
+  color: var(--irt-color-gray4);
+}
+
+.uploadDetails {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+.videoSizeIcon {
+  display: flex;
+  gap: 10px;
+}
+
+.error {
+  color: var(--irt-color-danger);
+  text-align: center;
+}
+
+.required {
+  padding-top: 5px;
+  margin: 0 5px;
+  color: var(--irt-color-danger);
+  font-weight: var(--irt-font-weight-bold);
+  text-align: end;
+}
+
+.formControl:focus-visible + * {
+  text-decoration: underline;
+}
+
+/* <p> elements: no reliance on a host-app CSS reset */
+.error,
+.label,
+.required {
+  margin: 0;
+}
+
+.uploadDetails p,
+.videoSizeIcon p {
+  margin: 0;
+}

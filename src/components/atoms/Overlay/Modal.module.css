@@ -1,0 +1,36 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--irt-z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--irt-color-overlay);
+  backdrop-filter: var(--irt-backdrop-blur);
+  -webkit-backdrop-filter: var(--irt-backdrop-blur);
+}
+
+.close {
+  position: fixed;
+  top: var(--irt-space-xs);
+  right: var(--irt-space-xs);
+}
+
+.closeButton {
+  border-radius: var(--irt-radius-full);
+  background: var(--irt-color-danger);
+  padding: 2px;
+}
+
+.content {
+  min-width: 300px;
+  max-width: calc(100vw - 2 * var(--irt-space-md));
+  max-height: calc(100vh - 2 * var(--irt-space-md));
+  overflow: auto;
+  padding: var(--irt-space-md);
+  border-radius: var(--irt-radius-md);
+  background: var(--irt-color-surface);
+  color: var(--irt-color-text);
+  box-shadow: var(--irt-shadow-lg);
+  outline: none;
+}

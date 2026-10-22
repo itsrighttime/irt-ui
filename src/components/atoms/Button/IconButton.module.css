@@ -1,0 +1,63 @@
+.iconButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.iconButton:hover .label {
+  opacity: 1;
+}
+
+.btn {
+  border: var(--irt-c-border);
+  outline: none;
+  padding: 0px;
+  border-radius: var(--irt-radius-sm);
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+  background-color: var(--irt-color-background);
+  color: var(--irt-c-icon-color);
+  transition:
+    background-color var(--irt-duration-normal),
+    color var(--irt-duration-normal);
+}
+
+.btn:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 1px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+.btn svg {
+  font-size: var(--irt-c-icon-size);
+  height: var(--irt-c-icon-size);
+  width: var(--irt-c-icon-size);
+}
+
+.btn svg {
+  color: var(--irt-c-icon-color);
+}
+
+.hoverBg:hover {
+  background-color: var(--irt-c-icon-color);
+}
+
+.hoverBg:hover svg {
+  color: var(--irt-color-background);
+}
+
+.image {
+  height: 25px;
+  cursor: pointer;
+  border-radius: var(--irt-radius-sm);
+  border: var(--irt-border-width-thin) solid transparent;
+}
+
+.image:hover {
+  border: var(--irt-border-width-thin) solid var(--irt-c-icon-color);
+}

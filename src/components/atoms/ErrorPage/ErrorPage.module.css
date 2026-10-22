@@ -1,0 +1,136 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--irt-color-surface-muted);
+  color: var(--irt-color-text);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.errorCode {
+  margin: 0;
+  line-height: 1;
+  font-size: 9rem;
+  font-weight: var(--irt-font-weight-bold);
+  color: var(--irt-color-danger);
+  text-align: center;
+}
+
+.title svg {
+  font-size: var(--irt-font-size-md);
+  width: 35px;
+  height: 35px;
+  color: var(--irt-color-danger);
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.titleText {
+  font-size: 2rem;
+  font-weight: var(--irt-font-weight-bold);
+  color: var(--irt-color-text-muted);
+  text-align: center;
+}
+
+.link {
+  color: var(--irt-color-info);
+  cursor: pointer;
+  font-weight: var(--irt-font-weight-medium);
+  text-decoration: underline;
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.description,
+.instruction {
+  font-size: var(--irt-font-size-md);
+  color: var(--irt-color-text-muted);
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .errorCode {
+    font-size: 6rem;
+  }
+
+  .title svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .titleText {
+    font-size: 1.7rem;
+  }
+
+  .description,
+  .link,
+  .instruction {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .errorCode {
+    font-size: 6rem;
+  }
+
+  .title svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .titleText {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .errorCode {
+    font-size: 4rem;
+  }
+
+  .title svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .titleText {
+    font-size: 1rem;
+  }
+
+  .description,
+  .link,
+  .instruction {
+    font-size: 0.9rem;
+  }
+}
+
+/* <p> elements: no reliance on a host-app CSS reset */
+.description,
+.errorCode,
+.instruction {
+  margin: 0;
+}

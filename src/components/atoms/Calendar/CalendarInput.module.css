@@ -1,0 +1,62 @@
+.calendarInputWrapper {
+  position: relative;
+  display: inline-block;
+  width: var(--irt-c-width);
+  min-width: 150px;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--irt-space-xs);
+  font-size: var(--irt-font-size-sm);
+  color: var(--irt-color-text-muted);
+}
+
+.asterisk {
+  color: var(--irt-color-danger);
+  margin-left: 2px;
+}
+
+.inputBox {
+  height: var(--irt-c-height);
+  padding: var(--irt-space-sm) var(--irt-space-md);
+  border: var(--irt-border-width-thin) solid var(--irt-color-border);
+  border-radius: var(--irt-radius-md);
+  box-sizing: border-box;
+  background-color: var(--irt-color-surface-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inputBox:focus-visible {
+  outline: none;
+  box-shadow: var(--irt-shadow-focus);
+}
+
+.inputBox[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: var(--irt-opacity-disabled);
+}
+
+.inputBox span {
+  color: var(--irt-color-text);
+}
+
+.underline .inputBox {
+  border-radius: 0;
+}
+
+.dropdownCalendar {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: var(--irt-z-dropdown);
+  margin-top: var(--irt-space-xs);
+  background: var(--irt-color-background);
+  border: var(--irt-border-width-thin) solid var(--irt-color-border);
+  border-radius: var(--irt-radius-md);
+  box-shadow: var(--irt-shadow-lg);
+}

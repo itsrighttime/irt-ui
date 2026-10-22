@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": ["node"],
+    "paths": {
+      "@itsrighttime/irt-ui": ["../src/index.ts"],
+      "@itsrighttime/irt-ui/atoms": ["../src/components/atoms/index.ts"],
+      "@itsrighttime/irt-ui/layout": ["../src/components/layout/index.ts"],
+      "@itsrighttime/irt-ui/theme": ["../src/theme/index.ts"],
+      "@itsrighttime/irt-ui/icons": ["../src/icons/index.ts"],
+      "@itsrighttime/irt-ui/markdown": ["../src/markdown/index.ts"]
+    }
+  },
+  "include": ["src", "vite.config.ts", "../src/css-modules.d.ts"]
+}

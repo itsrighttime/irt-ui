@@ -1,0 +1,71 @@
+.switchContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--irt-space-sm);
+  width: 100%;
+}
+
+.switchLabel {
+  font-weight: var(--irt-font-weight-bold);
+}
+
+.switch {
+  position: relative;
+  width: 40px;
+  height: 16px;
+  background-color: var(--irt-color-border-muted);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color var(--irt-duration-normal);
+}
+
+.switch.checked {
+  background-color: var(--irt-c-color);
+}
+
+.switch.unchecked {
+  background-color: var(--irt-color-border);
+}
+
+.switch.disabled {
+  cursor: not-allowed;
+  opacity: var(--irt-opacity-disabled);
+  background-color: var(--irt-color-border);
+}
+
+.switchHandle {
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--irt-color-background);
+  border-radius: 50%;
+  transition: transform var(--irt-duration-normal);
+}
+
+.switch.checked .switchHandle {
+  transform: translateX(25px);
+}
+
+.switch.disabled .switchHandle {
+  background-color: var(--irt-color-text-muted);
+}
+
+.required {
+  padding-top: 5px;
+  margin: 0 5px;
+  color: var(--irt-color-danger);
+  font-weight: var(--irt-font-weight-bold);
+  text-align: end;
+}
+
+.switch:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 2px;
+}
+
+/* <p> elements: no reliance on a host-app CSS reset */
+.required {
+  margin: 0;
+}

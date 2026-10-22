@@ -1,0 +1,42 @@
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--irt-space-sm);
+  background-color: var(--irt-color-background);
+}
+
+.top {
+  /* position: relative; */
+  top: 0;
+  left: 0;
+  z-index: var(--irt-z-sticky);
+}
+
+.loadingTextWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+}
+
+.loadingText,
+.text {
+  font-weight: var(--irt-font-weight-bold);
+  color: var(--irt-c-color);
+  font-size: calc(var(--irt-font-size-md));
+  text-wrap: nowrap;
+  text-align: center;
+}
+
+.loadingText {
+  width: 20px;
+  text-align: left;
+}
+
+/* <p> elements: no reliance on a host-app CSS reset */
+.loadingText,
+.text {
+  margin: 0;
+}

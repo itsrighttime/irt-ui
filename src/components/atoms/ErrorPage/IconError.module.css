@@ -1,0 +1,28 @@
+.container {
+  background-color: var(--irt-color-border-muted);
+  height: var(--irt-c-height);
+  width: var(--irt-c-width);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+
+.icon {
+  font-size: var(--irt-c-icon-size);
+  line-height: 0;
+}
+
+.icon svg {
+  height: var(--irt-c-icon-size);
+  width: var(--irt-c-icon-size);
+  color: var(--irt-color-text-muted);
+}
+
+.container p {
+  font-size: var(--irt-font-size-sm);
+  margin: var(--irt-space-xs) 0 0;
+  text-align: center;
+  color: var(--irt-color-text-muted);
+}

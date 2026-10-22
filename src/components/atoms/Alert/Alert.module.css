@@ -1,0 +1,84 @@
+.alertContainer {
+  position: fixed;
+  right: var(--irt-space-lg);
+  top: var(--irt-space-lg);
+  z-index: var(--irt-z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--irt-space-xs);
+  max-width: 300px;
+  /* 10px gap between alerts */
+}
+
+.alert {
+  position: relative;
+  padding: 5px 20px 10px 20px;
+  border-radius: var(--irt-radius-sm);
+  opacity: 1;
+  transition: opacity var(--irt-duration-slow) ease, transform var(--irt-duration-slow) ease;
+  background-color: var(--irt-color-surface);
+  box-shadow: var(--irt-shadow-md);
+  font-size: var(--irt-font-size-sm);
+  overflow: hidden;
+}
+
+.fadeOut {
+  opacity: 0;
+  transform: translateX(40px);
+  pointer-events: none;
+}
+.crossIcon {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  opacity: 0.8;
+}
+
+.alert.success {
+  border: var(--irt-border-width-thin) solid var(--irt-color-primary);
+  color: var(--irt-color-primary);
+}
+
+.alert.error {
+  border: var(--irt-border-width-thin) solid var(--irt-color-danger);
+  color: var(--irt-color-danger);
+}
+
+.alert.info {
+  border: var(--irt-border-width-thin) solid var(--irt-color-info);
+  color: var(--irt-color-info);
+}
+
+.alert.warning {
+  border: var(--irt-border-width-thin) solid var(--irt-color-warning);
+  color: var(--irt-color-warning);
+}
+
+.statusBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  transition: width 1s linear;
+}
+
+.error .statusBar {
+  background-color: var(--irt-color-danger);
+}
+
+.success .statusBar {
+  background-color: var(--irt-color-primary);
+}
+
+.info .statusBar {
+  background-color: var(--irt-color-info);
+}
+
+.warning .statusBar {
+  background-color: var(--irt-color-warning);
+}
+
+.closeButton {
+  border-radius: var(--irt-radius-full);
+  background-color: var(--irt-color-danger);
+}

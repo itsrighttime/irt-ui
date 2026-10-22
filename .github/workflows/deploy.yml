@@ -1,0 +1,124 @@
+name: Deploy
+
+# Pushing to the `deploy` branch:
+#   1. validates the library (types, lint, tests, build, package exports),
+#   2. publishes @itsrighttime/irt-ui to GitHub Packages — only when the
+#      version in package.json has not been published yet — and tags it vX.Y.Z,
+#   3. builds the playground and deploys it to GitHub Pages.
+#
+# Release flow: bump "version" in package.json on main → merge/push main into deploy.
+# One-time setup: Settings → Pages → Source = "GitHub Actions".
+on:
+  push:
+    branches: [deploy]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run typecheck:playground
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npm run check:exports
+
+  publish-package:
+    name: Publish package
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # push the version tag
+      packages: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: "@itsrighttime"
+      - run: npm ci
+      - name: Check whether this version is already published
+        id: version
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::$NAME@$VERSION is already published — skipping. Bump the version in package.json to release."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Build
+        if: steps.version.outputs.exists == 'false'
+        run: npm run build
+      - name: Publish to GitHub Packages
+        if: steps.version.outputs.exists == 'false'
+        # Validation already ran in the "validate" job.
+        run: npm publish --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Tag release
+        if: steps.version.outputs.exists == 'false'
+        run: |
+          TAG="v${{ steps.version.outputs.version }}"
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists"
+          else
+            git tag "$TAG"
+            git push origin "$TAG"
+          fi
+
+  build-pages:
+    name: Build playground
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build playground
+        run: npm run playground:build
+        env:
+          # Project pages are served from https://<owner>.github.io/<repo>/
+          PLAYGROUND_BASE: /${{ github.event.repository.name }}/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site-dist
+
+  deploy-pages:
+    name: Deploy GitHub Pages
+    needs: build-pages
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

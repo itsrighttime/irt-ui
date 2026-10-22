@@ -1,0 +1,77 @@
+.workspace {
+  display: flex;
+  flex-direction: column;
+  height: var(--irt-c-workspace-height, 100vh);
+  width: var(--irt-c-workspace-width, 100vw);
+  overflow: hidden;
+  background: var(--irt-color-background);
+  color: var(--irt-color-text);
+
+  --irt-c-bar-size: var(--irt-workspace-bar-size);
+  --irt-c-sidebar-size: var(--irt-workspace-sidebar-size);
+}
+
+/* CORE LAYOUT STACK */
+.primaryVertical {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+/* CENTER COLUMN */
+.secondaryHorizontal {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* ===== BARS (HORIZONTAL) ===== */
+.topPrimary,
+.topSecondary,
+.bottomPrimary,
+.bottomSecondary {
+  height: var(--irt-c-bar-size);
+  flex-shrink: 0;
+}
+
+/* ===== BARS (VERTICAL) ===== */
+.leftPrimary,
+.leftSecondary,
+.rightPrimary,
+.rightSecondary {
+  width: var(--irt-c-bar-size);
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== SIDEBARS ===== */
+.leftSidebar,
+.rightSidebar {
+  width: var(--irt-c-sidebar-size);
+  flex-shrink: 0;
+}
+
+/* IMPORTANT: prevent overflow issues */
+.primaryVertical > * {
+  min-height: 0;
+}
+
+.secondaryHorizontal > * {
+  min-width: 0;
+}
+
+.fullName {
+  font-size: var(--irt-font-size-sm);
+}

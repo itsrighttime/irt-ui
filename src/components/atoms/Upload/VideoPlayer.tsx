@@ -1,0 +1,59 @@
+"use client";
+
+import { cssVars } from "../../../utils/cssVars";
+import { IconButton } from "../Button/IconButton";
+import { IconError } from "../ErrorPage/IconError";
+import { useObjectUrl } from "./useObjectUrl";
+import style from "./VideoPlayer.module.css";
+
+export interface VideoPlayerProps {
+  /** Video `File`/`Blob` or URL. */
+  videoFile: File | Blob | string | null;
+  onRemove?: () => void;
+  onReupload?: () => void;
+  color?: string;
+  /** @default "400px" */
+  width?: string;
+  /** @default "200px" */
+  height?: string;
+  /** @default true */
+  autoPlay?: boolean;
+  /** @default true */
+  muted?: boolean;
+}
+
+/** Video preview with native controls and optional replace/remove actions. */
+export function VideoPlayer({
+  videoFile,
+  onRemove,
+  onReupload,
+  color,
+  width = "400px",
+  height = "200px",
+  autoPlay = true,
+  muted = true,
+}: VideoPlayerProps) {
+  // Object URLs are created once per file and revoked on change/unmount (fixes a per-render leak).
+  const src = useObjectUrl(videoFile);
+
+  return (
+    <div
+      className={style.videoContainer}
+      style={cssVars({ "--irt-c-color": color ?? "var(--irt-color-primary)", "--irt-c-width": width, "--irt-c-height": height })}
+    >
+      {src ? (
+        <div className={style.videoPreview}>
+          <video controls controlsList="nodownload" muted={muted} autoPlay={autoPlay} src={src} className={style.videoPlayer} />
+          <div className={style.resetRemove}>
+            {onReupload && (
+              <IconButton icon="refresh" onClick={onReupload} color={color ?? "var(--irt-color-primary)"} label="Re-Upload" />
+            )}
+            {onRemove && <IconButton icon="close" onClick={onRemove} color="var(--irt-color-danger)" label="Remove video" />}
+          </div>
+        </div>
+      ) : (
+        <IconError icon="videoOff" message="Ah!! Looks like the video was not found" size={2.5} />
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,153 @@
+.fileUploadContainer {
+  width: var(--irt-c-width);
+  min-height: var(--irt-c-height);
+  border: var(--irt-border-width-thin) solid var(--irt-color-border);
+  border-radius: var(--irt-radius-sm);
+  padding: var(--irt-space-xs);
+}
+
+.label {
+  color: var(--irt-color-gray4);
+  padding-bottom: 10px;
+}
+
+.fileUpload {
+  width: 100%;
+  height: calc(var(--irt-c-height) - 20px);
+  border: 2px dashed var(--irt-c-color);
+  border-radius: var(--irt-radius-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  color: var(--irt-c-color);
+}
+
+.fileUpload.dragging {
+  border-color: var(--irt-c-color);
+  background-color: var(--irt-c-color);
+  color: var(--irt-color-background);
+}
+
+.fileUpload.dragging .label {
+  color: var(--irt-color-background);
+  font-weight: var(--irt-font-weight-semibold);
+}
+
+.fileUpload:hover .label {
+  font-weight: var(--irt-font-weight-semibold);
+}
+
+.fileUpload input[type="file"] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.infor {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 3px;
+  padding-right: 0;
+  padding-top: 0;
+}
+
+.fileInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--irt-border-width-thin) solid var(--irt-color-gray1);
+  padding-bottom: 2px;
+  padding-right: 3px;
+}
+
+.inforDiv {
+  overflow: auto;
+}
+
+.fileName {
+  all: unset;
+  box-sizing: border-box;
+  width: calc(100% - 170px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.fileName:hover {
+  text-decoration: underline;
+  color: var(--irt-color-info);
+  cursor: pointer;
+}
+
+.uploadRemove {
+  display: flex;
+  gap: 15px;
+  width: 170px;
+  justify-content: end;
+}
+
+.actions {
+  padding: 0 10px;
+  border-top: var(--irt-border-width-thick) solid var(--irt-color-gray3);
+  display: flex;
+  justify-content: end;
+  gap: 15px;
+}
+
+.error {
+  color: var(--irt-color-danger);
+  text-align: center;
+}
+
+.buttonLink {
+  all: unset;
+  cursor: pointer;
+  color: var(--irt-c-color);
+}
+
+.fileName:focus-visible,
+.buttonLink:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 1px;
+}
+
+.buttonLink:hover {
+  color: var(--irt-color-info);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.required {
+  padding-top: 5px;
+  margin: 0 5px;
+  color: var(--irt-color-danger);
+  font-weight: var(--irt-font-weight-bold);
+  text-align: end;
+}
+
+.fileUpload:focus-within {
+  box-shadow: var(--irt-shadow-focus);
+}
+
+/* <p> elements: no reliance on a host-app CSS reset */
+.error,
+.fileCount,
+.label,
+.required {
+  margin: 0;
+}
+
+.uploadRemove p {
+  margin: 0;
+}

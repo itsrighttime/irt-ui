@@ -1,0 +1,105 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--irt-color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--irt-z-modal);
+  backdrop-filter: var(--irt-backdrop-blur);
+  -webkit-backdrop-filter: var(--irt-backdrop-blur);
+}
+
+.dialog {
+  width: min(720px, 92vw);
+  max-height: 85vh;
+  background: var(--irt-color-surface);
+  color: var(--irt-color-text);
+  border-radius: var(--irt-radius-lg);
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--irt-shadow-lg);
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  padding-bottom: 0;
+}
+
+.title {
+  font-size: var(--irt-font-size-md);
+  font-weight: var(--irt-font-weight-semibold);
+  margin: 0;
+}
+
+/* ICON ROW */
+.iconRow {
+  display: flex;
+  gap: 10px;
+  padding: 5px 10px;
+  padding-top: 0;
+  justify-content: center;
+  border-bottom: var(--irt-border-width-thin) solid var(--irt-color-border-muted);
+  flex-wrap: wrap;
+}
+
+.iconBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--irt-radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--irt-color-text);
+  transition: all var(--irt-duration-normal) var(--irt-easing-standard);
+  opacity: 0.55;
+  padding: 3px;
+}
+
+.iconBtn:hover {
+  opacity: 1;
+  background: var(--irt-color-hover);
+}
+
+.iconBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.active {
+  opacity: 1;
+  border-color: var(--irt-color-primary);
+  background: var(--irt-color-primary);
+}
+
+.active svg {
+  color: var(--irt-color-on-primary);
+}
+
+.iconBtn:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 1px;
+  opacity: 1;
+}
+
+/* BODY */
+.body {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.closeButton {
+  border-radius: var(--irt-radius-full);
+  background: var(--irt-color-danger);
+  padding: 2px;
+}

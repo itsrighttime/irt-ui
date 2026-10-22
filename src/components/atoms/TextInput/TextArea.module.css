@@ -1,0 +1,96 @@
+.textAreaContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 20px;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px;
+  width: var(--irt-c-width);
+}
+
+.label {
+  font-size: var(--irt-font-size-xs);
+  font-weight: var(--irt-font-weight-medium);
+  position: absolute;
+  top: -9px;
+  left: 9px;
+  background-color: var(--irt-color-background);
+  padding: 0 var(--irt-space-xs);
+  color: var(--irt-color-gray5);
+}
+
+
+.textAreaLabel {
+  position: absolute;
+  top: -18px;
+  left: 5px;
+  font-size: calc(var(--irt-font-size-base) * 0.8);
+  color: var(--irt-color-gray5);
+}
+
+.textArea {
+  box-sizing: border-box;
+  padding: var(--irt-space-sm);
+  border: var(--irt-border-width-thin) solid var(--irt-color-gray3);
+  border-radius: var(--irt-radius-sm);
+  font: inherit;
+  font-size: var(--irt-font-size-md);
+  color: var(--irt-color-text);
+  background: var(--irt-color-surface);
+  resize: none;
+  outline: none;
+  width: 100%;
+  margin: 0;
+}
+
+.textArea:focus {
+  border-color: var(--irt-c-color);
+}
+
+.textArea:focus-visible {
+  box-shadow: var(--irt-shadow-focus);
+}
+
+.textArea[aria-invalid="true"] {
+  border-color: var(--irt-color-danger);
+}
+
+.autosize {
+  overflow: hidden;
+}
+
+.errorInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.information {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.count,
+.count {
+  font-size: calc(var(--irt-font-size-base) * 0.8);
+  color: var(--irt-color-gray5);
+}
+
+.errorMessage {
+  color: var(--irt-color-danger);
+  font-size: calc(var(--irt-font-size-base) * 0.8);
+}
+
+.textArea:disabled {
+  background-color: var(--irt-color-gray2);
+  cursor: not-allowed;
+}
+
+.required {
+  padding-top: 5px;
+  margin: 0 5px;
+  color: var(--irt-color-danger);
+  font-weight: var(--irt-font-weight-bold);
+  text-align: end;
+}

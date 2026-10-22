@@ -1,0 +1,119 @@
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--irt-c-width);
+}
+
+.inputOutputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+}
+
+.inputOutputContainer.right {
+  flex-direction: row;
+}
+
+.inputOutputContainer.left {
+  flex-direction: row;
+}
+
+.inputOutputContainer.left .inputContainer {
+  order: 2;
+}
+
+.inputOutputContainer.top .inputContainer {
+  order: 2;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 7px;
+}
+
+.inputContainer p {
+  font-weight: var(--irt-font-weight-bold);
+}
+
+.sliderLabel {
+  font-size: 16px;
+}
+
+/* Style for the slider value display */
+.sliderValue {
+  font-weight: var(--irt-font-weight-bold);
+}
+
+/* Style for the slider track */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: 5px;
+  background: var(--irt-color-border);
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+/* Style for the slider thumb (center circle) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--irt-c-color);
+  cursor: pointer;
+  position: relative;
+}
+
+/* Thumb style for Firefox */
+.slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--irt-c-color);
+  cursor: pointer;
+}
+
+/* Thumb style for Internet Explorer */
+.slider::-ms-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--irt-c-color);
+  cursor: pointer;
+}
+
+/* Additional styling for smoother transition */
+.slider {
+  transition: background 0.3s ease;
+  background-color: var(--irt-color-border);
+}
+
+.required {
+  padding-top: 5px;
+  margin: 0 5px;
+  color: var(--irt-color-danger);
+  font-weight: var(--irt-font-weight-bold);
+  text-align: end;
+}
+
+/* <p> elements: no reliance on a host-app CSS reset */
+.required {
+  margin: 0;
+}
+
+.inputContainer p {
+  margin: 0;
+}

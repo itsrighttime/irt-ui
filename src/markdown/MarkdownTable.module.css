@@ -1,0 +1,22 @@
+.tableWrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--irt-color-surface-muted);
+}
+
+.tableWrapper th {
+  background: var(--irt-color-gray2);
+  color: var(--irt-color-primary);
+  padding: 0.2rem;
+  text-align: left;
+}
+
+.tableWrapper td {
+  padding: 0.2rem;
+  border-top: var(--irt-border-width-thin) solid var(--irt-color-gray3);
+}

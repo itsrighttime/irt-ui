@@ -1,0 +1,103 @@
+/* Container */
+.timeInputContainer {
+  display: flex;
+  flex-direction: column;
+  margin: var(--irt-space-sm) 0;
+  width: 100%;
+  gap: var(--irt-space-xs);
+}
+
+/* Label */
+.label {
+  padding-left: var(--irt-space-xs);
+  font-size: var(--irt-font-size-sm);
+  color: var(--irt-color-text-subtle);
+}
+
+/* Required */
+.required {
+  padding-right: var(--irt-space-xs);
+  color: var(--irt-color-danger);
+  font-weight: var(--irt-font-weight-bold);
+  text-align: end;
+  font-size: var(--irt-font-size-sm);
+}
+
+.timeHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Time Selectors */
+.timeSelectors {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--irt-space-sm);
+}
+
+.timeSelectors > span {
+  margin: 0 var(--irt-space-xs);
+  color: var(--irt-color-text-muted);
+}
+
+/* ---------------- Sizes ---------------- */
+
+.small {
+  font-size: var(--irt-font-size-sm);
+}
+
+.medium {
+  font-size: var(--irt-font-size-md);
+}
+
+.large {
+  font-size: var(--irt-font-size-lg);
+}
+
+/* ---------------- Radius ---------------- */
+
+.radius-none {
+  border-radius: var(--irt-radius-none);
+}
+
+.radius-sm {
+  border-radius: var(--irt-radius-sm);
+}
+
+.radius-md {
+  border-radius: var(--irt-radius-md);
+}
+
+.radius-lg {
+  border-radius: var(--irt-radius-lg);
+}
+
+/* ---------------- States ---------------- */
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Optional hover polish */
+.outlined:hover {
+  border-color: var(--irt-color-text-muted);
+}
+
+.colon svg {
+  height: 30px;
+  width: 30px;
+  color: var(--irt-color-text);
+}
+
+.error {
+  color: var(--irt-color-danger);
+  font-size: var(--irt-font-size-sm);
+}
+
+/* <p> elements: no reliance on a host-app CSS reset */
+.error,
+.required {
+  margin: 0;
+}
