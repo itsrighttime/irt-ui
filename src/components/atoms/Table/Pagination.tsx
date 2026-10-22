@@ -18,9 +18,11 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
         disabled={currentPage <= 1}
         icon="chevronLeft"
         label="Previous page"
-        size={1.5}
+        variant="outline"
+        color="var(--irt-color-text-muted)"
+        size={1.1}
       />
-      <span aria-live="polite">
+      <span className={styles.pageIndicator} aria-live="polite">
         {currentPage} / {totalPages}
       </span>
       <IconButton
@@ -28,7 +30,9 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
         disabled={currentPage >= totalPages}
         icon="chevronRight"
         label="Next page"
-        size={1.5}
+        variant="outline"
+        color="var(--irt-color-text-muted)"
+        size={1.1}
       />
     </nav>
   );

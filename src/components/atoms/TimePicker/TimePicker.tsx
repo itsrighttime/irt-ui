@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, type ReactNode } from "react";
+import { Icon } from "../../../icons/Icon";
 import type { BaseProps } from "../../../types/base-props";
 import { cx } from "../../../utils/cx";
 import { CustomDropdown } from "./CustomDropdown";
@@ -23,6 +24,10 @@ export interface TimePickerProps extends Omit<BaseProps, "loading" | "tooltip" |
   minuteStep?: number;
   /** @default 1 */
   hourStep?: number;
+  /** Helper text under the field. */
+  helperText?: ReactNode;
+  /** Error message; overrides the built-in out-of-range message. */
+  error?: ReactNode;
 }
 
 /** `"hh:mm AM/PM"` → minutes since midnight. */
@@ -65,6 +70,8 @@ export function TimePicker({
   color,
   disabled = false,
   ariaLabel,
+  helperText,
+  error,
 }: TimePickerProps) {
   const labelId = useId();
   const [local, setLocal] = useState<{ source: string; parts: TimeParts } | null>(null);
@@ -86,7 +93,8 @@ export function TimePicker({
     setResult(`${next.hour}:${next.minute} ${next.period}`);
   };
 
-  const invalid = !isValid(time);
+  const outOfRange = !isValid(time);
+  const invalid = outOfRange || Boolean(error);
 
   const hours = Array.from({ length: Math.ceil(12 / hourStep) }, (_, i) => String(i * hourStep + 1).padStart(2, "0"));
   const minutes = Array.from({ length: Math.ceil(60 / minuteStep) }, (_, i) => String(i * minuteStep).padStart(2, "0"));
@@ -94,45 +102,53 @@ export function TimePicker({
   const rangeText =
     minTime && maxTime ? `${minTime} - ${maxTime}` : minTime ? `${minTime} - no max` : maxTime ? `no min - ${maxTime}` : "no time specified";
 
+  const message = error ?? (outOfRange ? `Allowed: ${rangeText}` : helperText);
+
   return (
     <div
       id={id}
       role="group"
       aria-label={ariaLabel}
       aria-labelledby={!ariaLabel && label ? labelId : undefined}
-      className={cx(styles.timeInputContainer, styles[size], styles[`radius-${radius}`], disabled && styles.disabled, className)}
+      className={cx(styles.timeInputContainer, styles[size], disabled && styles.disabled, className)}
       style={{ maxWidth: width, ...style }}
     >
-      <div className={styles.timeHeader}>
-        {label && (
-          <label id={labelId} className={styles.label}>
-            {label}
-          </label>
-        )}
-        {required && (
-          <p className={styles.required} aria-hidden="true">
-            *
-          </p>
-        )}
-      </div>
+      {(label || required) && (
+        <div className={styles.timeHeader}>
+          {label && (
+            <label id={labelId} className={styles.label}>
+              {label}
+              {required && (
+                <span className={styles.required} aria-hidden="true">
+                  *
+                </span>
+              )}
+            </label>
+          )}
+          {!label && required && (
+            <span className={styles.required} aria-hidden="true">
+              *
+            </span>
+          )}
+        </div>
+      )}
 
-      <div className={styles.timeSelectors}>
+      <div className={cx(styles.timeSelectors, styles[`radius-${radius}`], invalid && styles.invalid)}>
+        <span className={styles.clockIcon} aria-hidden="true">
+          <Icon name="clock" size="1.05em" />
+        </span>
         <CustomDropdown ariaLabel="Hours" options={hours} value={time.hour} onChange={(hour) => update({ hour })} color={color} error={invalid} disabled={disabled} />
         <span className={styles.colon} aria-hidden="true">
-          <svg width="8" height="8" viewBox="0 0 8 8">
-            <path fill="currentColor" d="M4 3V2h1v1m0 3H4V5h1" />
-          </svg>
+          :
         </span>
         <CustomDropdown ariaLabel="Minutes" options={minutes} value={time.minute} onChange={(minute) => update({ minute })} color={color} error={invalid} disabled={disabled} />
         <CustomDropdown ariaLabel="AM or PM" options={["AM", "PM"]} value={time.period} onChange={(period) => update({ period })} color={color} error={invalid} disabled={disabled} />
       </div>
 
-      {invalid && (
-        <div className={styles.timeHeader}>
-          <p className={styles.error} role="alert">
-            {rangeText}
-          </p>
-        </div>
+      {message && (
+        <p className={cx(styles.message, invalid && styles.error)} role={invalid ? "alert" : undefined}>
+          {message}
+        </p>
       )}
     </div>
   );

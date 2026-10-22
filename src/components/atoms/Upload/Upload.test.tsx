@@ -35,10 +35,10 @@ describe("FileUpload", () => {
     expect(screen.getByRole("alert")).toHaveTextContent("Invalid file type");
     fireEvent.change(input, { target: { files: [file("a.pdf", "application/pdf"), file("b.pdf", "application/pdf")] } });
     expect(setResult).toHaveBeenLastCalledWith([expect.any(File), expect.any(File)]);
-    expect(screen.getByText("(Files Uploaded: 2 / 3)")).toBeInTheDocument();
+    expect(screen.getByText("2 of 3 files")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Remove a.pdf" }));
-    expect(screen.getByText("(Files Uploaded: 1 / 3)")).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("button", { name: "Reset All" }));
+    expect(screen.getByText("1 of 3 files")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Remove all" }));
     expect(setResult).toHaveBeenLastCalledWith([]);
   });
 
@@ -80,6 +80,6 @@ describe("media", () => {
 
   it("ImagePreview shows a placeholder for non-images", () => {
     render(<ImagePreview image={file("x.txt", "text/plain")} />);
-    expect(screen.getByRole("img", { name: /image is not found/ })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /Image not available/ })).toBeInTheDocument();
   });
 });

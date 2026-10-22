@@ -18,7 +18,8 @@
   ],
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "docs/AI_USAGE_GUIDE.md"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -71,7 +72,8 @@
     "prepublishOnly": "npm run validate",
     "pack:local": "npm run build && node scripts/pack-local.mjs",
     "playground:dev": "vite --config playground/vite.config.ts",
-    "playground:build": "vite build --config playground/vite.config.ts",
+    "playground:build": "npm run docs:props && vite build --config playground/vite.config.ts",
+    "docs:props": "node scripts/generate-props.mjs",
     "playground:preview": "vite preview --config playground/vite.config.ts",
     "typecheck:playground": "tsc -p playground/tsconfig.json --noEmit"
   },

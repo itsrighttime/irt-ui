@@ -5,15 +5,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: var(--irt-space-md);
+  box-sizing: border-box;
   z-index: var(--irt-z-modal);
   backdrop-filter: var(--irt-backdrop-blur);
   -webkit-backdrop-filter: var(--irt-backdrop-blur);
+  animation: irt-dialog-fade var(--irt-duration-normal) var(--irt-easing-standard);
 }
 
 .dialog {
-  width: min(720px, 92vw);
-  max-height: 85vh;
-  background: var(--irt-color-surface);
+  width: min(720px, 100%);
+  max-width: 100%;
+  max-height: min(85vh, 100%);
+  background: var(--irt-color-surface-raised);
   color: var(--irt-color-text);
   border-radius: var(--irt-radius-lg);
   outline: none;
@@ -21,6 +25,7 @@
   flex-direction: column;
   overflow: hidden;
   box-shadow: var(--irt-shadow-lg);
+  animation: irt-dialog-in var(--irt-duration-normal) var(--irt-easing-standard);
 }
 
 /* HEADER */
@@ -28,67 +33,90 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
-  padding-bottom: 0;
+  gap: var(--irt-space-sm);
+  padding: 12px 10px 4px 16px;
 }
 
 .title {
-  font-size: var(--irt-font-size-md);
+  font-family: var(--irt-font-family-heading);
+  font-size: var(--irt-font-size-lg);
   font-weight: var(--irt-font-weight-semibold);
+  line-height: var(--irt-line-height-tight);
   margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-/* ICON ROW */
+/* TABS */
 .iconRow {
   display: flex;
-  gap: 10px;
-  padding: 5px 10px;
-  padding-top: 0;
+  gap: 4px;
+  padding: 4px 12px 0;
   justify-content: center;
   border-bottom: var(--irt-border-width-thin) solid var(--irt-color-border-muted);
-  flex-wrap: wrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.withLabels {
+  justify-content: flex-start;
 }
 
 .iconBtn {
-  width: 30px;
-  height: 30px;
-  border-radius: var(--irt-radius-sm);
-  border: 1px solid transparent;
-  background: transparent;
-  display: flex;
+  position: relative;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  margin-bottom: -1px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: var(--irt-radius-sm) var(--irt-radius-sm) 0 0;
+  background: transparent;
   cursor: pointer;
-  color: var(--irt-color-text);
-  transition: all var(--irt-duration-normal) var(--irt-easing-standard);
-  opacity: 0.55;
-  padding: 3px;
+  color: var(--irt-color-text-muted);
+  font: inherit;
+  font-size: var(--irt-font-size-sm);
+  font-weight: var(--irt-font-weight-medium);
+  white-space: nowrap;
+  transition:
+    color var(--irt-duration-fast) var(--irt-easing-standard),
+    background-color var(--irt-duration-fast) var(--irt-easing-standard),
+    border-color var(--irt-duration-fast) var(--irt-easing-standard);
 }
 
-.iconBtn:hover {
-  opacity: 1;
+.tabIcon {
+  display: inline-flex;
+}
+
+.tabIcon svg {
+  color: currentColor;
+}
+
+.iconBtn:hover:not(:disabled) {
+  color: var(--irt-color-text);
   background: var(--irt-color-hover);
 }
 
 .iconBtn:disabled {
-  opacity: 0.3;
+  opacity: var(--irt-opacity-disabled);
   cursor: not-allowed;
 }
 
-.active {
-  opacity: 1;
-  border-color: var(--irt-color-primary);
-  background: var(--irt-color-primary);
-}
-
-.active svg {
-  color: var(--irt-color-on-primary);
+.active,
+.active:hover:not(:disabled) {
+  color: var(--irt-color-primary);
+  border-bottom-color: var(--irt-color-primary);
 }
 
 .iconBtn:focus-visible {
   outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
-  outline-offset: 1px;
-  opacity: 1;
+  outline-offset: -2px;
 }
 
 /* BODY */
@@ -96,10 +124,34 @@
   padding: 16px;
   overflow-y: auto;
   flex: 1;
+  min-height: 0;
 }
 
-.closeButton {
-  border-radius: var(--irt-radius-full);
-  background: var(--irt-color-danger);
-  padding: 2px;
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--irt-space-sm);
+  padding: var(--irt-space-sm) var(--irt-space-md) var(--irt-space-md);
+  border-top: var(--irt-border-width-thin) solid var(--irt-color-border-muted);
+}
+
+@keyframes irt-dialog-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes irt-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .dialog {
+    animation: none;
+  }
 }

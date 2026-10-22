@@ -24,9 +24,20 @@ export function jsx(tag: string, attrs: Attr[], children?: string, indent = ""):
     .join("\n")}\n${indent}</${tag}>`;
 }
 
-/** Attributes from controls, omitting values that equal the control default. */
+/**
+ * Attributes for the usage snippet. A prop is omitted when it equals the
+ * component's own default (`libDefault`, else the control default); text
+ * controls are shown whenever they are non-empty, so snippets reproduce the
+ * preview.
+ */
 export function changed(controls: Control[] | undefined, values: ControlValues, names?: string[]): Attr[] {
   return (controls ?? [])
     .filter((c) => !names || names.includes(c.name))
-    .map((c) => [c.name, values[c.name] === c.default ? undefined : values[c.name]] as Attr);
+    .map((c) => {
+      const value = values[c.name];
+      if (c.libDefault === null) return [c.name, value] as Attr;
+      if (c.libDefault !== undefined) return [c.name, value === c.libDefault ? undefined : value] as Attr;
+      if (c.type === "text") return [c.name, value] as Attr;
+      return [c.name, value === c.default ? undefined : value] as Attr;
+    });
 }

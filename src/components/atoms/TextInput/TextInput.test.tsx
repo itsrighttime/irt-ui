@@ -109,7 +109,7 @@ describe("TextArea", () => {
     expect(screen.getByRole("alert")).toHaveTextContent("Maximum length is 3");
     fireEvent.blur(ta);
     expect(setResult).toHaveBeenCalledWith("abc");
-    expect(screen.getByText(/Char: 3/)).toBeInTheDocument();
+    expect(screen.getByText(/3 \/ 3 characters/)).toBeInTheDocument();
   });
 });
 
@@ -119,7 +119,7 @@ describe("JsonField", () => {
     const setValid = vi.fn();
     render(<JsonField value="{bad" setResult={setResult} setIsFieldValid={setValid} />);
     await userEvent.click(screen.getByRole("button", { name: "Validate & Save" }));
-    expect(screen.getByText("Invalid JSON format")).toBeInTheDocument();
+    expect(screen.getByRole("alert")).toHaveTextContent(/Invalid JSON/);
     expect(setValid).toHaveBeenLastCalledWith(false);
   });
 

@@ -1,89 +1,151 @@
 .searchBox {
   position: relative;
-  width: var(--irt-c-width);
-}
-
-.input {
-  width: calc(100% - 30px);
-  box-sizing: border-box;
-  border: none;
-  background: transparent;
-  color: var(--irt-color-text);
-  font: inherit;
+  display: inline-block;
+  width: var(--irt-c-width, 300px);
+  max-width: 100%;
+  vertical-align: top;
   font-size: var(--irt-font-size-md);
 }
 
 .nameIcon {
   display: flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--irt-control-height-medium, 40px);
+  padding: 0 4px 0 10px;
+  box-sizing: border-box;
+  background: var(--irt-color-surface);
+  transition:
+    border-color var(--irt-duration-fast) var(--irt-easing-standard),
+    box-shadow var(--irt-duration-fast) var(--irt-easing-standard);
+}
+
+.outline .nameIcon {
+  border: var(--irt-border-width-thin) solid var(--irt-color-border);
+  border-radius: var(--irt-radius-md);
+}
+
+.outline .nameIcon:hover {
+  border-color: var(--irt-color-border-strong);
+}
+
+.outline .nameIcon:focus-within {
+  border-color: var(--irt-c-color);
+  box-shadow: var(--irt-shadow-focus);
+}
+
+.underline .nameIcon {
+  background: transparent;
+  border-bottom: var(--irt-border-width-thin) solid var(--irt-color-border-strong);
+  padding-left: 2px;
+}
+
+.underline .nameIcon:focus-within {
+  border-bottom: var(--irt-border-width-thick) solid var(--irt-c-color);
+}
+
+.leadingIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--irt-color-text-subtle);
+}
+
+.nameIcon:focus-within .leadingIcon {
+  color: var(--irt-c-color);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--irt-color-text);
+  font: inherit;
+}
+
+.input::placeholder {
+  color: var(--irt-color-text-subtle);
+}
+
+/* Hide the native clear button; we render our own. */
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.clear {
+  all: unset;
+  display: inline-flex;
+  flex-shrink: 0;
   padding: 4px;
-  border-bottom: var(--irt-border-width-thin) solid var(--irt-c-color);
+  border-radius: var(--irt-radius-full);
+  color: var(--irt-color-text-subtle);
+  cursor: pointer;
+}
+
+.clear:hover {
+  color: var(--irt-color-text);
+  background: var(--irt-color-hover);
+}
+
+.clear:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
 }
 
 .search {
-  width: 30px;
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
   align-items: center;
 }
 
-.search svg {
-  color: var(--irt-color-info);
-}
-
-.input::placeholder {
-  color: var(--irt-c-color);
-}
-
-.input:focus {
-  border: none;
-  border-bottom: var(--irt-border-width-thick) solid var(--irt-color-info);
-  outline: none;
-  color: var(--irt-color-info);
-}
-
 .suggestionsList {
   position: absolute;
-  top: 30px;
+  top: calc(100% + 4px);
   left: 0;
   right: 0;
-  background-color: var(--irt-color-surface);
-  box-shadow: var(--irt-shadow-md);
-  max-height: 250px;
-  overflow-y: auto;
-  margin: 3px 10px;
-  padding: 0;
+  margin: 0;
+  padding: 4px;
   list-style: none;
   text-align: left;
+  background-color: var(--irt-color-surface-raised);
+  color: var(--irt-color-text);
   border: var(--irt-border-width-thin) solid var(--irt-color-border);
+  border-radius: var(--irt-radius-md);
+  box-shadow: var(--irt-shadow-lg);
+  max-height: 260px;
+  overflow-y: auto;
   z-index: var(--irt-z-dropdown);
+  font-size: var(--irt-font-size-sm);
 }
 
 .suggestionItem {
-  padding: var(--irt-space-xs) var(--irt-space-sm);
+  padding: 7px 10px;
+  border-radius: var(--irt-radius-sm);
   cursor: pointer;
 }
 
-.highlighted,
-.suggestionItem:hover {
-  text-decoration: underline;
-  color: var(--irt-color-info);
-  font-weight: var(--irt-font-weight-bold);
+.suggestionItem:hover,
+.highlighted {
+  background: var(--irt-color-hover);
 }
 
-@media (max-width: 690px) {
-  .searchBox {
-    position: static;
-    width: var(--irt-c-width);
-  }
+.highlighted {
+  box-shadow: inset 2px 0 0 var(--irt-c-color);
+}
 
-  .suggestionsList {
-    top: 50px;
-  }
+.match {
+  background: transparent;
+  color: var(--irt-c-color);
+  font-weight: var(--irt-font-weight-semibold);
+}
 
-  /* .suggestionsList {
-        top: 50px;
-        width: 300px;
-        max-height: 250px;
-        border-radius: 0 0 10px 10px;
-    } */
+.empty,
+.empty:hover {
+  cursor: default;
+  background: transparent;
+  color: var(--irt-color-text-subtle);
+  text-align: center;
 }

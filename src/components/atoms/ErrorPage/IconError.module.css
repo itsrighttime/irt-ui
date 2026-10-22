@@ -1,12 +1,16 @@
 .container {
-  background-color: var(--irt-color-border-muted);
-  height: var(--irt-c-height);
-  width: var(--irt-c-width);
+  box-sizing: border-box;
+  background-color: var(--irt-color-surface-muted);
+  border: var(--irt-border-width-thin) dashed var(--irt-color-border);
+  border-radius: var(--irt-radius-md);
+  height: var(--irt-c-height, 100%);
+  width: var(--irt-c-width, 100%);
+  padding: var(--irt-space-md);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0;
+  gap: var(--irt-space-sm);
 }
 
 .icon {
@@ -17,12 +21,14 @@
 .icon svg {
   height: var(--irt-c-icon-size);
   width: var(--irt-c-icon-size);
-  color: var(--irt-color-text-muted);
+  color: var(--irt-color-text-subtle);
 }
 
 .container p {
   font-size: var(--irt-font-size-sm);
-  margin: var(--irt-space-xs) 0 0;
+  line-height: var(--irt-line-height-normal);
+  margin: 0;
   text-align: center;
   color: var(--irt-color-text-muted);
+  max-width: 32ch;
 }

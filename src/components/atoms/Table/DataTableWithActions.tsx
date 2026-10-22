@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Dialog, type DialogItem } from "../Overlay/Dialog";
 import { Table } from "./Table";
-import type { TableColumn } from "./table.type";
+import type { TableColumn, TableProps } from "./table.type";
 
 export interface DataTableWithActionsProps<T extends object> {
   data: T[];
@@ -23,6 +23,10 @@ export interface DataTableWithActionsProps<T extends object> {
   /** Controlled active dialog tab. */
   activeDialogKey?: string | null;
   onActiveDialogKeyChange?: (key: string) => void;
+  /** Show text labels next to the dialog's tab icons. @default false */
+  dialogShowLabels?: boolean;
+  /** Any other `Table` props (title, toolbar, density, striped, extra row actions, …). */
+  tableProps?: Omit<Partial<TableProps<T>>, "data" | "columns" | "visibleColumns" | "pageSize">;
 }
 
 /**
@@ -41,6 +45,8 @@ export function DataTableWithActions<T extends object>({
   onDialogOpenChange,
   activeDialogKey,
   onActiveDialogKeyChange,
+  dialogShowLabels = false,
+  tableProps,
 }: DataTableWithActionsProps<T>) {
   const [internalOpen, setInternalOpen] = useState(false);
   const open = isDialogOpen ?? internalOpen;
@@ -58,7 +64,11 @@ export function DataTableWithActions<T extends object>({
         data={data}
         pageSize={pageSize}
         controls={{ search: true, columnSelector: true, pagination: true }}
-        rowActions={dialogItems.length > 0 ? [{ label: actionLabel, onClick: (row) => setOpen(true, row) }] : []}
+        {...tableProps}
+        rowActions={[
+          ...(dialogItems.length > 0 ? [{ label: actionLabel, onClick: (row: T) => setOpen(true, row) }] : []),
+          ...(tableProps?.rowActions ?? []),
+        ]}
       />
       <Dialog
         isOpen={open}
@@ -67,6 +77,7 @@ export function DataTableWithActions<T extends object>({
         items={dialogItems}
         activeKey={activeDialogKey}
         onActiveKeyChange={onActiveDialogKeyChange}
+        showLabels={dialogShowLabels}
       />
     </div>
   );

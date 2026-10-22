@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type ChangeEvent, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type ChangeEvent, type CSSProperties, type ReactNode } from "react";
+import { cx } from "../../../utils/cx";
 import { useIsomorphicLayoutEffect } from "../../../hooks/useIsomorphicLayoutEffect";
 import { useSyncedState } from "../../../hooks/useSyncedState";
 import { cssVars } from "../../../utils/cssVars";
@@ -33,6 +34,19 @@ export interface TextAreaProps {
   backendError?: string;
   required?: boolean;
   id?: string;
+  /** Called on every keystroke (`setResult` fires on blur). */
+  onValueChange?: (value: string) => void;
+  /** Minimum visible rows. @default 3 */
+  minRows?: number;
+  /** Let the user resize vertically (disables auto-grow limit handling). @default false */
+  resizable?: boolean;
+  /** Helper text shown under the field when there is no error. */
+  helperText?: ReactNode;
+  /** External error message (same as `backendError`, but not cleared on typing). */
+  error?: string;
+  /** Accessible name when there is no visible `label`. */
+  ariaLabel?: string;
+  className?: string;
 }
 
 const countWords = (text: string): number => (text.trim() ? text.trim().split(/\s+/).length : 0);
@@ -56,6 +70,13 @@ export function TextArea({
   backendError = "",
   required = false,
   id,
+  onValueChange,
+  minRows = 3,
+  resizable = false,
+  helperText,
+  error: errorProp,
+  ariaLabel,
+  className,
 }: TextAreaProps) {
   const autoId = useId();
   const textAreaId = id ?? autoId;
@@ -64,10 +85,13 @@ export function TextArea({
   const [error, setError] = useState("");
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const validRef = useRef(setIsFieldValid);
-  validRef.current = setIsFieldValid;
+  useEffect(() => {
+    validRef.current = setIsFieldValid;
+  });
 
   useEffect(() => {
     if (backendError) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- mirror an external error prop
       setError(backendError);
       validRef.current?.(false);
     }
@@ -96,6 +120,7 @@ export function TextArea({
       return;
     }
     setInputValue(next);
+    onValueChange?.(next);
     if (minLength !== undefined && next.length < minLength) {
       setError(`Minimum length is ${minLength} characters.`);
     } else {
@@ -109,10 +134,15 @@ export function TextArea({
   };
 
   const suffix = required ? " *" : "";
+  const shownError = errorProp || error;
+  const counters: string[] = [];
+  if (showCharacterCount) counters.push(`${inputValue.length}${maxLength ? ` / ${maxLength}` : ""} characters`);
+  if (showWordCount) counters.push(`${countWords(inputValue)} ${countWords(inputValue) === 1 ? "word" : "words"}`);
+  const nearLimit = maxLength !== undefined && inputValue.length >= maxLength * 0.9;
 
   return (
     <div
-      className={styles.textAreaContainer}
+      className={cx(styles.textAreaContainer, Boolean(shownError) && styles.invalid, className)}
       style={cssVars({ "--irt-c-color": color ?? "var(--irt-color-primary)", "--irt-c-width": width }, style)}
     >
       {label && inputValue !== "" && (
@@ -122,40 +152,43 @@ export function TextArea({
         id={textAreaId}
         ref={textAreaRef}
         value={inputValue}
+        rows={minRows}
         onChange={handleChange}
         onBlur={handleBlur}
         placeholder={`${placeholder}${suffix}`}
-        aria-label={label && inputValue === "" ? label : undefined}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? errorId : undefined}
+        aria-label={ariaLabel ?? (label && inputValue === "" ? label : undefined)}
+        aria-invalid={shownError ? true : undefined}
+        aria-describedby={shownError || helperText ? errorId : undefined}
         aria-required={required || undefined}
         disabled={disabled}
-        className={styles.textArea}
+        className={cx(styles.textArea, resizable && styles.resizable)}
       />
 
-      <div className={styles.errorInfo}>
-        {error ? (
-          <div id={errorId} className={styles.errorMessage} role="alert">
-            {error}
-          </div>
-        ) : (
-          <div />
-        )}
-        <div className={styles.information}>
-          {showCharacterCount && (
-            <span className={styles.count}>
-              Char: {inputValue.length}
-              {maxLength ? `/${maxLength}` : ""}
-            </span>
+      {(shownError || helperText || counters.length > 0) && (
+        <div className={styles.errorInfo}>
+          {shownError ? (
+            <div id={errorId} className={styles.errorMessage} role="alert">
+              {shownError}
+            </div>
+          ) : helperText ? (
+            <div id={errorId} className={styles.helperText}>
+              {helperText}
+            </div>
+          ) : (
+            <div />
           )}
-          {showCharacterCount && showWordCount && (
-            <span className={styles.count} style={{ fontWeight: 800 }}>
-              {" | "}
-            </span>
+          {counters.length > 0 && (
+            <div className={cx(styles.information, nearLimit && styles.nearLimit)} aria-live="polite">
+              {counters.map((text, index) => (
+                <span key={text} className={styles.count}>
+                  {index > 0 && <span aria-hidden="true"> · </span>}
+                  {text}
+                </span>
+              ))}
+            </div>
           )}
-          {showWordCount && <span className={styles.count}>Word: {countWords(inputValue)}</span>}
         </div>
-      </div>
+      )}
     </div>
   );
 }

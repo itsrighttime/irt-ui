@@ -1,0 +1,57 @@
+.badge {
+  --irt-c-badge: var(--irt-color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-sizing: border-box;
+  border: var(--irt-border-width-thin) solid transparent;
+  border-radius: var(--irt-radius-full);
+  font-family: inherit;
+  font-weight: var(--irt-font-weight-semibold);
+  line-height: 1.4;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums;
+}
+
+.medium {
+  padding: 1px 8px;
+  font-size: var(--irt-font-size-xs);
+}
+
+.small {
+  padding: 0 6px;
+  font-size: 0.6875rem;
+}
+
+.soft {
+  color: var(--irt-c-badge);
+  background: color-mix(in srgb, var(--irt-c-badge) 13%, transparent);
+}
+
+.solid {
+  color: var(--irt-color-white);
+  background: var(--irt-c-badge);
+}
+
+.outline {
+  color: var(--irt-c-badge);
+  border-color: color-mix(in srgb, var(--irt-c-badge) 45%, transparent);
+  background: transparent;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.icon {
+  display: inline-flex;
+}
+
+.icon svg {
+  color: currentColor;
+}

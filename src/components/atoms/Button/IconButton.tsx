@@ -7,6 +7,9 @@ import { cx } from "../../../utils/cx";
 import { Tooltip } from "../Tooltip/Tooltip";
 import styles from "./IconButton.module.css";
 
+/** Visual treatment of an {@link IconButton}. */
+export type IconButtonVariant = "ghost" | "soft" | "solid" | "outline" | "plain";
+
 export interface IconButtonProps {
   /** Icon: registry name (`"close"`), any React node, or an image URL (`http…`, `/…`, `data:`). */
   icon: IconLike;
@@ -27,6 +30,20 @@ export interface IconButtonProps {
   hoverBackground?: boolean;
   type?: "button" | "submit" | "reset";
   id?: string;
+  /**
+   * Visual treatment:
+   * - `ghost` (default): transparent, tinted background on hover
+   * - `soft`: tinted background at rest
+   * - `solid`: filled with `color`, icon in the background colour
+   * - `outline`: border in `color` (same as `isBorder`)
+   * - `plain`: no background or padding at all (legacy look)
+   * @default "ghost" (or "outline" when `isBorder`)
+   */
+  variant?: IconButtonVariant;
+  /** Corner shape. @default "rounded" */
+  shape?: "rounded" | "circle" | "square";
+  /** Highlight as active/selected (sets `aria-pressed`). */
+  active?: boolean;
 }
 
 const isImageSource = (value: unknown): value is string =>
@@ -47,14 +64,18 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(functio
     hoverBackground = false,
     type = "button",
     id,
+    variant,
+    shape = "rounded",
+    active,
   },
   ref,
 ) {
   const vars = cssVars({
     "--irt-c-icon-color": color,
     "--irt-c-icon-size": `calc(var(--irt-font-size-base) * ${size})`,
-    "--irt-c-border": isBorder ? `var(--irt-border-width-thin) solid ${color}` : "none",
+    "--irt-c-border": isBorder ? `var(--irt-border-width-thin) solid ${color}` : undefined,
   });
+  const resolvedVariant: IconButtonVariant = variant ?? (isBorder ? "outline" : "ghost");
 
   let content: ReactNode;
   if (isImageSource(icon)) {
@@ -68,8 +89,16 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(functio
       ref={ref}
       id={id}
       type={type}
-      className={cx(styles.btn, hoverBackground && styles.hoverBg, className)}
+      className={cx(
+        styles.btn,
+        styles[resolvedVariant],
+        styles[shape],
+        active && styles.active,
+        hoverBackground && styles.hoverBg,
+        className,
+      )}
       onClick={disabled ? undefined : onClick}
+      aria-pressed={active === undefined ? undefined : active}
       style={{ ...vars, ...style }}
       disabled={disabled}
       aria-label={label ?? undefined}
@@ -79,7 +108,10 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(functio
   );
 
   return (
-    <div className={styles.iconButton} style={{ ...vars, opacity: disabled ? "var(--irt-opacity-disabled)" : 1 }}>
+    <div
+      className={cx(styles.iconButton, disabled && styles.disabled)}
+      style={vars}
+    >
       {label ? <Tooltip content={label}>{button}</Tooltip> : button}
     </div>
   );

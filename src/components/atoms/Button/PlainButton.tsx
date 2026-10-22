@@ -1,4 +1,5 @@
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import { renderIcon, type IconLike } from "../../../icons/renderIcon";
 import { cssVars } from "../../../utils/cssVars";
 import { cx } from "../../../utils/cx";
 import styles from "./PlainButton.module.css";
@@ -10,7 +11,7 @@ export interface PlainButtonProps {
   /** Label (kept for backwards compatibility; `children` takes precedence). */
   text?: string;
   children?: ReactNode;
-  /** Text colour. @default var(--irt-color-accent) */
+  /** Text colour. @default var(--irt-color-primary) (was `accent` before 0.2 — low contrast on light backgrounds) */
   color?: string;
   /** Font size in rem. @default 1 */
   fontSize?: number;
@@ -20,6 +21,13 @@ export interface PlainButtonProps {
   isUnderline?: boolean;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  /** Icon before the label (registry name or node). */
+  iconLeft?: IconLike;
+  /** Icon after the label (registry name or node). */
+  iconRight?: IconLike;
+  /** Accessible name when the visible text is not descriptive. */
+  ariaLabel?: string;
+  id?: string;
 }
 
 /** Text-only, link-style button. */
@@ -29,16 +37,22 @@ export function PlainButton({
   className,
   text = "Click Me",
   children,
-  color = "var(--irt-color-accent)",
+  color = "var(--irt-color-primary)",
   fontSize = 1,
   fontWeight = 400,
   isUnderline = false,
   disabled = false,
   type = "button",
+  iconLeft,
+  iconRight,
+  ariaLabel,
+  id,
 }: PlainButtonProps) {
   return (
     <button
       type={type}
+      id={id}
+      aria-label={ariaLabel}
       className={cx(styles.btn, className)}
       onClick={onClick}
       disabled={disabled}
@@ -53,7 +67,17 @@ export function PlainButton({
         style,
       )}
     >
-      {children ?? text}
+      {iconLeft != null && (
+        <span className={styles.icon} aria-hidden="true">
+          {renderIcon(iconLeft, { size: "1em" })}
+        </span>
+      )}
+      <span className={styles.text}>{children ?? text}</span>
+      {iconRight != null && (
+        <span className={styles.icon} aria-hidden="true">
+          {renderIcon(iconRight, { size: "1em" })}
+        </span>
+      )}
     </button>
   );
 }

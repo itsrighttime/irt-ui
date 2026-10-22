@@ -19,6 +19,7 @@
   --irt-color-text-inverse:#ffffff;
   --irt-color-border:#d5dbe3;
   --irt-color-border-muted:#e8ecf1;
+  --irt-color-border-strong:#a3afbf;
   --irt-color-success:#18794e;
   --irt-color-on-success:#ffffff;
   --irt-color-warning:#b45309;
@@ -147,6 +148,7 @@
   --irt-color-text-inverse:#0b1220;
   --irt-color-border:#2a3852;
   --irt-color-border-muted:#1f2a40;
+  --irt-color-border-strong:#41557a;
   --irt-color-success:#3fb27f;
   --irt-color-on-success:#03150c;
   --irt-color-warning:#f0a33a;

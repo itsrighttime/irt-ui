@@ -1,42 +1,37 @@
 .videoContainer {
-  width: var(--irt-c-width);
-  height: var(--irt-c-height);
+  width: var(--irt-c-width, 400px);
+  height: var(--irt-c-height, 200px);
+  max-width: 100%;
   overflow: hidden;
   border-radius: var(--irt-radius-lg);
 }
+
 .videoPreview {
+  position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
 }
 
 .videoPlayer {
+  display: block;
   width: 100%;
   height: 100%;
-  border-radius: var(--irt-radius-md);
-  border: var(--irt-border-width-thin) solid var(--irt-color-gray3);
+  border-radius: var(--irt-radius-lg);
+  background: var(--irt-color-black);
 }
 
 .resetRemove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
   display: flex;
-  gap: 15px;
-  justify-content: center;
+  gap: 6px;
 }
 
-.error {
-  color: var(--irt-color-danger);
-  text-align: center;
+.overlayButton {
+  box-shadow: var(--irt-shadow-md);
 }
 
-.noVideo {
-  width: 100%;
-  height: 100%;
-  color: var(--irt-c-color);
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.overlayButton svg {
+  color: var(--irt-color-text) !important;
 }

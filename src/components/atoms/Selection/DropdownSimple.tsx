@@ -2,6 +2,7 @@
 
 import { useRef, type KeyboardEvent } from "react";
 import { useSmartPosition } from "../../../hooks/useSmartPosition";
+import { renderIcon, type IconLike } from "../../../icons/renderIcon";
 import { cx } from "../../../utils/cx";
 import styles from "./DropdownSimple.module.css";
 
@@ -15,6 +16,10 @@ export type DropdownItem =
       box?: string[];
       description?: string;
       disabled?: boolean;
+      /** Leading icon (registry name or node). */
+      icon?: IconLike;
+      /** Render in the danger colour (e.g. "Delete"). */
+      danger?: boolean;
     }
   | string;
 
@@ -24,21 +29,28 @@ export interface DropdownSimpleProps {
   isOpen?: boolean;
   /** Accessible menu name. */
   ariaLabel?: string;
+  /** Called on Escape (and Tab) so the owner can close the menu. */
+  onClose?: () => void;
+  className?: string;
 }
 
 /** Simple action menu (`role="menu"`) that flips to stay inside the viewport. */
-export function DropdownSimple({ items, onSelect, isOpen = false, ariaLabel }: DropdownSimpleProps) {
+export function DropdownSimple({ items, onSelect, isOpen = false, ariaLabel, onClose, className }: DropdownSimpleProps) {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const position = useSmartPosition(menuRef, isOpen);
 
   if (!isOpen) return null;
 
   const normalized = items.map((item) =>
-    typeof item === "string" ? { key: item, value: item, box: [] as string[], description: "", disabled: false } : item,
+    typeof item === "string"
+      ? { key: item, value: item, box: [] as string[], description: "", disabled: false, icon: undefined, danger: false }
+      : item,
   );
 
-  const focusSibling = (event: KeyboardEvent<HTMLButtonElement>, delta: number) => {
+  const focusSibling = (event: KeyboardEvent<HTMLButtonElement>, delta: number | "first" | "last") => {
     const buttons = Array.from(menuRef.current?.querySelectorAll<HTMLButtonElement>("[role=menuitem]:not(:disabled)") ?? []);
+    if (delta === "first") return buttons[0]?.focus();
+    if (delta === "last") return buttons[buttons.length - 1]?.focus();
     const index = buttons.indexOf(event.currentTarget);
     buttons[(index + delta + buttons.length) % buttons.length]?.focus();
   };
@@ -53,6 +65,7 @@ export function DropdownSimple({ items, onSelect, isOpen = false, ariaLabel }: D
         styles.dropdownMenu,
         position.vertical === "top" ? styles.dropTop : styles.dropBottom,
         position.horizontal === "left" ? styles.alignLeft : styles.alignRight,
+        className,
       )}
     >
       {normalized.map((item) => (
@@ -61,7 +74,7 @@ export function DropdownSimple({ items, onSelect, isOpen = false, ariaLabel }: D
           type="button"
           role="menuitem"
           disabled={item.disabled}
-          className={styles.dropdownItem}
+          className={cx(styles.dropdownItem, item.danger && styles.danger)}
           onClick={() => onSelect?.(item.key)}
           onKeyDown={(event) => {
             if (event.key === "ArrowDown") {
@@ -70,10 +83,20 @@ export function DropdownSimple({ items, onSelect, isOpen = false, ariaLabel }: D
             } else if (event.key === "ArrowUp") {
               event.preventDefault();
               focusSibling(event, -1);
+            } else if (event.key === "Home" || event.key === "End") {
+              event.preventDefault();
+              focusSibling(event, event.key === "Home" ? "first" : "last");
+            } else if (event.key === "Escape" || event.key === "Tab") {
+              onClose?.();
             }
           }}
         >
           <span className={styles.dropdownItemLabelBox}>
+            {item.icon != null && (
+              <span className={styles.itemIcon} aria-hidden="true">
+                {renderIcon(item.icon, { size: "1.1em" })}
+              </span>
+            )}
             <span className={styles.dropdownItemLabel}>{item.value}</span>
             {item.box?.map((badge, i) =>
               badge ? (

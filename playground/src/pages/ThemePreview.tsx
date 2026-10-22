@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Alert,
+  Badge,
   Button,
   Calendar,
   CheckboxGroup,
@@ -12,7 +13,7 @@ import {
   Switch,
   Table,
   TextInput,
-  Tooltip,
+  Tabs,
   type SelectionValue,
   type TableColumn,
 } from "@itsrighttime/irt-ui/atoms";
@@ -25,7 +26,7 @@ const columns: TableColumn<Row>[] = [
   { key: "status", title: "Status" },
 ];
 
-const SWATCHES = ["primary", "secondary", "accent", "success", "warning", "danger", "info", "background", "surface", "surface-muted", "text", "text-muted", "border"];
+const SWATCHES = ["primary", "secondary", "accent", "success", "warning", "danger", "info", "background", "surface", "surface-muted", "text", "text-muted", "border", "border-strong"];
 
 /** A dense showcase of components rendered with the current theme. */
 export function ThemePreview() {
@@ -63,9 +64,7 @@ export function ThemePreview() {
             Delete
           </Button>
           <Button loading>Saving</Button>
-          <Tooltip content="Icon buttons show their label as a tooltip" delay={200}>
-            <IconButton icon="bell" label="Notifications" size={1.4} />
-          </Tooltip>
+          <IconButton icon="bell" label="Notifications" variant="soft" />
         </div>
         <div className="pg-row">
           <Button size="small">Small</Button>
@@ -111,8 +110,17 @@ export function ThemePreview() {
       <section className="pg-card">
         <h3>Feedback</h3>
         <div className="pg-stack">
-          <Alert type="success" message="Changes saved" duration={0} onDismiss={() => undefined} />
-          <Alert type="error" message="Payment failed" duration={0} onDismiss={() => undefined} />
+          <Alert type="success" title="Changes saved" message="Your profile is up to date." duration={0} onDismiss={() => undefined} />
+          <Alert type="error" message="Payment failed — check your card details." duration={0} onDismiss={() => undefined} />
+          <div className="pg-row">
+            <Badge tone="success" dot>
+              Online
+            </Badge>
+            <Badge tone="warning">Pending</Badge>
+            <Badge tone="danger" variant="solid">
+              3
+            </Badge>
+          </div>
           <div style={{ position: "relative", height: 90 }}>
             <Loading type="BounceLoader" display="center" position="absolute" />
           </div>
@@ -125,7 +133,18 @@ export function ThemePreview() {
       </section>
 
       <section className="pg-card">
-        <h3>Calendar</h3>
+        <h3>Tabs</h3>
+        <Tabs
+          ariaLabel="Preview tabs"
+          variant="enclosed"
+          size="small"
+          items={[
+            { key: "a", label: "Overview" },
+            { key: "b", label: "Activity", badge: 4 },
+            { key: "c", label: "Settings" },
+          ]}
+        />
+        <h3 style={{ marginTop: "var(--irt-space-md)" }}>Calendar</h3>
         <Calendar setResult={() => undefined} monthBase={1} isSmall />
       </section>
     </div>

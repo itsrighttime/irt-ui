@@ -1,27 +1,34 @@
 .iconButton {
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  vertical-align: middle;
 }
 
-.iconButton:hover .label {
-  opacity: 1;
+.disabled {
+  opacity: var(--irt-opacity-disabled);
 }
 
 .btn {
-  border: var(--irt-c-border);
+  box-sizing: border-box;
+  border: var(--irt-c-border, var(--irt-border-width-thin) solid transparent);
   outline: none;
-  padding: 0px;
-  border-radius: var(--irt-radius-sm);
-  display: flex;
+  margin: 0;
+  padding: calc(var(--irt-c-icon-size) * 0.3);
+  border-radius: var(--irt-radius-md);
+  display: inline-flex;
   justify-content: center;
-  cursor: pointer;
   align-items: center;
-  background-color: var(--irt-color-background);
+  cursor: pointer;
+  background-color: transparent;
   color: var(--irt-c-icon-color);
+  line-height: 1;
+  font: inherit;
   transition:
-    background-color var(--irt-duration-normal),
-    color var(--irt-duration-normal);
+    background-color var(--irt-duration-fast) var(--irt-easing-standard),
+    border-color var(--irt-duration-fast) var(--irt-easing-standard),
+    color var(--irt-duration-fast) var(--irt-easing-standard),
+    transform var(--irt-duration-fast) var(--irt-easing-standard);
 }
 
 .btn:focus-visible {
@@ -33,31 +40,88 @@
   cursor: not-allowed;
 }
 
+.btn:not(:disabled):active {
+  transform: scale(0.94);
+}
+
 .btn svg {
   font-size: var(--irt-c-icon-size);
   height: var(--irt-c-icon-size);
   width: var(--irt-c-icon-size);
-}
-
-.btn svg {
   color: var(--irt-c-icon-color);
+  flex-shrink: 0;
+  transition: color var(--irt-duration-fast) var(--irt-easing-standard);
 }
 
-.hoverBg:hover {
+/* Shapes */
+.rounded {
+  border-radius: var(--irt-radius-md);
+}
+
+.circle {
+  border-radius: var(--irt-radius-full);
+}
+
+.square {
+  border-radius: var(--irt-radius-none);
+}
+
+/* Variants */
+.ghost:not(:disabled):hover,
+.ghost.active {
+  background-color: color-mix(in srgb, var(--irt-c-icon-color) 10%, transparent);
+}
+
+.soft {
+  background-color: color-mix(in srgb, var(--irt-c-icon-color) 12%, transparent);
+}
+
+.soft:not(:disabled):hover,
+.soft.active {
+  background-color: color-mix(in srgb, var(--irt-c-icon-color) 20%, transparent);
+}
+
+.solid {
   background-color: var(--irt-c-icon-color);
 }
 
-.hoverBg:hover svg {
+.solid svg {
+  color: var(--irt-color-background);
+}
+
+.solid:not(:disabled):hover {
+  filter: brightness(0.92);
+}
+
+.outline {
+  border: var(--irt-c-border, var(--irt-border-width-thin) solid var(--irt-c-icon-color));
+}
+
+.outline:not(:disabled):hover,
+.outline.active {
+  background-color: color-mix(in srgb, var(--irt-c-icon-color) 8%, transparent);
+}
+
+.plain {
+  padding: 0;
+  border-color: transparent;
+}
+
+.plain:not(:disabled):hover svg {
+  opacity: 0.75;
+}
+
+/* Legacy: fill with the icon colour on hover */
+.hoverBg:not(:disabled):hover {
+  background-color: var(--irt-c-icon-color);
+}
+
+.hoverBg:not(:disabled):hover svg {
   color: var(--irt-color-background);
 }
 
 .image {
-  height: 25px;
-  cursor: pointer;
+  height: calc(var(--irt-c-icon-size) * 1.5);
+  display: block;
   border-radius: var(--irt-radius-sm);
-  border: var(--irt-border-width-thin) solid transparent;
-}
-
-.image:hover {
-  border: var(--irt-border-width-thin) solid var(--irt-c-icon-color);
 }

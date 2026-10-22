@@ -1,10 +1,10 @@
 "use client";
 
-import { SelectionBox, type SelectionCustomStyles, type SelectionOption, type SelectionValue } from "./SelectionBox";
+import { SelectionBox, type SelectionCustomStyles, type SelectionFieldProps, type SelectionOption, type SelectionValue } from "./SelectionBox";
 
 export type CheckboxOption = SelectionOption | string;
 
-export interface CheckboxGroupProps {
+export interface CheckboxGroupProps extends SelectionFieldProps {
   /** Options; plain strings are used as both label and value. */
   options?: CheckboxOption[];
   /** Selected values. */

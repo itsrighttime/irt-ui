@@ -5,14 +5,21 @@
 .dropdownMenu {
   position: absolute;
   z-index: var(--irt-z-dropdown);
-  background: var(--irt-color-surface-muted);
+  background: var(--irt-color-surface-raised);
+  color: var(--irt-color-text);
   border: var(--irt-border-width-thin) solid var(--irt-color-border);
-  box-shadow: var(--irt-shadow-md);
-  padding: var(--irt-space-sm);
+  box-shadow: var(--irt-shadow-lg);
+  padding: 4px;
   border-radius: var(--irt-radius-md);
-  min-width: 180px;
-  max-height: 300px;
+  min-width: 200px;
+  max-width: min(360px, calc(100vw - 16px));
+  max-height: 320px;
   overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  transition: opacity var(--irt-duration-fast) var(--irt-easing-standard);
 }
 
 .dropdownItem {
@@ -22,26 +29,49 @@
   color: var(--irt-color-text);
   font: inherit;
   text-align: left;
-  padding: var(--irt-space-xs) var(--irt-space-md);
+  padding: 7px 10px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: var(--irt-radius-md);
-  gap: var(--irt-space-lg);
+  border-radius: var(--irt-radius-sm);
+  gap: var(--irt-space-md);
   font-size: var(--irt-font-size-sm);
+  line-height: var(--irt-line-height-tight);
   transition: background-color var(--irt-duration-fast);
 }
 
-.dropdownItem:hover,
+.dropdownItem:hover:not(:disabled),
 .dropdownItem:focus-visible {
-  background: var(--irt-color-gray2);
+  background: var(--irt-color-hover);
   outline: none;
+}
+
+.dropdownItem:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--irt-color-focus);
 }
 
 .dropdownItem:disabled {
   cursor: not-allowed;
   opacity: var(--irt-opacity-disabled);
+}
+
+.danger {
+  color: var(--irt-color-danger);
+}
+
+.danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--irt-color-danger) 10%, transparent);
+}
+
+.itemIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--irt-color-text-muted);
+}
+
+.danger .itemIcon {
+  color: currentColor;
 }
 
 .dropdownItemLabel {
@@ -57,19 +87,23 @@
 
 .dropdownItemLabelBox {
   display: flex;
-  gap: var(--irt-space-xs);
+  align-items: center;
+  gap: var(--irt-space-sm);
+  min-width: 0;
 }
 
 .boxValue {
-  background-color: var(--irt-color-danger);
-  color: var(--irt-color-on-danger);
-  opacity: 0.85;
-  padding: 0 var(--irt-space-xs);
-  border-radius: var(--irt-radius-sm);
-  font-size: var(--irt-font-size-xs);
-  display: flex;
+  background-color: color-mix(in srgb, var(--irt-color-primary) 14%, transparent);
+  color: var(--irt-color-primary);
+  padding: 1px 6px;
+  border-radius: var(--irt-radius-full);
+  font-size: 0.6875rem;
+  font-weight: var(--irt-font-weight-semibold);
+  line-height: 1.4;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
 }
 
 /* Positioning */

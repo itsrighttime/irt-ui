@@ -30,6 +30,37 @@ export function formatCalendarDate(date: Date, monthBase: 0 | 1 = 0): string {
   return `${pad(date.getDate())}-${pad(date.getMonth() + monthBase)}-${date.getFullYear()}`;
 }
 
+interface ParsedValue {
+  date: Date | null;
+  month: number | null;
+  year: number | null;
+}
+
+/** Parses a `value` in the format `setResult` emits for `mode`. */
+function parseValue(value: string | number | null | undefined, mode: CalendarProps["mode"], monthBase: 0 | 1): ParsedValue {
+  const none: ParsedValue = { date: null, month: null, year: null };
+  if (value === null || value === undefined || value === "") return none;
+  const parts = String(value).split("-").map(Number);
+  if (parts.some((n) => Number.isNaN(n))) return none;
+  switch (mode) {
+    case "year":
+      return { date: null, month: null, year: parts[0] ?? null };
+    case "month":
+      return { date: null, month: (parts[0] ?? monthBase) - monthBase, year: null };
+    case "month-year":
+      return { date: null, month: (parts[0] ?? monthBase) - monthBase, year: parts[1] ?? null };
+    case "day": {
+      const now = new Date();
+      return { date: new Date(now.getFullYear(), now.getMonth(), parts[0] ?? 1), month: null, year: null };
+    }
+    default: {
+      const [d = 1, m = monthBase, y = 1970] = parts;
+      const date = new Date(y, m - monthBase, d);
+      return { date, month: date.getMonth(), year: date.getFullYear() };
+    }
+  }
+}
+
 /** Date / day / month / month-year / year picker grid. */
 export function Calendar({
   isSmall = false,
@@ -43,7 +74,12 @@ export function Calendar({
   monthBase = 0,
   locale = "en-US",
   weekdayLabels = DEFAULT_WEEKDAYS,
+  firstDayOfWeek = 0,
+  value,
+  highlightToday = true,
+  className,
 }: CalendarProps) {
+  const parsed = useMemo(() => parseValue(value, mode, monthBase), [value, mode, monthBase]);
   const startDate = useMemo(
     () => (restrictionStartDate ? convertStrDate2Date(restrictionStartDate) : null),
     [restrictionStartDate],
@@ -55,6 +91,8 @@ export function Calendar({
   }
 
   const [currentDate, setCurrentDate] = useState<Date>(() => {
+    if (parsed.date) return new Date(parsed.date.getFullYear(), parsed.date.getMonth(), 1);
+    if (parsed.year !== null) return new Date(parsed.year, parsed.month ?? 0, 1);
     const today = new Date();
     if (startDate && endDate && (today < startDate || today > endDate)) {
       return new Date((startDate.getTime() + endDate.getTime()) / 2);
@@ -72,21 +110,21 @@ export function Calendar({
 
   return (
     <div
-      className={cx(styles.calendarBox, isSmall && styles.isSmall)}
+      className={cx(styles.calendarBox, isSmall && styles.isSmall, className)}
       style={cssVars({ "--irt-c-color": color ?? "var(--irt-color-primary)", "--irt-c-height": height, "--irt-c-width": width })}
     >
       {showHeader && (
         <div className={styles.calendarHeader}>
           {canPrev ? (
             <IconButton
-              size={1}
+              size={1.1}
               icon="chevronLeft"
               onClick={() => handlePrev(currentDate, setCurrentDate, startDate, view)}
               color={color}
               label="Previous"
             />
           ) : (
-            <div />
+            <span className={styles.navSpacer} aria-hidden="true" />
           )}
           <h2 aria-live="polite">
             <button type="button" className={styles.headerButton} onClick={() => handleViewChange(setView, mode)}>
@@ -95,14 +133,14 @@ export function Calendar({
           </h2>
           {canNext ? (
             <IconButton
-              size={1}
+              size={1.1}
               icon="chevronRight"
               onClick={() => handleNext(currentDate, setCurrentDate, endDate, view)}
               color={color}
               label="Next"
             />
           ) : (
-            <div />
+            <span className={styles.navSpacer} aria-hidden="true" />
           )}
         </div>
       )}
@@ -111,6 +149,9 @@ export function Calendar({
         <RenderCalendar
           isSmall={isSmall}
           date={currentDate}
+          selected={parsed.date}
+          firstDayOfWeek={firstDayOfWeek}
+          highlightToday={highlightToday}
           locale={locale}
           weekdayLabels={weekdayLabels}
           restrictionStartDate={startDate}
@@ -126,6 +167,7 @@ export function Calendar({
         <RenderMonths
           isSmall={isSmall}
           year={currentDate.getFullYear()}
+          selectedMonth={parsed.year === null || parsed.year === currentDate.getFullYear() ? parsed.month : null}
           locale={locale}
           restrictionStartDate={startDate}
           restrictionEndDate={endDate}
@@ -142,6 +184,7 @@ export function Calendar({
       {view === "years" && (
         <RenderYears
           isSmall={isSmall}
+          selectedYear={parsed.year}
           startYear={currentDate.getFullYear() - 7}
           endYear={currentDate.getFullYear() + 8}
           restrictionStartYear={startDate ? startDate.getFullYear() : null}

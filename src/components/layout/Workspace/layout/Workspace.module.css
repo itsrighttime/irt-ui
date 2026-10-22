@@ -7,8 +7,31 @@
   background: var(--irt-color-background);
   color: var(--irt-color-text);
 
-  --irt-c-bar-size: var(--irt-workspace-bar-size);
-  --irt-c-sidebar-size: var(--irt-workspace-sidebar-size);
+  position: relative;
+  box-sizing: border-box;
+  font-family: var(--irt-font-family-base);
+}
+
+.skipLink {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: calc(var(--irt-z-sticky) + 1);
+  padding: 8px 12px;
+  border-radius: var(--irt-radius-md);
+  background: var(--irt-color-primary);
+  color: var(--irt-color-on-primary);
+  font-size: var(--irt-font-size-sm);
+  font-weight: var(--irt-font-weight-semibold);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--irt-duration-fast) var(--irt-easing-standard);
+}
+
+.skipLink:focus {
+  transform: none;
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 2px;
 }
 
 /* CORE LAYOUT STACK */
@@ -21,6 +44,7 @@
 
 /* CENTER COLUMN */
 .secondaryHorizontal {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -34,6 +58,7 @@
   min-width: 0;
   min-height: 0;
   overflow: auto;
+  outline: none;
 }
 
 /* ===== BARS (HORIZONTAL) ===== */
@@ -61,6 +86,57 @@
 .rightSidebar {
   width: var(--irt-c-sidebar-size);
   flex-shrink: 0;
+}
+
+/* Overlay sidebars (narrow workspaces) */
+.primaryVertical {
+  position: relative;
+}
+
+.overlaySidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: var(--irt-z-drawer);
+  max-width: calc(100% - 48px);
+  box-shadow: var(--irt-shadow-lg);
+  animation: irt-ws-slide var(--irt-duration-normal) var(--irt-easing-standard);
+}
+
+.leftSidebar.overlaySidebar {
+  left: 0;
+}
+
+.rightSidebar.overlaySidebar {
+  right: 0;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: calc(var(--irt-z-drawer) - 1);
+  background: var(--irt-color-overlay);
+  animation: irt-ws-fade var(--irt-duration-normal) var(--irt-easing-standard);
+}
+
+@keyframes irt-ws-slide {
+  from {
+    transform: translateX(-12px);
+    opacity: 0.6;
+  }
+}
+
+@keyframes irt-ws-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlaySidebar,
+  .backdrop {
+    animation: none;
+  }
 }
 
 /* IMPORTANT: prevent overflow issues */

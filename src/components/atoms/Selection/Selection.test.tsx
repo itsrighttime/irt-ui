@@ -62,7 +62,8 @@ describe("Dropdown", () => {
   it("SingleDropdown maps to a string value", async () => {
     const setResult = vi.fn();
     render(<SingleDropdown options={["x", "y"]} value="x" setResult={setResult} />);
-    expect(screen.getByText("1")).toBeInTheDocument();
+    expect(screen.getByRole("combobox")).toHaveTextContent("x");
+    expect(screen.queryByText("1")).toBeNull();
     await userEvent.click(screen.getByRole("combobox"));
     await userEvent.click(screen.getByRole("option", { name: "y" }));
     expect(setResult).toHaveBeenCalledWith("y");

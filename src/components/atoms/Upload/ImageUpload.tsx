@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { cssVars } from "../../../utils/cssVars";
 import { cx } from "../../../utils/cx";
 import { IconButton } from "../Button/IconButton";
 import { pickFiles } from "./pickFiles";
-import { useDropZone } from "./useDropZone";
 import { useObjectUrl } from "./useObjectUrl";
 import style from "./ImageUpload.module.css";
+import shared from "./Upload.module.css";
+import { UploadDropzone, UploadFieldHeader, uploadHint } from "./UploadDropzone";
 
 export interface ImageUploadProps {
   /** @default "Upload Image" */
@@ -32,6 +33,16 @@ export interface ImageUploadProps {
   /** Existing image (URL or file). */
   value?: File | Blob | string | null;
   required?: boolean;
+  /** Text inside the drop zone. @default "Drop an image here" */
+  dropzoneText?: ReactNode;
+  /** Hint under the drop zone text. @default derived from types / size */
+  hint?: ReactNode;
+  /** Helper text under the field. */
+  helperText?: ReactNode;
+  /** Preview object-fit. @default "cover" */
+  fit?: "cover" | "contain";
+  disabled?: boolean;
+  className?: string;
 }
 
 const DEFAULT_TYPES = ["image/jpeg", "image/png", "image/gif"];
@@ -59,20 +70,31 @@ export function ImageUpload({
   backendError = "",
   value = null,
   required = false,
+  dropzoneText = "Drop an image here",
+  hint,
+  helperText,
+  fit = "cover",
+  disabled = false,
+  className,
 }: ImageUploadProps) {
+  const messageId = useId();
   const [selected, setSelected] = useState<File | Blob | string | null>(value);
   const [error, setError] = useState<string | null>(null);
   const image = useObjectUrl(selected);
   const validRef = useRef(setIsFieldValid);
-  validRef.current = setIsFieldValid;
+  useEffect(() => {
+    validRef.current = setIsFieldValid;
+  });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- re-sync from the value prop
     setSelected(value);
     setError(null);
   }, [value]);
 
   useEffect(() => {
     if (backendError) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- mirror an external error prop
       setError(backendError);
       validRef.current?.(false);
     }
@@ -114,55 +136,62 @@ export function ImageUpload({
     validRef.current?.(false);
   };
 
-  const { isDragging, handlers } = useDropZone<HTMLLabelElement>((files) => void handleFile(files[0]));
+  const resolvedHint = hint ?? [uploadHint({ types: allowedTypes, maxSizeMb }), requireSquare ? "square" : undefined].filter(Boolean).join(" · ");
+  const message = error ?? helperText;
 
   return (
     <div
-      className={style.imageUploadContainer}
-      style={cssVars({ "--irt-c-color": color ?? "var(--irt-color-primary)", "--irt-c-width": width, "--irt-c-height": height })}
+      className={cx(shared.field, className)}
+      style={cssVars({ "--irt-c-color": color ?? "var(--irt-color-primary)", "--irt-c-width": width, "--irt-c-height": height === "auto" ? undefined : height })}
     >
-      {label && <p className={style.label}>{label}</p>}
-      {required && (
-        <p className={style.required} aria-hidden="true">
-          *
-        </p>
-      )}
+      <UploadFieldHeader label={label} required={required} />
 
       {!image && (
-        <label className={cx(style.imageUpload, isDragging && style.dragging)} {...handlers}>
-          <input
-            type="file"
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              void handleFile(event.target.files?.[0]);
-              event.target.value = "";
-            }}
-            className={style.formControl}
-            accept={accept}
-            aria-required={required || undefined}
-          />
-          <span className={style.label}>{label}</span>
-          <span className={style.label}>{`(Max Size: ${maxSizeMb}MB)`}</span>
-        </label>
+        <UploadDropzone
+          inputLabel={label}
+          title={dropzoneText}
+          hint={resolvedHint}
+          icon="image"
+          accept={accept}
+          required={required}
+          invalid={Boolean(error)}
+          disabled={disabled}
+          describedBy={message ? messageId : undefined}
+          onFiles={(files) => void handleFile(files[0])}
+        />
       )}
 
       {image && (
         <div className={style.imagePreview}>
-          <img src={image} alt={label} className={style.image} style={{ borderRadius: previewBorderRadius, width: "100%", height: "auto" }} />
+          <img src={image} alt={label} className={style.image} style={{ borderRadius: previewBorderRadius, objectFit: fit }} />
           <div className={style.resetRemove}>
             <IconButton
               icon="refresh"
+              variant="solid"
+              shape="circle"
+              color="var(--irt-color-surface-raised)"
               onClick={() => void pickFiles({ accept }).then((files) => handleFile(files[0]))}
-              color={color ?? "var(--irt-color-primary)"}
               label="Re-Upload"
+              disabled={disabled}
+              className={style.overlayButton}
             />
-            <IconButton icon="close" onClick={reset} color="var(--irt-color-danger)" label="Remove image" />
+            <IconButton
+              icon="close"
+              variant="solid"
+              shape="circle"
+              color="var(--irt-color-surface-raised)"
+              onClick={reset}
+              label="Remove image"
+              disabled={disabled}
+              className={style.overlayButton}
+            />
           </div>
         </div>
       )}
 
-      {error && (
-        <p className={style.error} role="alert">
-          {error}
+      {message && (
+        <p id={messageId} className={error ? shared.error : shared.message} role={error ? "alert" : undefined}>
+          {message}
         </p>
       )}
     </div>

@@ -1,8 +1,16 @@
 .sliderContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--irt-c-width);
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--irt-space-xs);
+  width: var(--irt-c-width, 300px);
+  max-width: 100%;
+  font-size: var(--irt-font-size-md);
+  color: var(--irt-color-text);
+}
+
+.disabled {
+  opacity: var(--irt-opacity-disabled);
 }
 
 .inputOutputContainer {
@@ -11,21 +19,16 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 5px;
+  gap: var(--irt-space-xs);
 }
 
-.inputOutputContainer.right {
-  flex-direction: row;
-}
-
+.inputOutputContainer.right,
 .inputOutputContainer.left {
   flex-direction: row;
+  gap: var(--irt-space-sm);
 }
 
-.inputOutputContainer.left .inputContainer {
-  order: 2;
-}
-
+.inputOutputContainer.left .inputContainer,
 .inputOutputContainer.top .inputContainer {
   order: 2;
 }
@@ -35,85 +38,109 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 7px;
+  min-width: 0;
+  gap: var(--irt-space-sm);
 }
 
-.inputContainer p {
-  font-weight: var(--irt-font-weight-bold);
+.stepButton {
+  flex-shrink: 0;
+}
+
+.rangeLabel {
+  margin: 0;
+  flex-shrink: 0;
+  font-size: var(--irt-font-size-xs);
+  font-weight: var(--irt-font-weight-medium);
+  color: var(--irt-color-text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .sliderLabel {
-  font-size: 16px;
+  font-size: var(--irt-font-size-sm);
+  font-weight: var(--irt-font-weight-semibold);
 }
 
-/* Style for the slider value display */
 .sliderValue {
-  font-weight: var(--irt-font-weight-bold);
+  min-width: 2.5ch;
+  text-align: center;
+  font-size: var(--irt-font-size-sm);
+  font-weight: var(--irt-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  color: var(--irt-color-text);
 }
 
-/* Style for the slider track */
+.helperText {
+  font-size: var(--irt-font-size-xs);
+  color: var(--irt-color-text-muted);
+}
+
+/* Track */
 .slider {
   -webkit-appearance: none;
   appearance: none;
+  flex: 1;
+  min-width: 48px;
   width: 100%;
-  height: 3px;
-  border-radius: 5px;
-  background: var(--irt-color-border);
+  height: 4px;
+  border-radius: var(--irt-radius-full);
+  background: linear-gradient(
+    to right,
+    var(--irt-c-color) var(--irt-c-percent, 0%),
+    var(--irt-color-border) var(--irt-c-percent, 0%)
+  );
   outline: none;
   cursor: pointer;
-  margin: 0;
-  position: relative;
+  margin: 8px 0;
 }
 
-/* Style for the slider thumb (center circle) */
+.slider:disabled {
+  cursor: not-allowed;
+}
+
+/* Thumb */
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background-color: var(--irt-c-color);
+  background-color: var(--irt-color-white);
+  border: 2px solid var(--irt-c-color);
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.2);
   cursor: pointer;
-  position: relative;
+  transition:
+    transform var(--irt-duration-fast) var(--irt-easing-standard),
+    box-shadow var(--irt-duration-fast) var(--irt-easing-standard);
 }
 
-/* Thumb style for Firefox */
 .slider::-moz-range-thumb {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: var(--irt-c-color);
+  background-color: var(--irt-color-white);
+  border: 2px solid var(--irt-c-color);
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.2);
   cursor: pointer;
 }
 
-/* Thumb style for Internet Explorer */
-.slider::-ms-thumb {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: var(--irt-c-color);
-  cursor: pointer;
+.slider:not(:disabled):hover::-webkit-slider-thumb {
+  transform: scale(1.12);
 }
 
-/* Additional styling for smoother transition */
-.slider {
-  transition: background 0.3s ease;
-  background-color: var(--irt-color-border);
+.slider:not(:disabled):active::-webkit-slider-thumb {
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--irt-c-color) 18%, transparent);
+}
+
+.slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--irt-shadow-focus);
+}
+
+.slider:focus-visible::-moz-range-thumb {
+  box-shadow: var(--irt-shadow-focus);
 }
 
 .required {
-  padding-top: 5px;
-  margin: 0 5px;
+  margin-left: 2px;
   color: var(--irt-color-danger);
   font-weight: var(--irt-font-weight-bold);
-  text-align: end;
-}
-
-/* <p> elements: no reliance on a host-app CSS reset */
-.required {
-  margin: 0;
-}
-
-.inputContainer p {
-  margin: 0;
 }

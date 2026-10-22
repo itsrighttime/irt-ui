@@ -109,3 +109,39 @@ describe("Workspace", () => {
     err.mockRestore();
   });
 });
+
+describe("Workspace layout options", () => {
+  it("hides a sidebar when leftSidebarOpen is false and applies size props", () => {
+    const { container } = render(
+      <Workspace config={config} leftSidebarOpen={false} barSize="48px" sidebarWidth="260px">
+        <p>Body</p>
+      </Workspace>,
+    );
+    expect(screen.queryByRole("navigation", { name: "Sidebar" })).toBeNull();
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.style.getPropertyValue("--irt-c-bar-size")).toBe("48px");
+    expect(root.style.getPropertyValue("--irt-c-sidebar-size")).toBe("260px");
+  });
+
+  it("renders a skip link that focuses the main region", async () => {
+    render(
+      <Workspace config={config}>
+        <p>Body</p>
+      </Workspace>,
+    );
+    await userEvent.click(screen.getByRole("link", { name: "Skip to content" }));
+    expect(screen.getByRole("main")).toHaveFocus();
+  });
+
+  it("toolbar arrow keys move focus between tabs", async () => {
+    render(
+      <Workspace config={config}>
+        <p>Body</p>
+      </Workspace>,
+    );
+    const home = screen.getByRole("button", { name: "Home" });
+    home.focus();
+    await userEvent.keyboard("{ArrowDown}");
+    expect(screen.getByRole("button", { name: "Documents" })).toHaveFocus();
+  });
+});

@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { cx } from "../../../utils/cx";
 import { DataSnapshotViewer } from "../DataSnapshotViewer/DataSnapshotViewer";
+import { Pagination } from "./Pagination";
 import styles from "./Table.module.css";
 import { TableBody } from "./TableBody";
 import { TableControls } from "./TableControls";
@@ -35,6 +37,15 @@ export function Table<T extends object>({
   showRowDetails = true,
   caption,
   emptyText = "No records",
+  density = "comfortable",
+  striped = false,
+  stickyHeader = false,
+  maxHeight,
+  loading = false,
+  title,
+  toolbar,
+  searchPlaceholder,
+  className,
 }: TableProps<T>) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRow, setSelectedRow] = useState<T | null>(null);
@@ -80,6 +91,7 @@ export function Table<T extends object>({
   const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- clamp after data shrinks
     if (currentPage > totalPages) setCurrentPage(totalPages);
   }, [currentPage, totalPages]);
 
@@ -98,15 +110,16 @@ export function Table<T extends object>({
 
   const clickable = showRowDetails || Boolean(onCellClick);
 
+  const firstRow = sorted.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const lastRow = Math.min(currentPage * pageSize, sorted.length);
+  const showToolbar = cfg.search || cfg.columnSelector || title != null || toolbar != null;
+
   return (
-    <div className={styles.tableWrapper}>
-      {(cfg.search || cfg.columnSelector || cfg.pagination) && (
+    <div className={cx(styles.tableWrapper, styles[density], striped && styles.striped, className)}>
+      {showToolbar && (
         <TableControls<T>
           columns={allColumns}
           onColumnToggle={toggleColumn}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
           onSearch={(value: string) => {
             setSearchTerm(value);
             setCurrentPage(1);
@@ -114,29 +127,51 @@ export function Table<T extends object>({
           }}
           showSearch={cfg.search}
           showColumnSelector={cfg.columnSelector}
-          showPagination={cfg.pagination}
+          searchPlaceholder={searchPlaceholder}
+          title={title}
+          toolbar={toolbar}
         />
       )}
 
-      <table className={`${styles.table} ${clickable ? styles.clickable : ""}`}>
-        {caption && <caption className="irt-visually-hidden">{caption}</caption>}
-        <TableHeader<T> columns={shownColumns} actions={rowActions.length > 0} sort={sort} onSort={toggleSort} />
-        <TableBody<T>
-          columns={shownColumns}
-          data={pageRows}
-          rowKey={rowKey ? (row, i) => rowKey(row, (currentPage - 1) * pageSize + i) : undefined}
-          rowActions={rowActions}
-          emptyText={emptyText}
-          onCellClick={
-            clickable
-              ? (row, column) => {
-                  if (showRowDetails) setSelectedRow(row);
-                  onCellClick?.(row, column);
-                }
-              : undefined
-          }
-        />
-      </table>
+      <div
+        className={cx(styles.scrollArea, stickyHeader && styles.sticky)}
+        style={maxHeight ? { maxHeight } : undefined}
+        aria-busy={loading || undefined}
+      >
+        <table className={cx(styles.table, clickable && styles.clickable)}>
+          {caption && <caption className="irt-visually-hidden">{caption}</caption>}
+          <TableHeader<T> columns={shownColumns} actions={rowActions.length > 0} sort={sort} onSort={toggleSort} />
+          <TableBody<T>
+            columns={shownColumns}
+            data={pageRows}
+            rowKey={rowKey ? (row, i) => rowKey(row, (currentPage - 1) * pageSize + i) : undefined}
+            rowActions={rowActions}
+            emptyText={emptyText}
+            onCellClick={
+              clickable
+                ? (row, column) => {
+                    if (showRowDetails) setSelectedRow(row);
+                    onCellClick?.(row, column);
+                  }
+                : undefined
+            }
+          />
+        </table>
+        {loading && (
+          <div className={styles.loadingOverlay} role="status" aria-label="Loading">
+            <span className={styles.spinner} aria-hidden="true" />
+          </div>
+        )}
+      </div>
+
+      {cfg.pagination && (
+        <div className={styles.footer}>
+          <span className={styles.rangeText}>
+            {sorted.length === 0 ? "0 results" : `${firstRow}–${lastRow} of ${sorted.length}`}
+          </span>
+          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+        </div>
+      )}
 
       {showRowDetails && <DataSnapshotViewer data={selectedRow} onClose={() => setSelectedRow(null)} />}
     </div>

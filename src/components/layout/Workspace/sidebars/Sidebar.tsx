@@ -19,10 +19,11 @@ export interface SidebarProps {
   isRouteActive?: (route?: string) => boolean;
   /** Accessible name of the navigation. @default "Sidebar" */
   ariaLabel?: string;
+  className?: string;
 }
 
-const INDENT = 8;
-const BASE_INDENT = 4;
+const INDENT = 12;
+const BASE_INDENT = 0;
 
 const activateOnKey = (handler: () => void) => (event: KeyboardEvent<HTMLElement>) => {
   if (event.key === "Enter" || event.key === " ") {
@@ -32,7 +33,7 @@ const activateOnKey = (handler: () => void) => (event: KeyboardEvent<HTMLElement
 };
 
 /** Nested, collapsible navigation list. */
-export function Sidebar({ config, position, onAction, isRouteActive, ariaLabel = "Sidebar" }: SidebarProps) {
+export function Sidebar({ config, position, onAction, isRouteActive, ariaLabel = "Sidebar", className }: SidebarProps) {
   const ctx = useContext(WorkspaceContext);
   const isActive = isRouteActive ?? ctx.isRouteActive;
 
@@ -72,7 +73,7 @@ export function Sidebar({ config, position, onAction, isRouteActive, ariaLabel =
         tabIndex={0}
         aria-current={active ? "page" : undefined}
         className={cx(styles.item, active && styles.active)}
-        style={{ marginLeft: BASE_INDENT + depth * INDENT }}
+        style={{ paddingLeft: BASE_INDENT + depth * INDENT }}
         onClick={() => activate(item)}
         onKeyDown={activateOnKey(() => activate(item))}
       >
@@ -81,7 +82,7 @@ export function Sidebar({ config, position, onAction, isRouteActive, ariaLabel =
           leftIcons={item.leftIcons}
           rightIcons={item.rightIcons}
           tokens={item.tokens}
-          background={active ? "var(--irt-color-gray2)" : ""}
+          background={null}
           border={item.border}
         />
       </div>
@@ -97,7 +98,7 @@ export function Sidebar({ config, position, onAction, isRouteActive, ariaLabel =
       <div key={group.id} className={styles.group} role="group" aria-label={group.title}>
         <div
           className={cx(styles.groupHeader, highlight && styles.groupActive)}
-          style={{ paddingLeft: BASE_INDENT + depth * INDENT }}
+          style={{ paddingLeft: 8 + BASE_INDENT + depth * INDENT }}
           role={collapsible ? "button" : undefined}
           tabIndex={collapsible ? 0 : undefined}
           aria-expanded={collapsible ? isOpen : undefined}
@@ -105,10 +106,17 @@ export function Sidebar({ config, position, onAction, isRouteActive, ariaLabel =
           onClick={() => collapsible && toggleGroup(group.id)}
           onKeyDown={collapsible ? activateOnKey(() => toggleGroup(group.id)) : undefined}
         >
-          <span>{group.title}</span>
+          <span className={styles.groupTitle}>
+            {group.icon && (
+              <span className={styles.groupIcon} aria-hidden="true">
+                <Icon name={group.icon} size="1.1em" />
+              </span>
+            )}
+            {group.title}
+          </span>
           {collapsible && (
-            <span aria-hidden="true" style={{ display: "inline-flex", color: "var(--irt-color-text)" }}>
-              <Icon name={isOpen ? "chevronDown" : "chevronRight"} size="0.9em" />
+            <span aria-hidden="true" className={cx(styles.chevron, isOpen && styles.chevronOpen)}>
+              <Icon name="chevronRight" size="0.95em" />
             </span>
           )}
         </div>
@@ -126,7 +134,7 @@ export function Sidebar({ config, position, onAction, isRouteActive, ariaLabel =
   const side = position.startsWith("left") ? "right" : position.startsWith("right") ? "left" : "";
 
   return (
-    <nav className={styles.sidebar} data-border-side={side} aria-label={ariaLabel}>
+    <nav className={cx(styles.sidebar, className)} data-border-side={side} aria-label={ariaLabel}>
       {config.map((item) => (item.type === TAB_TYPE.GROUP ? renderGroup(item, 0) : renderTab(item, 0)))}
     </nav>
   );

@@ -22,7 +22,7 @@ export function HomePage() {
           <Button iconLeft="settings" onClick={() => navigate("/theme")}>
             Open the theme builder
           </Button>
-          <Button variant="secondary" iconRight="chevronRight" onClick={() => navigate("/components/button")}>
+          <Button variant="secondary" iconRight="chevronRight" onClick={() => navigate("/catalog")}>
             Browse components
           </Button>
           <Button variant="ghost" as="a" href={REPO} target="_blank" rel="noreferrer" iconRight="externalLink">
@@ -111,6 +111,23 @@ export function HomePage() {
             <code>react-syntax-highlighter</code>
           </li>
         </ul>
+      </section>
+
+      <section>
+        <h2>Using an AI coding agent?</h2>
+        <p>
+          The package ships an agent-oriented reference with every component, prop, token and rule. Point your agent at it from{" "}
+          <code>CLAUDE.md</code>, <code>AGENTS.md</code> or your editor's rules file — or open the{" "}
+          <a href="AI_USAGE_GUIDE.md" target="_blank" rel="noreferrer">
+            online copy
+          </a>
+          .
+        </p>
+        <CodeBlock
+          title="CLAUDE.md"
+          language="md"
+          code={"Use @itsrighttime/irt-ui for all UI. Follow:\n@node_modules/@itsrighttime/irt-ui/docs/AI_USAGE_GUIDE.md"}
+        />
       </section>
 
       <section>

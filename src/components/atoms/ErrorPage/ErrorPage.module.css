@@ -1,130 +1,113 @@
 .container {
+  --irt-c-error-color: var(--irt-color-danger);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--irt-space-xl) var(--irt-space-md);
   background-color: var(--irt-color-surface-muted);
   color: var(--irt-color-text);
+  font-family: var(--irt-font-family-base);
+}
+
+.fullHeight {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-}
-
-.errorCode {
-  margin: 0;
-  line-height: 1;
-  font-size: 9rem;
-  font-weight: var(--irt-font-weight-bold);
-  color: var(--irt-color-danger);
-  text-align: center;
-}
-
-.title svg {
-  font-size: var(--irt-font-size-md);
-  width: 35px;
-  height: 35px;
-  color: var(--irt-color-danger);
+  max-width: 560px;
 }
 
 .message {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  gap: var(--irt-space-sm);
+  text-align: center;
 }
 
 .title {
   display: flex;
+  justify-content: center;
+}
+
+.iconBadge {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  text-align: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--irt-radius-full);
+  background: color-mix(in srgb, var(--irt-c-error-color) 12%, transparent);
+}
+
+.iconBadge svg {
+  color: var(--irt-c-error-color);
+}
+
+.errorCode {
+  line-height: 1;
+  font-size: clamp(4rem, 14vw, 8rem);
+  font-weight: var(--irt-font-weight-bold);
+  letter-spacing: -0.03em;
+  color: var(--irt-c-error-color);
+  font-variant-numeric: tabular-nums;
 }
 
 .titleText {
-  font-size: 2rem;
+  margin: 0;
+  font-family: var(--irt-font-family-heading);
+  font-size: clamp(1.4rem, 4vw, 2rem);
   font-weight: var(--irt-font-weight-bold);
-  color: var(--irt-color-text-muted);
-  text-align: center;
+  line-height: var(--irt-line-height-tight);
+  color: var(--irt-color-text);
 }
 
 .link {
-  color: var(--irt-color-info);
+  color: var(--irt-color-primary);
   cursor: pointer;
-  font-weight: var(--irt-font-weight-medium);
+  font: inherit;
+  font-weight: var(--irt-font-weight-semibold);
   text-decoration: underline;
+  text-underline-offset: 3px;
   border: none;
   background: none;
   padding: 0;
-  font: inherit;
+  border-radius: var(--irt-radius-sm);
 }
 
 .link:hover {
   text-decoration: none;
 }
 
+.link:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: 2px;
+}
+
 .description,
 .instruction {
   font-size: var(--irt-font-size-md);
+  line-height: var(--irt-line-height-normal);
   color: var(--irt-color-text-muted);
-  text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--irt-space-sm);
+  margin-top: var(--irt-space-sm);
 }
 
 @media (max-width: 520px) {
-  .errorCode {
-    font-size: 6rem;
-  }
-
-  .title svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  .titleText {
-    font-size: 1.7rem;
-  }
-
   .description,
-  .link,
   .instruction {
     font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 370px) {
-  .errorCode {
-    font-size: 6rem;
-  }
-
-  .title svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  .titleText {
-    font-size: 1.4rem;
-  }
-}
-
-@media (max-width: 300px) {
-  .errorCode {
-    font-size: 4rem;
-  }
-
-  .title svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .titleText {
-    font-size: 1rem;
-  }
-
-  .description,
-  .link,
-  .instruction {
-    font-size: 0.9rem;
   }
 }
 

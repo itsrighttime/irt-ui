@@ -107,6 +107,20 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
 With react-router use `useLocation().pathname`, `useNavigate()` and pass `<Outlet />` as children.
 
+## For AI coding agents
+
+[`docs/AI_USAGE_GUIDE.md`](docs/AI_USAGE_GUIDE.md) is a complete, agent-oriented reference (rules,
+every component's props and variations, theme tokens, icons, Next.js rules, recipes, do/don't).
+It ships inside the package and on the docs site, so a consuming project only needs a pointer:
+
+```md
+<!-- CLAUDE.md -->
+Use @itsrighttime/irt-ui for all UI. Follow @node_modules/@itsrighttime/irt-ui/docs/AI_USAGE_GUIDE.md
+```
+
+Its code snippets are type-checked against the packed package in CI (`examples/react/src/agentGuide.check.tsx`).
+When you change a public API, update the guide and that file together.
+
 ## Documentation
 
 - [Theme guide](docs/THEME_GUIDE.md) — tokens, overrides, dark mode, CSS variables, precedence
