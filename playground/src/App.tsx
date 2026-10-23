@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { IconButton, SearchBox } from "@itsrighttime/irt-ui/atoms";
 import { Workspace, type SidebarItem, type WorkspaceConfig } from "@itsrighttime/irt-ui/layout";
 import { useTheme } from "@itsrighttime/irt-ui/theme";
@@ -6,33 +6,65 @@ import { entries, findEntry, groups } from "./docs/registry";
 import { ComponentPage } from "./pages/ComponentPage";
 import { HomePage } from "./pages/HomePage";
 import { IconsPage } from "./pages/IconsPage";
+import { OverviewPage } from "./pages/OverviewPage";
 import { ThemePage } from "./pages/ThemePage";
+import { WorkspaceGuidePage } from "./pages/WorkspaceGuidePage";
 import { navigate, useHashPath } from "./router";
 import { usePlaygroundTheme } from "./state/themeStore";
 
 const REPO = "https://github.com/itsrighttime/irt-ui";
+const WIDE = "(min-width: 900px)";
+
+const GROUP_ICONS: Record<string, "plus" | "edit" | "checkCircle" | "calendar" | "bell" | "copy" | "columns" | "image" | "fileText" | "home"> = {
+  Actions: "plus",
+  Inputs: "edit",
+  Selection: "checkCircle",
+  "Date & time": "calendar",
+  Feedback: "bell",
+  Overlays: "copy",
+  Data: "columns",
+  Media: "image",
+  Content: "fileText",
+  Layout: "home",
+};
 
 const sidebar: SidebarItem[] = [
   {
     id: "guide",
     type: "group",
-    title: "Guide",
-    defaultOpen: true,
+    title: "Get started",
     collapsible: false,
     children: [
-      { id: "home", type: "label", route: "/", text: "Getting started", leftIcons: [{ icon: "home" }] },
+      { id: "home", type: "label", route: "/", text: "Introduction", leftIcons: [{ icon: "home" }] },
+      { id: "overview", type: "label", route: "/catalog", text: "All components", leftIcons: [{ icon: "columns" }], tokens: [{ text: String(entries.length) }] },
       { id: "theme", type: "label", route: "/theme", text: "Theme builder", leftIcons: [{ icon: "settings" }] },
-      { id: "icons", type: "label", route: "/icons", text: "Icons", leftIcons: [{ icon: "search" }] },
+      { id: "icons", type: "label", route: "/icons", text: "Icons", leftIcons: [{ icon: "star" }] },
     ],
   },
   ...groups.map<SidebarItem>((group) => ({
     id: `group-${group}`,
     type: "group",
     title: group,
+    icon: GROUP_ICONS[group],
     defaultOpen: true,
-    children: entries
-      .filter((e) => e.group === group)
-      .map<SidebarItem>((e) => ({ id: e.id, type: "label", route: `/components/${e.id}`, text: e.title })),
+    children: [
+      // Layout › Workspace config: dedicated configuration guide.
+      ...(group === "Layout"
+        ? [
+          {
+            id: "workspace-config",
+            type: "label" as const,
+            route: "/guides/workspace",
+            text: "Workspace config",
+            leftIcons: [{ icon: "fileText" as const }],
+            tokens: [{ text: "guide" }],
+          },
+        ]
+        : []),
+      ...entries
+        .filter((e) => e.group === group)
+        .map<SidebarItem>((e) => ({ id: e.id, type: "label", route: `/components/${e.id}`, text: e.title })),
+    ],
   })),
 ];
 
@@ -47,8 +79,8 @@ function ModeButton() {
       icon={dark ? "sun" : "moon"}
       label={dark ? "Switch to light mode" : "Switch to dark mode"}
       onClick={() => setMode(dark ? "light" : "dark")}
-      color="var(--irt-color-text)"
-      size={1.3}
+      color="var(--irt-color-text-muted)"
+      size={1.15}
     />
   );
 }
@@ -56,6 +88,8 @@ function ModeButton() {
 function Page({ path }: { path: string }) {
   if (path === "/theme") return <ThemePage />;
   if (path === "/icons") return <IconsPage />;
+  if (path === "/catalog") return <OverviewPage />;
+  if (path === "/guides/workspace") return <WorkspaceGuidePage />;
   const match = /^\/components\/([\w-]+)/.exec(path);
   if (match?.[1]) {
     const entry = findEntry(match[1]);
@@ -66,7 +100,25 @@ function Page({ path }: { path: string }) {
 
 export function App() {
   const path = useHashPath();
-  const [navOpen, setNavOpen] = useState(() => window.matchMedia?.("(min-width: 800px)").matches ?? true);
+  const [wide, setWide] = useState(() => window.matchMedia?.(WIDE).matches ?? true);
+  const [navOpen, setNavOpen] = useState(wide);
+
+  useEffect(() => {
+    const query = window.matchMedia?.(WIDE);
+    if (!query) return;
+    const onChange = (event: MediaQueryListEvent) => {
+      setWide(event.matches);
+      setNavOpen(event.matches);
+    };
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    const entry = /^\/components\/([\w-]+)/.exec(path)?.[1];
+    const title = entry ? findEntry(entry)?.title : path === "/theme" ? "Theme builder" : path === "/icons" ? "Icons" : path === "/catalog" ? "All components" : path === "/guides/workspace" ? "Workspace configuration" : undefined;
+    document.title = title ? `${title} · irt-ui` : "irt-ui — React component library";
+  }, [path]);
 
   const config = useMemo<WorkspaceConfig>(
     () => ({
@@ -76,7 +128,13 @@ export function App() {
             id: "nav-toggle",
             type: "custom",
             render: () => (
-              <IconButton icon={navOpen ? "close" : "menu"} label={navOpen ? "Hide navigation" : "Show navigation"} onClick={() => setNavOpen((o) => !o)} color="var(--irt-color-text)" size={1.3} />
+              <IconButton
+                icon={navOpen ? "close" : "menu"}
+                label={navOpen ? "Hide navigation" : "Show navigation"}
+                onClick={() => setNavOpen((o) => !o)}
+                color="var(--irt-color-text-muted)"
+                size={1.15}
+              />
             ),
           },
           {
@@ -84,7 +142,12 @@ export function App() {
             type: "custom",
             render: () => (
               <a href="#/" className="pg-brand">
-                <span className="pg-logo">irt</span>
+                <img
+                  src="./favicon.ico"
+                  alt=""
+                  className="pg-logo"
+                  aria-hidden="true"
+                />
                 <span>irt-ui</span>
                 <small>v{__LIB_VERSION__}</small>
               </a>
@@ -97,17 +160,32 @@ export function App() {
             type: "custom",
             render: () => (
               <div className="pg-search">
-                <SearchBox suggestions={suggestions} minChars={1} placeholder="Find a component…" ariaLabel="Find a component" width="260px" setResult={(id) => navigate(`/components/${id}`)} />
+                <SearchBox
+                  suggestions={suggestions}
+                  minChars={1}
+                  placeholder="Search components…"
+                  ariaLabel="Search components"
+                  width="300px"
+                  setResult={(id) => navigate(`/components/${id}`)}
+                />
               </div>
             ),
           },
         ],
         end: [
           { id: "mode", type: "custom", render: () => <ModeButton /> },
-          { id: "github", type: "icon", icon: "externalLink", label: "GitHub repository" },
+          {
+            id: "github",
+            type: "custom",
+            render: () => (
+              <a className="pg-header-link" href={REPO} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+            ),
+          },
         ],
       },
-      ...(navOpen ? { leftSidebar: sidebar } : {}),
+      leftSidebar: sidebar,
     }),
     [navOpen],
   );
@@ -118,12 +196,14 @@ export function App() {
       currentPath={path}
       height="100dvh"
       width="100%"
+      barSize="52px"
+      sidebarWidth="248px"
+      leftSidebarOpen={navOpen}
+      overlayBreakpoint={900}
+      onSidebarOpenChange={(_, open) => setNavOpen(open)}
       onNavigate={(route) => {
         navigate(route);
-        if (!window.matchMedia?.("(min-width: 800px)").matches) setNavOpen(false);
-      }}
-      onAction={(payload) => {
-        if (payload.id === "github") window.open(REPO, "_blank", "noopener");
+        if (!wide) setNavOpen(false);
       }}
     >
       <Page path={path} />

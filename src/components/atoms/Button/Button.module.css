@@ -4,7 +4,6 @@
   justify-content: center;
   gap: var(--irt-space-sm);
   outline: none;
-  border: none;
   font-family: inherit;
   line-height: var(--irt-line-height-tight);
   text-decoration: none;
@@ -13,7 +12,18 @@
   cursor: pointer;
   user-select: none;
 
-  transition: all var(--irt-duration-fast) var(--irt-easing-standard);
+  white-space: nowrap;
+  vertical-align: middle;
+  box-sizing: border-box;
+  position: relative;
+  border: var(--irt-border-width-thin) solid transparent;
+  transition:
+    background-color var(--irt-duration-fast) var(--irt-easing-standard),
+    border-color var(--irt-duration-fast) var(--irt-easing-standard),
+    color var(--irt-duration-fast) var(--irt-easing-standard),
+    box-shadow var(--irt-duration-fast) var(--irt-easing-standard),
+    filter var(--irt-duration-fast) var(--irt-easing-standard),
+    transform var(--irt-duration-fast) var(--irt-easing-standard);
   font-weight: var(--irt-font-weight-medium);
   font-size: var(--irt-font-size-base);
   --irt-c-final-color: var(--irt-c-button-color, var(--irt-color-primary));
@@ -36,10 +46,27 @@
   filter: brightness(0.92);
 }
 
+.button:not(.disabled):active {
+  transform: translateY(1px);
+}
+
+.primary:not(.disabled):active,
+.destructive:not(.disabled):active {
+  filter: brightness(0.85);
+}
+
 .secondary {
   background: transparent;
-  border: var(--irt-border-width-thin) solid var(--irt-c-final-color);
+  border-color: var(--irt-c-final-color);
   color: var(--irt-c-final-color);
+}
+
+.secondary:not(.disabled):hover {
+  background: color-mix(in srgb, var(--irt-c-final-color) 8%, transparent);
+}
+
+.secondary:not(.disabled):active {
+  background: color-mix(in srgb, var(--irt-c-final-color) 16%, transparent);
 }
 
 .tertiary {
@@ -52,6 +79,17 @@
   color: var(--irt-c-final-color);
   padding: 0;
   margin: 0;
+  border: none;
+  min-height: 0;
+}
+
+.button.tertiary:not(.disabled):hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.button.tertiary:not(.disabled):active {
+  transform: none;
 }
 
 .ghost {
@@ -59,25 +97,40 @@
   color: var(--irt-color-text);
 }
 
+.ghost:not(.disabled):hover {
+  background: var(--irt-color-hover);
+}
+
+.ghost:not(.disabled):active {
+  background: var(--irt-color-active);
+}
+
 .destructive {
   background: var(--irt-color-danger);
   color: var(--irt-color-on-danger);
 }
 
+.destructive:not(.disabled):hover {
+  filter: brightness(0.92);
+}
+
 /* Sizes */
 
 .small {
-  padding: 6px 10px;
+  padding: 4px 10px;
+  min-height: var(--irt-control-height-small, 32px);
   font-size: var(--irt-font-size-sm);
 }
 
 .medium {
-  padding: 8px 14px;
+  padding: 6px 14px;
+  min-height: var(--irt-control-height-medium, 40px);
   font-size: var(--irt-font-size-md);
 }
 
 .large {
-  padding: 12px 18px;
+  padding: 8px 20px;
+  min-height: var(--irt-control-height-large, 48px);
   font-size: var(--irt-font-size-lg);
 }
 
@@ -102,8 +155,20 @@
 /* Layout */
 
 .iconOnly {
-  padding: 8px;
+  padding: 0;
   aspect-ratio: 1;
+}
+
+.iconOnly.small {
+  width: var(--irt-c-width, var(--irt-control-height-small, 32px));
+}
+
+.iconOnly.medium {
+  width: var(--irt-c-width, var(--irt-control-height-medium, 40px));
+}
+
+.iconOnly.large {
+  width: var(--irt-c-width, var(--irt-control-height-large, 48px));
 }
 
 .block {
@@ -118,26 +183,32 @@
 .iconOnly.ghost {
   padding: 0;
   aspect-ratio: 1;
+  color: var(--irt-color-text-muted);
+}
+
+.iconOnly.ghost:not(.disabled):hover {
+  color: var(--irt-color-text);
 }
 
 .icon svg {
   color: var(--irt-c-final-color);
+  flex-shrink: 0;
 }
 
 .ghost .icon svg {
-  color: var(--irt-c-final-color);
+  color: currentColor;
 }
 
 .icon svg {
-  font-size: calc(1.4 * var(--irt-c-icon-size));
-  height: calc(1.4 * var(--irt-c-icon-size));
-  width: calc(1.4 * var(--irt-c-icon-size));
+  font-size: calc(1.15 * var(--irt-c-icon-size));
+  height: calc(1.15 * var(--irt-c-icon-size));
+  width: calc(1.15 * var(--irt-c-icon-size));
 }
 
-.iconOnly.ghost .icon svg {
-  font-size: calc(1.6 * var(--irt-c-icon-size));
-  height: calc(1.6 * var(--irt-c-icon-size));
-  width: calc(1.6 * var(--irt-c-icon-size));
+.iconOnly .icon svg {
+  font-size: calc(1.25 * var(--irt-c-icon-size));
+  height: calc(1.25 * var(--irt-c-icon-size));
+  width: calc(1.25 * var(--irt-c-icon-size));
 }
 
 .primary .icon svg,
@@ -154,6 +225,10 @@
 .disabled {
   opacity: var(--irt-opacity-disabled);
   cursor: not-allowed;
+}
+
+.loading {
+  cursor: progress;
 }
 
 /* Spinner */

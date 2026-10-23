@@ -95,6 +95,13 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
           isDisabled && styles.disabled,
         )}
         style={color ? cssVars({ "--irt-c-input-color": color }) : undefined}
+        onMouseDown={(event) => {
+          // Clicking the padding/icons focuses the input, like a native field.
+          if (event.target === event.currentTarget) {
+            event.preventDefault();
+            (event.currentTarget.querySelector("input") as HTMLInputElement | null)?.focus();
+          }
+        }}
       >
         {iconLeft != null && (
           <span className={styles.icon} aria-hidden="true">
@@ -128,6 +135,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
             onClick={() => setShowPassword((prev) => !prev)}
             iconOnly
             iconLeft={showPassword ? "eyeOff" : "eye"}
+            className={styles.toggle}
             ariaLabel={showPassword ? "Hide password" : "Show password"}
             aria-pressed={showPassword}
           />

@@ -20,10 +20,10 @@ function renderIcons(items?: TabIconItem[]) {
               event.stopPropagation();
               item.onClick?.();
             }}
-            color={item.color}
+            color={item.color ?? "var(--irt-color-text-muted)"}
             label={item.label}
             disabled={item.disabled}
-            size={1}
+            size={0.9}
           />
         ) : (
           <span
@@ -75,7 +75,7 @@ export function TabLabel({ leftIcons, rightIcons, tokens, text, onClick, backgro
             }
           : undefined
       }
-      style={cssVars({ "--irt-c-background": background ?? undefined, "--irt-c-border": border ?? "none" })}
+      style={cssVars({ "--irt-c-background": background || undefined, "--irt-c-border": border || undefined })}
     >
       {renderIcons(leftIcons)}
       <span className={styles.text} title={text}>

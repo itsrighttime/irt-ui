@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Icon } from "../../../icons/Icon";
 import { cssVars } from "../../../utils/cssVars";
 import { Button } from "../Button/Button";
 import { getCommonCssVariables } from "./getCommonCssVariables";
@@ -23,6 +24,10 @@ export interface JsonFieldProps {
   backendError?: string;
   value?: string;
   required?: boolean;
+  /** Indentation used when formatting. @default 2 */
+  indent?: number;
+  /** Label of the save button. @default "Validate & Save" */
+  saveLabel?: string;
 }
 
 /** JSON editor with "Validate & Save" (formats valid JSON, reports errors). */
@@ -39,6 +44,8 @@ export function JsonField({
   backendError = "",
   value = "",
   required = false,
+  indent = 2,
+  saveLabel = "Validate & Save",
 }: JsonFieldProps) {
   const [jsonInput, setJsonInput] = useState(value);
   const [error, setError] = useState("");
@@ -46,14 +53,15 @@ export function JsonField({
 
   const handleValidate = () => {
     try {
-      const pretty = JSON.stringify(JSON.parse(jsonInput) as unknown, null, 2);
+      const pretty = JSON.stringify(JSON.parse(jsonInput) as unknown, null, indent);
       setError("");
       setIsFieldValid(true);
       setJsonInput(pretty);
       setResult(pretty);
       if (hideOnSave) setEditing(false);
-    } catch {
-      setError("Invalid JSON format");
+    } catch (cause) {
+      const detail = cause instanceof Error ? cause.message.replace(/^JSON\.parse: /, "") : "";
+      setError(detail ? `Invalid JSON: ${detail}` : "Invalid JSON format");
       setIsFieldValid(false);
       setEditing(true);
     }
@@ -69,6 +77,11 @@ export function JsonField({
               label={label}
               value={jsonInput}
               setResult={setJsonInput}
+              onValueChange={(next) => {
+                setJsonInput(next);
+                if (error) setError("");
+              }}
+              className={styles.code}
               placeholder="Write JSON here..."
               showCharacterCount={showCharacterCount}
               showWordCount={showWordCount}
@@ -86,15 +99,21 @@ export function JsonField({
               <div />
             )}
             <div className={styles.btn}>
-              <Button color={color} variant="secondary" size="small" onClick={handleValidate} width="150px">
-                Validate & Save
+              <Button color={color} variant="secondary" size="small" iconLeft="check" onClick={handleValidate}>
+                {saveLabel}
               </Button>
             </div>
           </div>
         </>
       ) : (
         <div className={styles.onDataSave} role="status">
-          Data saved Successfully
+          <span className={styles.savedIcon} aria-hidden="true">
+            <Icon name="checkCircle" size="1.1em" />
+          </span>
+          <span>JSON saved</span>
+          <Button variant="tertiary" size="small" color={color} onClick={() => setEditing(true)}>
+            Edit
+          </Button>
         </div>
       )}
     </div>

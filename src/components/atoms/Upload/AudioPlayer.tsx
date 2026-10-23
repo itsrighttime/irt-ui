@@ -13,6 +13,9 @@ export interface AudioPlayerProps {
   onReupload?: (() => void) | null;
   /** @default "500px" */
   width?: string;
+  /** Optional title shown above the controls (e.g. the file name). */
+  title?: string;
+  className?: string;
 }
 
 /** "m:ss" for a number of seconds. */
@@ -24,13 +27,13 @@ export const formatTime = (time: number | null): string => {
 };
 
 /** Custom audio player: play/pause, seek (mouse + arrow keys), volume, replace/remove. */
-export function AudioPlayer({ audioSrc, onRemove = null, color, onReupload = null, width = "500px" }: AudioPlayerProps) {
+export function AudioPlayer({ audioSrc, onRemove = null, color, onReupload = null, width = "500px", title, className }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [hoverTime, setHoverTime] = useState<number | null>(null);
+  const [hover, setHover] = useState<{ time: number; percent: number } | null>(null);
   const isMuted = volume === 0;
   const accent = color ?? "var(--irt-color-primary)";
 
@@ -94,8 +97,9 @@ export function AudioPlayer({ audioSrc, onRemove = null, color, onReupload = nul
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className={style.audioPreview} style={cssVars({ "--irt-c-color": accent, "--irt-c-width": width })}>
+    <div className={className ? `${style.audioPreview} ${className}` : style.audioPreview} style={cssVars({ "--irt-c-color": accent, "--irt-c-width": width })}>
       <audio ref={audioRef} src={audioSrc} />
+      {title && <div className={style.title}>{title}</div>}
 
       <div className={style.customControls}>
         <div className={style.player}>
@@ -103,15 +107,14 @@ export function AudioPlayer({ audioSrc, onRemove = null, color, onReupload = nul
             icon={isPlaying ? "pause" : "play"}
             label={isPlaying ? "Pause" : "Play"}
             onClick={togglePlay}
-            color={isPlaying ? accent : "var(--irt-color-danger)"}
-            size={1.2}
-            style={{ border: "none" }}
+            color={accent}
+            variant="solid"
+            shape="circle"
+            size={1.1}
+            className={style.playButton}
           />
 
-          <div className={style.timeInfo}>
-            {formatTime(currentTime)}
-            {hoverTime !== null && <div className={style.hoverTime}>{formatTime(hoverTime)}</div>}
-          </div>
+          <div className={style.timeInfo}>{formatTime(currentTime)}</div>
 
           <div
             className={style.trackContainer}
@@ -123,10 +126,18 @@ export function AudioPlayer({ audioSrc, onRemove = null, color, onReupload = nul
             aria-valuenow={Math.round(currentTime)}
             aria-valuetext={`${formatTime(currentTime)} of ${formatTime(duration)}`}
             onClick={(event) => seekTo(timeAt(event))}
-            onMouseMove={(event) => setHoverTime(timeAt(event))}
-            onMouseLeave={() => setHoverTime(null)}
+            onMouseMove={(event) => {
+              const time = timeAt(event);
+              setHover({ time, percent: duration ? (time / duration) * 100 : 0 });
+            }}
+            onMouseLeave={() => setHover(null)}
             onKeyDown={onSeekKey}
           >
+            {hover !== null && duration > 0 && (
+              <div className={style.hoverTime} style={{ left: `${hover.percent}%` }} aria-hidden="true">
+                {formatTime(hover.time)}
+              </div>
+            )}
             <div className={style.track} style={{ width: `${progress}%` }} />
             <div className={style.progressCircle} style={{ left: `${progress}%` }} />
           </div>
@@ -140,7 +151,7 @@ export function AudioPlayer({ audioSrc, onRemove = null, color, onReupload = nul
               icon={isMuted ? "volumeOff" : "volume"}
               label={isMuted ? "Unmute" : "Mute"}
               onClick={() => setAudioVolume(isMuted ? 0.5 : 0)}
-              color={accent}
+              color="var(--irt-color-text-muted)"
             />
             <Slider
               setResult={(value) => setAudioVolume(value / 100)}
@@ -148,12 +159,14 @@ export function AudioPlayer({ audioSrc, onRemove = null, color, onReupload = nul
               showValueSide="left"
               color={color}
               showRange={false}
-              width="auto"
+              showButtons={false}
+              formatValue={(value) => `${value}%`}
+              width="140px"
             />
           </div>
 
           <div className={style.resetRemove}>
-            {onReupload && <IconButton icon="refresh" onClick={onReupload} color={accent} label="Re-Upload" />}
+            {onReupload && <IconButton icon="refresh" onClick={onReupload} color="var(--irt-color-text-muted)" label="Re-Upload" />}
             {onRemove && <IconButton icon="close" onClick={onRemove} color="var(--irt-color-danger)" label="Remove audio" />}
           </div>
         </div>

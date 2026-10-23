@@ -3,17 +3,26 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--irt-space-sm);
-  padding: 2px var(--irt-space-sm);
+  min-height: 30px;
+  padding: 2px 8px;
+  box-sizing: border-box;
   border-radius: var(--irt-radius-md);
   cursor: pointer;
   user-select: none;
-  background-color: var(--irt-c-background);
-  border: var(--irt-c-border);
+  background-color: var(--irt-c-background, transparent);
+  border: var(--irt-c-border, none);
   width: 100%;
+  transition: background-color var(--irt-duration-fast) var(--irt-easing-standard);
 }
 
-.wrapper:hover {
-  opacity: 0.7;
+.wrapper[role="button"]:hover {
+  background-color: var(--irt-c-background, var(--irt-color-hover));
+  filter: brightness(0.98);
+}
+
+.wrapper[role="button"]:focus-visible {
+  outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
+  outline-offset: -2px;
 }
 
 .text {
@@ -23,18 +32,14 @@
   text-overflow: ellipsis;
   text-align: left;
   font-size: var(--irt-font-size-sm);
-  color: var(--irt-color-text-muted);
+  color: var(--irt-c-text, var(--irt-color-text-muted));
   white-space: nowrap;
 }
 
 .iconGroup {
   display: inline-flex;
-  gap: var(--irt-space-xs);
+  gap: 2px;
   align-items: center;
-}
-
-.iconGroup svg {
-  background-color: var(--irt-c-background);
 }
 
 .icon {
@@ -49,10 +54,13 @@
 }
 
 .token {
-  font-size: var(--irt-font-size-xs);
-  padding: 1px 8px;
-  border-radius: var(--irt-radius-md);
-  background: var(--irt-color-gray2);
-  color: var(--irt-color-text-subtle);
+  font-size: 0.6875rem;
+  font-weight: var(--irt-font-weight-semibold);
+  line-height: 1.5;
+  padding: 0 7px;
+  border-radius: var(--irt-radius-full);
+  background: var(--irt-color-surface-muted);
+  color: var(--irt-color-text-muted);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }

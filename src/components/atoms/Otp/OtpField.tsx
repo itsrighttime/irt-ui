@@ -164,7 +164,7 @@ export function OtpField({
           ref={(el) => {
             inputRefs.current[index] = el;
           }}
-          className={cx(styles.otpInput, invalid && styles.colorError)}
+          className={cx(styles.otpInput, invalid && styles.colorError, char !== "" && styles.filled)}
           onChange={(event) => handleChange(index, event.target.value)}
           onKeyDown={(event) => handleKeyDown(event, index)}
           onFocus={(event) => event.target.select()}

@@ -32,6 +32,14 @@ export interface SliderProps {
   width?: string;
   required?: boolean;
   disabled?: boolean;
+  /** Show the − / + step buttons. @default true */
+  showButtons?: boolean;
+  /** Format the displayed value and range labels (e.g. `(v) => \`${v}%\``). */
+  formatValue?: (value: number) => string;
+  /** Helper text under the slider. */
+  helperText?: string;
+  className?: string;
+  id?: string;
 }
 
 const SIDE_CLASS: Record<SliderValueSide, string | undefined> = {
@@ -57,9 +65,16 @@ export function Slider({
   width = "300px",
   required = false,
   disabled = false,
+  showButtons = true,
+  formatValue,
+  helperText,
+  className,
+  id,
 }: SliderProps) {
   const [sliderValue, setSliderValue] = useSyncedState(value);
-  const inputId = useId();
+  const autoId = useId();
+  const inputId = id ?? autoId;
+  const format = (val: number) => (formatValue ? formatValue(val) : String(val));
 
   const round = (val: number) => Math.round(val * precision) / precision;
   const clamp = (val: number) => Math.min(max, Math.max(min, val));
@@ -79,25 +94,41 @@ export function Slider({
   const percentage = max === min ? 0 : ((sliderValue - min) / (max - min)) * 100;
 
   return (
-    <div className={styles.sliderContainer} style={cssVars({ "--irt-c-color": accent, "--irt-c-width": width })}>
+    <div
+      className={cx(styles.sliderContainer, disabled && styles.disabled, className)}
+      style={cssVars({ "--irt-c-color": accent, "--irt-c-width": width, "--irt-c-percent": `${percentage}%` })}
+    >
       {label && (
         <label htmlFor={inputId} className={styles.sliderLabel}>
           {label}
+          {required && (
+            <span className={styles.required} aria-hidden="true">
+              *
+            </span>
+          )}
         </label>
       )}
       <div className={cx(styles.inputOutputContainer, SIDE_CLASS[showValueSide])}>
         <div className={styles.inputContainer}>
-          <Button
-            iconLeft="minus"
-            onClick={() => commit(sliderValue - step)}
-            color={color}
-            style={{ border: "none", borderRadius: "50%" }}
-            iconOnly
-            ariaLabel="Decrease"
-            variant="ghost"
-            disabled={disabled || sliderValue <= min}
-          />
-          {showRange && <p aria-hidden="true">{min}</p>}
+          {showButtons && (
+            <Button
+              iconLeft="minus"
+              onClick={() => commit(sliderValue - step)}
+              color={color}
+              size="small"
+              radius="lg"
+              className={styles.stepButton}
+              iconOnly
+              ariaLabel="Decrease"
+              variant="ghost"
+              disabled={disabled || sliderValue <= min}
+            />
+          )}
+          {showRange && (
+            <p className={styles.rangeLabel} aria-hidden="true">
+              {format(min)}
+            </p>
+          )}
           <input
             id={inputId}
             type="range"
@@ -109,34 +140,46 @@ export function Slider({
             disabled={disabled}
             required={required}
             aria-label={label ? undefined : "Value"}
+            aria-valuetext={formatValue ? format(sliderValue) : undefined}
+            aria-describedby={helperText ? `${inputId}-help` : undefined}
             className={styles.slider}
-            style={{
-              background: `linear-gradient(to right, ${accent} ${percentage}%, var(--irt-color-border) ${percentage}%)`,
-            }}
           />
-          {showRange && <p aria-hidden="true">{max}</p>}
-          <Button
-            iconLeft="plus"
-            onClick={() => commit(sliderValue + step)}
-            color={color}
-            style={{ border: "none", borderRadius: "50%" }}
-            iconOnly
-            ariaLabel="Increase"
-            variant="ghost"
-            disabled={disabled || sliderValue >= max}
-          />
-          {required && (
-            <p className={styles.required} aria-hidden="true">
-              *
+          {showRange && (
+            <p className={styles.rangeLabel} aria-hidden="true">
+              {format(max)}
             </p>
+          )}
+          {showButtons && (
+            <Button
+              iconLeft="plus"
+              onClick={() => commit(sliderValue + step)}
+              color={color}
+              size="small"
+              radius="lg"
+              className={styles.stepButton}
+              iconOnly
+              ariaLabel="Increase"
+              variant="ghost"
+              disabled={disabled || sliderValue >= max}
+            />
+          )}
+          {required && !label && (
+            <span className={styles.required} aria-hidden="true">
+              *
+            </span>
           )}
         </div>
         {showValueSide !== "none" && (
-          <div className={styles.sliderValue} aria-live="polite">
-            {sliderValue}
-          </div>
+          <output htmlFor={inputId} className={styles.sliderValue} aria-live="polite">
+            {format(sliderValue)}
+          </output>
         )}
       </div>
+      {helperText && (
+        <span id={`${inputId}-help`} className={styles.helperText}>
+          {helperText}
+        </span>
+      )}
     </div>
   );
 }

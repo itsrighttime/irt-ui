@@ -107,6 +107,20 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
 With react-router use `useLocation().pathname`, `useNavigate()` and pass `<Outlet />` as children.
 
+## For AI coding agents
+
+[`docs/AI_USAGE_GUIDE.md`](docs/AI_USAGE_GUIDE.md) is a complete, agent-oriented reference (rules,
+every component's props and variations, theme tokens, icons, Next.js rules, recipes, do/don't).
+It ships inside the package and on the docs site, so a consuming project only needs a pointer:
+
+```md
+<!-- CLAUDE.md -->
+Use @itsrighttime/irt-ui for all UI. Follow @node_modules/@itsrighttime/irt-ui/docs/AI_USAGE_GUIDE.md
+```
+
+Its code snippets are type-checked against the packed package in CI (`examples/react/src/agentGuide.check.tsx`).
+When you change a public API, update the guide and that file together.
+
 ## Documentation
 
 - [Theme guide](docs/THEME_GUIDE.md) — tokens, overrides, dark mode, CSS variables, precedence
@@ -130,6 +144,8 @@ npm run validate    # all of the above (also runs before publish)
 ```
 
 ## Playground
+
+Every component page has grouped controls, a preview toolbar (background, viewport), generated prop tables (`npm run docs:props`, run automatically by `playground:build`), an events log and example galleries. See `CHANGELOG.md` for the latest component changes.
 
 `playground/` is a Vite + React app (built with the library itself) that documents every component,
 lets you tweak props with live controls, and includes a theme builder that exports `theme.ts` /

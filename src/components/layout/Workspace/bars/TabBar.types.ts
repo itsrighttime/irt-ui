@@ -15,6 +15,7 @@ export interface TextTab extends BaseTab {
   type: typeof TAB_TYPE.TEXT;
   text: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export interface IconTab extends BaseTab {
@@ -23,6 +24,7 @@ export interface IconTab extends BaseTab {
   icon: IconNameInput;
   label?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export interface DropdownTab extends BaseTab {
@@ -106,6 +108,8 @@ export interface SidebarGroup {
   /** @default true */
   collapsible?: boolean;
   defaultOpen?: boolean;
+  /** Optional icon before the group title. */
+  icon?: IconNameInput;
 }
 
 export type SidebarItem = SidebarTab | SidebarGroup;

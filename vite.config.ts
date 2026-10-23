@@ -119,4 +119,8 @@ export default defineConfig({
       },
     },
   },
+  test: {
+    pool: "forks",
+    maxWorkers: 1,
+  },
 });

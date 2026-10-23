@@ -1,4 +1,5 @@
-import type { MouseEvent, MouseEventHandler } from "react";
+import type { CSSProperties, ElementType, MouseEvent, MouseEventHandler, ReactNode } from "react";
+import { cx } from "../../../utils/cx";
 import { Icon } from "../../../icons/Icon";
 import { getErrorIcon, getErrorTitle } from "./error";
 import styles from "./ErrorPage.module.css";
@@ -22,6 +23,23 @@ export interface ErrorPageProps {
   onNavigate?: (href: string) => void;
   /** Link label. @default "Home Page" */
   navigateTo?: string;
+  /** Override the heading (defaults to a title derived from the status code). */
+  title?: ReactNode;
+  /** Override the explanatory sentence ("The page you are looking for was …"). */
+  description?: ReactNode;
+  /** Extra actions under the text (e.g. a "Try again" Button). */
+  actions?: ReactNode;
+  /** Accent colour of the code and icon. @default var(--irt-color-danger) */
+  color?: string;
+  /**
+   * Root element. Use `"section"`/`"div"` when the page already has a `<main>`.
+   * @default "main"
+   */
+  as?: "main" | "section" | "div";
+  /** Fill the viewport height. Set `false` to embed in a container. @default true */
+  fullHeight?: boolean;
+  className?: string;
+  style?: CSSProperties;
 }
 
 /** Full-page HTTP error view. Router-agnostic. */
@@ -33,7 +51,16 @@ export function ErrorPage({
   handleNavigate,
   onNavigate,
   navigateTo = "Home Page",
+  title,
+  description,
+  actions,
+  color,
+  as = "main",
+  fullHeight = true,
+  className,
+  style,
 }: ErrorPageProps) {
+  const Root: ElementType = as;
   const numericStatusCode = typeof statusCode === "string" ? Number.parseInt(statusCode, 10) : statusCode;
 
   let link;
@@ -65,19 +92,24 @@ export function ErrorPage({
   }
 
   return (
-    <main className={styles.container}>
+    <Root
+      className={cx(styles.container, fullHeight && styles.fullHeight, className)}
+      style={color ? { ...style, ["--irt-c-error-color" as string]: color } : style}
+    >
       <div className={styles.content}>
         <div className={styles.message}>
-          <h1 className={styles.title}>
-            <Icon name={getErrorIcon(numericStatusCode)} size={35} />
-          </h1>
+          <div className={styles.title} aria-hidden="true">
+            <span className={styles.iconBadge}>
+              <Icon name={getErrorIcon(numericStatusCode)} size={28} />
+            </span>
+          </div>
           <p className={styles.errorCode}>{statusCode}</p>
 
           {responseCode !== null && <p className={styles.description}>{responseCode}</p>}
 
-          <span className={styles.titleText}>{getErrorTitle(numericStatusCode)}</span>
+          <h1 className={styles.titleText}>{title ?? getErrorTitle(numericStatusCode)}</h1>
 
-          <p className={styles.description}>The page you are looking for was {errorMsg}.</p>
+          <p className={styles.description}>{description ?? <>The page you are looking for was {errorMsg}.</>}</p>
 
           {statusDetail && (
             <p className={styles.description}>
@@ -88,8 +120,10 @@ export function ErrorPage({
           <p className={styles.instruction}>
             You may return to {link} or try using the correct URL.
           </p>
+
+          {actions != null && <div className={styles.actions}>{actions}</div>}
         </div>
       </div>
-    </main>
+    </Root>
   );
 }

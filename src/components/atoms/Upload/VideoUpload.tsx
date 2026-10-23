@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { Icon } from "../../../icons/Icon";
 import { cssVars } from "../../../utils/cssVars";
 import { cx } from "../../../utils/cx";
 import { IconButton } from "../Button/IconButton";
 import { formatFileSize } from "./formatFileSize.helper";
 import { pickFiles } from "./pickFiles";
-import { useDropZone } from "./useDropZone";
 import { VideoPlayer } from "./VideoPlayer";
-import style from "./VideoUpload.module.css";
+import shared from "./Upload.module.css";
+import { UploadDropzone, UploadFieldHeader, uploadHint } from "./UploadDropzone";
 
 export interface VideoUploadProps {
   /** @default "Upload Video" */
@@ -30,6 +31,14 @@ export interface VideoUploadProps {
   backendError?: string;
   value?: File | Blob | string | null;
   required?: boolean;
+  /** Text inside the drop zone. @default "Drop a video here" */
+  dropzoneText?: ReactNode;
+  /** Hint under the drop zone text. @default derived from types / size */
+  hint?: ReactNode;
+  /** Helper text under the field. */
+  helperText?: ReactNode;
+  disabled?: boolean;
+  className?: string;
 }
 
 const DEFAULT_TYPES = ["video/mp4", "video/webm"];
@@ -48,23 +57,33 @@ export function VideoUpload({
   backendError,
   value = null,
   required = false,
+  dropzoneText = "Drop a video here",
+  hint,
+  helperText,
+  disabled = false,
+  className,
 }: VideoUploadProps) {
+  const messageId = useId();
   const [video, setVideo] = useState<File | Blob | string | null>(value);
   const [error, setError] = useState<string | null>(null);
   const validRef = useRef(setIsFieldValid);
-  validRef.current = setIsFieldValid;
+  useEffect(() => {
+    validRef.current = setIsFieldValid;
+  });
 
   const maxBytes = maxSizeMb * 1024 * 1024;
   const maxLabel = formatFileSize(maxBytes);
   const accept = allowedTypes.join(",");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- re-sync from the value prop
     setVideo(value);
     setError(null);
   }, [value]);
 
   useEffect(() => {
     if (backendError) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- mirror an external error prop
       setError(backendError);
       validRef.current?.(false);
     }
@@ -103,46 +122,43 @@ export function VideoUpload({
   };
 
   const reupload = () => void pickFiles({ accept }).then((files) => handleFile(files[0]));
-  const { isDragging, handlers } = useDropZone<HTMLDivElement>((files) => handleFile(files[0]));
+  const message = error ?? helperText;
 
   return (
     <div
-      className={style.videoUploadContainer}
+      className={cx(shared.field, className)}
       style={cssVars({ "--irt-c-color": color ?? "var(--irt-color-primary)", "--irt-c-width": width, "--irt-c-height": height })}
     >
-      {label && <p className={style.label}>{label}</p>}
-      {required && (
-        <p className={style.required} aria-hidden="true">
-          *
-        </p>
-      )}
+      <UploadFieldHeader label={label} required={required} />
 
       {!video && (
-        <div className={cx(style.videoUpload, isDragging && style.dragging)} {...handlers}>
-          <input
-            type="file"
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              handleFile(event.target.files?.[0]);
-              event.target.value = "";
-            }}
-            className={style.formControl}
-            accept={accept}
-            aria-label={label}
-            aria-required={required || undefined}
-          />
-          <span className={style.label}>{label}</span>
-          <span className={style.label}>{`(Max Size: ${maxLabel})`}</span>
-        </div>
+        <UploadDropzone
+          inputLabel={label}
+          title={dropzoneText}
+          hint={hint ?? uploadHint({ types: allowedTypes, maxSizeMb })}
+          icon="video"
+          accept={accept}
+          required={required}
+          invalid={Boolean(error)}
+          disabled={disabled}
+          describedBy={message ? messageId : undefined}
+          onFiles={(files) => handleFile(files[0])}
+        />
       )}
 
       {video && !preview && (
-        <div className={style.uploadDetails}>
-          <p>Video Uploaded: {video instanceof File ? video.name : "Uploaded Video"}</p>
-          <div className={style.videoSizeIcon}>
-            {video instanceof File && <p>{formatFileSize(video.size)}</p>}
-            <IconButton icon="refresh" onClick={reupload} color={color ?? "var(--irt-color-primary)"} label="Re-Upload" />
-            <IconButton icon="close" onClick={remove} color="var(--irt-color-danger)" label="Remove video" />
-          </div>
+        <div className={shared.fileRow}>
+          <span className={shared.fileIcon} aria-hidden="true">
+            <Icon name="video" size="1.05em" />
+          </span>
+          <span className={shared.fileMeta}>
+            <span className={shared.fileName}>{video instanceof File ? video.name : "Uploaded video"}</span>
+            <span className={shared.fileDetails}>{video instanceof File ? formatFileSize(video.size) : "Video"}</span>
+          </span>
+          <span className={shared.rowActions}>
+            <IconButton icon="refresh" onClick={reupload} color="var(--irt-color-text-muted)" label="Re-Upload" disabled={disabled} />
+            <IconButton icon="close" onClick={remove} color="var(--irt-color-danger)" label="Remove video" disabled={disabled} />
+          </span>
         </div>
       )}
 
@@ -150,9 +166,9 @@ export function VideoUpload({
         <VideoPlayer videoFile={video} onRemove={remove} onReupload={reupload} color={color} width="100%" height="auto" />
       )}
 
-      {error && (
-        <p className={style.error} role="alert">
-          {error}
+      {message && (
+        <p id={messageId} className={error ? shared.error : shared.message} role={error ? "alert" : undefined}>
+          {message}
         </p>
       )}
     </div>

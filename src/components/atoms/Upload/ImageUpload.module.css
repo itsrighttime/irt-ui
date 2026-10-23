@@ -1,86 +1,33 @@
-.imageUploadContainer {
-  width: var(--irt-c-width);
-  min-height: var(--irt-c-height);
-  overflow: auto;
-  /* border: var(--irt-border-width-thin) solid var(--irt-color-border); */
-  border-radius: var(--irt-radius-sm);
-}
-
-.imageUpload {
-  width: 100%;
-  height: var(--irt-c-height);
-  border: 2px dashed var(--irt-c-color);
-  border-radius: var(--irt-radius-lg);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  cursor: pointer;
-  text-align: center;
-  color: var(--irt-c-color);
-}
-
-.imageUpload.dragging {
-  border-color: var(--irt-color-primary);
-  background-color: var(--irt-color-gray1);
-  color: var(--irt-c-color);
-}
-
-.formControl {
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  cursor: pointer;
-}
-
-.label {
-  color: var(--irt-color-gray4);
-}
-
 .imagePreview {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: var(--irt-c-height);
+  position: relative;
+  width: 100%;
+  height: var(--irt-c-height, auto);
+  border-radius: var(--irt-radius-lg);
+  overflow: hidden;
+  border: var(--irt-border-width-thin) solid var(--irt-color-border);
+  background: var(--irt-color-surface-muted);
 }
 
 .image {
-  margin-bottom: 10px;
-  height: calc(100% - 35px);
-  width: auto;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: var(--irt-c-height, 360px);
 }
 
 .resetRemove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
   display: flex;
-  gap: 15px;
-  width: 100%;
-  justify-content: center;
+  gap: 6px;
 }
 
-.error {
-  color: var(--irt-color-danger);
-  text-align: center;
+/* Icon colour inverted: solid surface chip with text-coloured icon */
+.overlayButton {
+  box-shadow: var(--irt-shadow-md);
 }
 
-.required {
-  padding-top: 5px;
-  margin: 0 5px;
-  color: var(--irt-color-danger);
-  font-weight: var(--irt-font-weight-bold);
-  text-align: end;
-}
-
-.formControl:focus-visible + * {
-  text-decoration: underline;
-}
-
-/* <p> elements: no reliance on a host-app CSS reset */
-.error,
-.label,
-.required {
-  margin: 0;
+.overlayButton svg {
+  color: var(--irt-color-text) !important;
 }

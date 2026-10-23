@@ -18,6 +18,7 @@ const COLOR_FIELDS: Array<[keyof ThemeColors, string, string]> = [
   ["text", "Text", ""],
   ["textMuted", "Text muted", ""],
   ["border", "Border", ""],
+  ["borderStrong", "Border strong", "Hovered control borders, switch track"],
   ["success", "Success", ""],
   ["warning", "Warning", ""],
   ["danger", "Danger", "Errors and destructive actions"],

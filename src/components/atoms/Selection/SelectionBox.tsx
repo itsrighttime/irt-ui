@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, type CSSProperties } from "react";
+import { useId, type CSSProperties, type ReactNode } from "react";
 import { Icon } from "../../../icons/Icon";
 import { cssVars } from "../../../utils/cssVars";
 import { cx } from "../../../utils/cx";
@@ -22,7 +22,19 @@ export interface SelectionCustomStyles {
   label?: CSSProperties;
 }
 
-export interface SelectionBoxProps {
+/** Field-level props shared by `SelectionBox`, `CheckboxGroup` and `RadioGroup`. */
+export interface SelectionFieldProps {
+  /** Helper text under the group. */
+  helperText?: ReactNode;
+  /** Error message (also marks the group invalid). */
+  error?: ReactNode;
+  /** `default`: inline controls. `card`: each option is a bordered, clickable card. @default "default" */
+  variant?: "default" | "card";
+  className?: string;
+  id?: string;
+}
+
+export interface SelectionBoxProps extends SelectionFieldProps {
   options: SelectionOption[];
   /** Selected values. */
   value?: SelectionValue[];
@@ -61,8 +73,16 @@ export function SelectionBox({
   width = "300px",
   required = false,
   name,
+  helperText,
+  error,
+  variant = "default",
+  className,
+  id,
 }: SelectionBoxProps) {
-  const groupId = useId();
+  const autoId = useId();
+  const groupId = id ?? autoId;
+  const messageId = `${groupId}-msg`;
+  const message = error || helperText;
   const labelId = `${groupId}-label`;
   const fieldName = name ?? groupId;
 
@@ -80,15 +100,18 @@ export function SelectionBox({
 
   return (
     <div
-      className={cx(styles.selectionGroup, styles[layout])}
+      id={id}
+      className={cx(styles.selectionGroup, styles[layout], variant === "card" && styles.cards, Boolean(error) && styles.invalid, className)}
       style={cssVars({ "--irt-c-color": color ?? "var(--irt-color-primary)", "--irt-c-width": width }, customStyles.group)}
       role={multiple ? "group" : "radiogroup"}
       aria-labelledby={label ? labelId : undefined}
       aria-required={required || undefined}
+      aria-invalid={error ? true : undefined}
+      aria-describedby={message ? messageId : undefined}
     >
       {label && (
         <div id={labelId} className={styles.label}>
-          {label}{" "}
+          {label}
           {required && (
             <span className={styles.required} aria-hidden="true">
               *
@@ -123,24 +146,27 @@ export function SelectionBox({
                 aria-describedby={helpId}
                 onChange={() => toggle(option.value)}
               />
-              <span
-                className={styles.icon}
-                aria-hidden="true"
-                style={{ color: isDisabled ? "var(--irt-color-on-disabled)" : "var(--irt-c-color)" }}
-              >
+              <span className={styles.icon} aria-hidden="true">
                 <Icon name={iconName} size="1.25em" />
               </span>
-              {option.label}
+              <span className={styles.optionText}>
+                <span className={styles.optionLabel}>{option.label}</span>
+                {option.help && (
+                  <span id={helpId} className={styles.inlineHelp}>
+                    {option.help}
+                  </span>
+                )}
+              </span>
             </label>
-
-            {option.help && (
-              <div id={helpId} className={cx(styles.inlineHelp, isDisabled && styles.disabled, selected && styles.selected)}>
-                {option.help}
-              </div>
-            )}
           </div>
         );
       })}
+
+      {message && (
+        <div id={messageId} className={cx(styles.helperText, Boolean(error) && styles.errorText)} role={error ? "alert" : undefined}>
+          {message}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,10 +1,10 @@
 "use client";
 
-import { SelectionBox, type SelectionCustomStyles, type SelectionOption, type SelectionValue } from "./SelectionBox";
+import { SelectionBox, type SelectionCustomStyles, type SelectionFieldProps, type SelectionOption, type SelectionValue } from "./SelectionBox";
 
 export type RadioOption = (SelectionOption & { key?: string | number }) | string;
 
-export interface RadioGroupProps {
+export interface RadioGroupProps extends SelectionFieldProps {
   /** Options; plain strings are used as both label and value. */
   options: RadioOption[];
   /** Selected value. */

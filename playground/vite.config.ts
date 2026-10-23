@@ -1,12 +1,24 @@
-import { readFileSync } from "node:fs";
+import { copyFileSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const src = resolve(here, "../src");
 const pkg = JSON.parse(readFileSync(resolve(here, "../package.json"), "utf8")) as { name: string; version: string };
+
+/** Publishes the agent guide next to the site: <base>/AI_USAGE_GUIDE.md */
+function agentGuide(): Plugin {
+  const source = resolve(here, "../docs/AI_USAGE_GUIDE.md");
+  return {
+    name: "irt:agent-guide",
+    apply: "build",
+    closeBundle() {
+      copyFileSync(source, resolve(here, "../site-dist/AI_USAGE_GUIDE.md"));
+    },
+  };
+}
 
 /**
  * The playground consumes the library *source* through the same import paths
@@ -16,7 +28,7 @@ const pkg = JSON.parse(readFileSync(resolve(here, "../package.json"), "utf8")) a
 export default defineConfig({
   root: here,
   base: process.env.PLAYGROUND_BASE ?? "/irt-ui/",
-  plugins: [react()],
+  plugins: [react(), agentGuide()],
   define: {
     __LIB_NAME__: JSON.stringify(pkg.name),
     __LIB_VERSION__: JSON.stringify(pkg.version),

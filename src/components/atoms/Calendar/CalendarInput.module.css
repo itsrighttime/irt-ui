@@ -1,16 +1,19 @@
 .calendarInputWrapper {
   position: relative;
-  display: inline-block;
-  width: var(--irt-c-width);
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--irt-space-xs);
+  width: var(--irt-c-width, 300px);
+  max-width: 100%;
   min-width: 150px;
+  vertical-align: top;
+  font-size: var(--irt-font-size-md);
 }
 
 .label {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: var(--irt-space-xs);
   font-size: var(--irt-font-size-sm);
-  color: var(--irt-color-text-muted);
+  font-weight: var(--irt-font-weight-medium);
+  color: var(--irt-color-text);
 }
 
 .asterisk {
@@ -19,44 +22,109 @@
 }
 
 .inputBox {
-  height: var(--irt-c-height);
-  padding: var(--irt-space-sm) var(--irt-space-md);
+  height: var(--irt-c-height, 40px);
+  padding: 0 10px 0 12px;
   border: var(--irt-border-width-thin) solid var(--irt-color-border);
   border-radius: var(--irt-radius-md);
   box-sizing: border-box;
-  background-color: var(--irt-color-surface-muted);
+  background-color: var(--irt-color-surface);
+  color: var(--irt-color-text);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--irt-space-sm);
+  outline: none;
+  transition:
+    border-color var(--irt-duration-fast) var(--irt-easing-standard),
+    box-shadow var(--irt-duration-fast) var(--irt-easing-standard);
+}
+
+.inputBox:hover {
+  border-color: var(--irt-color-border-strong);
+}
+
+.inputBox.open,
+.inputBox:focus-visible {
+  border-color: var(--irt-c-color);
 }
 
 .inputBox:focus-visible {
-  outline: none;
   box-shadow: var(--irt-shadow-focus);
 }
 
-.inputBox[aria-disabled="true"] {
-  cursor: not-allowed;
-  opacity: var(--irt-opacity-disabled);
+.invalid .inputBox {
+  border-color: var(--irt-color-danger);
 }
 
-.inputBox span {
+.disabled .inputBox {
+  cursor: not-allowed;
+  opacity: var(--irt-opacity-disabled);
+  background: var(--irt-color-surface-muted);
+}
+
+.disabled .inputBox:hover {
+  border-color: var(--irt-color-border);
+}
+
+.value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: var(--irt-color-text);
 }
 
+.placeholder {
+  color: var(--irt-color-text-subtle);
+}
+
+.adornments {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.icon {
+  display: inline-flex;
+  color: var(--irt-color-text-muted);
+}
+
+.inputBox.open .icon {
+  color: var(--irt-c-color);
+}
+
+.clear {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--irt-radius-full);
+  color: var(--irt-color-text-subtle);
+  cursor: pointer;
+}
+
+.clear:hover {
+  color: var(--irt-color-text);
+  background: var(--irt-color-hover);
+}
+
 .underline .inputBox {
+  border-width: 0 0 2px 0;
   border-radius: 0;
+  background: transparent;
+  padding-left: 2px;
+}
+
+.helperText {
+  font-size: var(--irt-font-size-xs);
+  line-height: var(--irt-line-height-normal);
+  color: var(--irt-color-text-muted);
+}
+
+.errorText {
+  color: var(--irt-color-danger);
 }
 
 .dropdownCalendar {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: var(--irt-z-dropdown);
-  margin-top: var(--irt-space-xs);
-  background: var(--irt-color-background);
-  border: var(--irt-border-width-thin) solid var(--irt-color-border);
-  border-radius: var(--irt-radius-md);
-  box-shadow: var(--irt-shadow-lg);
+  border-radius: var(--irt-radius-lg);
 }

@@ -1,54 +1,74 @@
 .audioPreview {
-  width: var(--irt-c-width);
-  height: auto;
-  border: var(--irt-border-width-thin) solid var(--irt-c-color);
-  border-radius: var(--irt-radius-md);
+  width: var(--irt-c-width, 500px);
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: var(--irt-border-width-thin) solid var(--irt-color-border);
+  border-radius: var(--irt-radius-lg);
+  background: var(--irt-color-surface);
+  color: var(--irt-color-text);
+  font-size: var(--irt-font-size-sm);
+}
+
+.title {
+  font-weight: var(--irt-font-weight-medium);
+  margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .customControls {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
   flex-direction: column;
-  align-items: center;
+  gap: 6px;
+  width: 100%;
 }
 
 .player {
   width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 5px 10px;
+}
+
+.playButton {
+  flex-shrink: 0;
 }
 
 .timeInfo {
-  font-weight: var(--irt-font-weight-bold);
-  position: relative;
-}
-
-.hoverTime {
-  position: absolute;
-  top: 20px;
-  left: 0;
-  background-color: var(--irt-c-color);
-  color: var(--irt-color-border);
-  padding: 2px 5px;
-  border-radius: var(--irt-radius-sm);
-  font-size: calc(var(--irt-font-size-base) * 0.8);
+  flex-shrink: 0;
+  min-width: 3.2ch;
+  font-size: var(--irt-font-size-xs);
+  font-weight: var(--irt-font-weight-medium);
+  color: var(--irt-color-text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .trackContainer {
   position: relative;
-  width: 100%;
-  height: 3px;
-  background-color: var(--irt-color-gray3);
+  flex: 1;
+  height: 4px;
+  border-radius: var(--irt-radius-full);
+  background-color: var(--irt-color-border);
   cursor: pointer;
+  outline: none;
+}
+
+/* Bigger hit area without changing the visual track */
+.trackContainer::before {
+  content: "";
+  position: absolute;
+  inset: -8px 0;
+}
+
+.trackContainer:focus-visible {
+  box-shadow: var(--irt-shadow-focus);
 }
 
 .track {
   height: 100%;
+  border-radius: inherit;
   background-color: var(--irt-c-color);
   position: absolute;
   top: 0;
@@ -57,59 +77,49 @@
 
 .progressCircle {
   position: absolute;
-  top: -4px;
-  width: 10px;
-  height: 10px;
-  background-color: var(--irt-c-color);
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background-color: var(--irt-color-white);
+  border: 2px solid var(--irt-c-color);
+  box-sizing: border-box;
   border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.25);
+}
+
+.hoverTime {
+  position: absolute;
+  bottom: 12px;
   transform: translateX(-50%);
+  background-color: var(--irt-color-tooltip-background);
+  color: var(--irt-color-tooltip-text);
+  padding: 2px 6px;
+  border-radius: var(--irt-radius-sm);
+  font-size: var(--irt-font-size-xs);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: var(--irt-shadow-sm);
 }
 
 .controlers {
   width: 100%;
-  padding: 2px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--irt-space-sm);
 }
 
 .volumeControls {
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.volumeTrackContainer {
-  position: relative;
-  width: 150px;
-  height: 3px;
-  background-color: var(--irt-color-gray3);
-  cursor: pointer;
-  margin-bottom: 2px;
-}
-
-.volumeTrack {
-  height: 100%;
-  background-color: var(--irt-c-color);
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.volumeCircle {
-  position: absolute;
-  top: -4px;
-  width: 10px;
-  height: 10px;
-  background-color: var(--irt-c-color);
-  border-radius: 50%;
-  transform: translateX(-50%);
+  gap: 4px;
+  min-width: 0;
 }
 
 .resetRemove {
   display: flex;
-  gap: 15px;
-  justify-content: center;
+  gap: 2px;
 }
 
 .error {

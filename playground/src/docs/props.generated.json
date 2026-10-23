@@ -1,0 +1,6294 @@
+{
+  "AddressInput": [
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "columns",
+      "type": "1 | 2",
+      "required": false,
+      "description": "Lay out short fields (city/state, postal/country) side by side.",
+      "default": "1"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "errors",
+      "type": "Partial<Record<keyof AddressValue, string>>",
+      "required": false,
+      "description": "Per-field error messages."
+    },
+    {
+      "name": "isAddressLine",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isCity",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isCountry",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isHouse",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isLandmark",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isPostal",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isState",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isStreet",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "labels",
+      "type": "Partial<Record<keyof AddressValue, string>>",
+      "required": false,
+      "description": "Override field labels, e.g. `{ postal: \"ZIP code\" }`."
+    },
+    {
+      "name": "legend",
+      "type": "string",
+      "required": false,
+      "description": "Group legend (rendered as a `<fieldset>` legend)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "requiredFields",
+      "type": "(keyof AddressValue)[]",
+      "required": false,
+      "description": "Fields marked as required."
+    },
+    {
+      "name": "setResult",
+      "type": "((value: AddressValue) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "AddressValue",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "Alert": [
+    {
+      "name": "message",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content shown in the alert."
+    },
+    {
+      "name": "onDismiss",
+      "type": "() => void",
+      "required": true,
+      "description": "Called after the alert has faded out (auto or manual)."
+    },
+    {
+      "name": "type",
+      "type": "\"success\" | \"error\" | \"info\" | \"warning\"",
+      "required": true,
+      "description": "Visual type."
+    },
+    {
+      "name": "action",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Optional action (e.g. an \"Undo\" button) rendered under the message."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the dismiss (×) button.",
+      "default": "true"
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "required": false,
+      "description": "Auto-dismiss after this many ms (`0` disables). The timer pauses while hovered or focused.",
+      "default": "theme `components.alert.duration` (10 000)"
+    },
+    {
+      "name": "icon",
+      "type": "IconLike",
+      "required": false,
+      "description": "Leading icon. `true`/omitted → the type's default icon, `false` → none, or any registry name / node."
+    },
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Optional bold heading above the message."
+    }
+  ],
+  "AlertContainer": [
+    {
+      "name": "alertContainer",
+      "type": "AlertItem[]",
+      "required": true,
+      "description": "Alerts to display (newest last)."
+    },
+    {
+      "name": "removeAlert",
+      "type": "(id: string) => void",
+      "required": true,
+      "description": "Called with the alert `id` when it is dismissed."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "position",
+      "type": "\"top-right\" | \"top-left\" | \"top-center\" | \"bottom-right\" | \"bottom-left\" | \"bottom-center\"",
+      "required": false,
+      "description": "Where the stack is pinned.",
+      "default": "\"top-right\""
+    }
+  ],
+  "AudioPlayer": [
+    {
+      "name": "audioSrc",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onRemove",
+      "type": "(() => void) | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onReupload",
+      "type": "(() => void) | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Optional title shown above the controls (e.g. the file name)."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"500px\""
+    }
+  ],
+  "AudioUpload": [
+    {
+      "name": "setResult",
+      "type": "(file: File | null) => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "allowedTypes",
+      "type": "string[]",
+      "required": false,
+      "description": "",
+      "default": "[\"audio/mpeg\", \"audio/wav\"]"
+    },
+    {
+      "name": "backendError",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "dropzoneText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Text inside the drop zone.",
+      "default": "\"Drop an audio file here\""
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"100px\""
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Hint under the drop zone text.",
+      "default": "derived from types / size"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "maxSizeMb",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "10"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "setIsFieldValid",
+      "type": "((isValid: boolean) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "string | File | Blob | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "Badge": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Custom colour (any CSS colour / `var(--irt-…)`); overrides `tone`."
+    },
+    {
+      "name": "dot",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a status dot before the text."
+    },
+    {
+      "name": "icon",
+      "type": "IconLike",
+      "required": false,
+      "description": "Leading icon (registry name or node)."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\"",
+      "required": false,
+      "description": "",
+      "default": "\"medium\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "tone",
+      "type": "\"success\" | \"info\" | \"warning\" | \"neutral\" | \"primary\" | \"danger\"",
+      "required": false,
+      "description": "Colour role.",
+      "default": "\"neutral\""
+    },
+    {
+      "name": "variant",
+      "type": "\"soft\" | \"solid\" | \"outline\"",
+      "required": false,
+      "description": "`soft` (tinted), `solid` (filled) or `outline`.",
+      "default": "\"soft\""
+    }
+  ],
+  "BounceLoader": [
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Loader colour.",
+      "default": "var(--irt-color-primary)"
+    }
+  ],
+  "Button": [
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label when no visible label is present."
+    },
+    {
+      "name": "as",
+      "type": "ElementType",
+      "required": false,
+      "description": "Render as another element or component (e.g. `\"a\"` or a router `Link`)."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "iconLeft",
+      "type": "IconLike",
+      "required": false,
+      "description": "Icon before the label — a registry name (`\"plus\"`) or any node."
+    },
+    {
+      "name": "iconOnly",
+      "type": "boolean",
+      "required": false,
+      "description": "Hide the label and render a square icon button (requires `ariaLabel` or `tooltip`)."
+    },
+    {
+      "name": "iconRight",
+      "type": "IconLike",
+      "required": false,
+      "description": "Icon after the label."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Shows a busy indicator and disables interaction."
+    },
+    {
+      "name": "radius",
+      "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "description": "Corner radius.",
+      "default": "\"md\""
+    },
+    {
+      "name": "responsive",
+      "type": "boolean",
+      "required": false,
+      "description": "Enables responsive (container-width aware) styling."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Visual size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "tooltip",
+      "type": "string",
+      "required": false,
+      "description": "Tooltip content shown on hover/focus."
+    },
+    {
+      "name": "variant",
+      "type": "\"primary\" | \"secondary\" | \"tertiary\" | \"ghost\" | \"destructive\"",
+      "required": false,
+      "description": "Visual style.",
+      "default": "theme `components.button.variant` (\"primary\")"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "Calendar": [
+    {
+      "name": "setResult",
+      "type": "(value: string | number) => void",
+      "required": true,
+      "description": "Receives the selection: `\"dd-mm-yyyy\"` (date), `\"dd\"` (day), month number (month), `\"m-yyyy\"` (month-year) or year number (year)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "0 | 1",
+      "required": false,
+      "description": "First column of the week: `0` Sunday, `1` Monday.",
+      "default": "0"
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "highlightToday",
+      "type": "boolean",
+      "required": false,
+      "description": "Mark today's cell.",
+      "default": "true"
+    },
+    {
+      "name": "isSmall",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": "Locale for month names (fixed default avoids SSR/client mismatches).",
+      "default": "\"en-US\""
+    },
+    {
+      "name": "mode",
+      "type": "\"date\" | \"day\" | \"month\" | \"month-year\" | \"year\"",
+      "required": false,
+      "description": "",
+      "default": "\"date\""
+    },
+    {
+      "name": "monthBase",
+      "type": "0 | 1",
+      "required": false,
+      "description": "Month numbering of emitted values.",
+      "default": "0 (legacy)"
+    },
+    {
+      "name": "restrictionEndDate",
+      "type": "string | null",
+      "required": false,
+      "description": "Latest selectable date, `\"dd-mm-yyyy\"` (1-based month)."
+    },
+    {
+      "name": "restrictionStartDate",
+      "type": "string | null",
+      "required": false,
+      "description": "Earliest selectable date, `\"dd-mm-yyyy\"` (1-based month)."
+    },
+    {
+      "name": "value",
+      "type": "string | number | null",
+      "required": false,
+      "description": "Currently selected value, in the same format `setResult` emits for the `mode` (e.g. `\"05-10-2026\"` for dates). Highlights that cell and opens the calendar on it. Today is always marked with a ring."
+    },
+    {
+      "name": "weekdayLabels",
+      "type": "readonly string[]",
+      "required": false,
+      "description": "Weekday column headers, Sunday first.",
+      "default": "[\"S\",\"M\",\"T\",\"W\",\"T\",\"F\",\"S\"]"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "CalendarInput": [
+    {
+      "name": "mode",
+      "type": "\"date\" | \"day\" | \"month\" | \"month-year\" | \"year\"",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "setResult",
+      "type": "(value: string | number) => void",
+      "required": true,
+      "description": "Receives the selection (see `Calendar` for formats)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a clear (×) button when a value is set. Clearing emits `\"\"`.",
+      "default": "false"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "compact",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the compact calendar in the popup.",
+      "default": "false"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also marks the field invalid)."
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "0 | 1",
+      "required": false,
+      "description": "First column of the week: `0` Sunday, `1` Monday.",
+      "default": "0"
+    },
+    {
+      "name": "formatValue",
+      "type": "((value: string | number) => string)",
+      "required": false,
+      "description": "Format the displayed value (e.g. to show \"5 Oct 2026\")."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "monthBase",
+      "type": "0 | 1",
+      "required": false,
+      "description": "",
+      "default": "0 (legacy)"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionEndDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionStartDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "value",
+      "type": "string | number | null",
+      "required": false,
+      "description": "Displayed value; also highlighted in the calendar."
+    },
+    {
+      "name": "variant",
+      "type": "\"full\" | \"underline\"",
+      "required": false,
+      "description": "",
+      "default": "\"full\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "CheckboxGroup": [
+    {
+      "name": "setResult",
+      "type": "(value: SelectionValue[]) => void",
+      "required": true,
+      "description": "Receives the new selection array."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "customStyles",
+      "type": "SelectionCustomStyles",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also marks the group invalid)."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the group."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "layout",
+      "type": "\"horizontal\" | \"vertical\"",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "options",
+      "type": "CheckboxOption[]",
+      "required": false,
+      "description": "Options; plain strings are used as both label and value."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "SelectionValue[]",
+      "required": false,
+      "description": "Selected values."
+    },
+    {
+      "name": "variant",
+      "type": "\"default\" | \"card\"",
+      "required": false,
+      "description": "`default`: inline controls. `card`: each option is a bordered, clickable card.",
+      "default": "\"default\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "CubesLoader": [
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Loader colour.",
+      "default": "var(--irt-color-primary)"
+    }
+  ],
+  "CustomDropdown": [
+    {
+      "name": "onChange",
+      "type": "(option: string) => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "options",
+      "type": "string[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name (e.g. \"Hours\")."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "error",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "specialStyle",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "DataSnapshotViewer": [
+    {
+      "name": "data",
+      "type": "T | null",
+      "required": true,
+      "description": "Record to show; nothing renders when `null`."
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": "Locale for date values.",
+      "default": "\"en-IN\""
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Record Details\""
+    }
+  ],
+  "DataTableWithActions": [
+    {
+      "name": "columns",
+      "type": "TableColumn<T>[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "data",
+      "type": "T[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "dialogItems",
+      "type": "DialogItem[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "visibleColumns",
+      "type": "string[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "actionLabel",
+      "type": "string",
+      "required": false,
+      "description": "Row action label.",
+      "default": "\"Open Dialog\""
+    },
+    {
+      "name": "activeDialogKey",
+      "type": "string | null",
+      "required": false,
+      "description": "Controlled active dialog tab."
+    },
+    {
+      "name": "dialogShowLabels",
+      "type": "boolean",
+      "required": false,
+      "description": "Show text labels next to the dialog's tab icons.",
+      "default": "false"
+    },
+    {
+      "name": "dialogTitle",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Settings\""
+    },
+    {
+      "name": "isDialogOpen",
+      "type": "boolean",
+      "required": false,
+      "description": "Controlled open state (e.g. synced to `?dialog=open` by your router)."
+    },
+    {
+      "name": "onActiveDialogKeyChange",
+      "type": "((key: string) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onDialogOpenChange",
+      "type": "((open: boolean, row?: T | undefined) => void)",
+      "required": false,
+      "description": "Called with the next open state and, when opening, the row."
+    },
+    {
+      "name": "pageSize",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "10"
+    },
+    {
+      "name": "tableProps",
+      "type": "Omit<Partial<TableProps<T>>, \"columns\" | \"data\" | \"visibleColumns\" | \"pageSize\">",
+      "required": false,
+      "description": "Any other `Table` props (title, toolbar, density, striped, extra row actions, …)."
+    }
+  ],
+  "DatePicker": [
+    {
+      "name": "setResult",
+      "type": "(value: string | number) => void",
+      "required": true,
+      "description": "Receives the selection (see `Calendar` for formats)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a clear (×) button when a value is set. Clearing emits `\"\"`.",
+      "default": "false"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "compact",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the compact calendar in the popup.",
+      "default": "false"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also marks the field invalid)."
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "0 | 1",
+      "required": false,
+      "description": "First column of the week: `0` Sunday, `1` Monday.",
+      "default": "0"
+    },
+    {
+      "name": "formatValue",
+      "type": "((value: string | number) => string)",
+      "required": false,
+      "description": "Format the displayed value (e.g. to show \"5 Oct 2026\")."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "monthBase",
+      "type": "0 | 1",
+      "required": false,
+      "description": "",
+      "default": "0 (legacy)"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionEndDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionStartDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "value",
+      "type": "string | number | null",
+      "required": false,
+      "description": "Displayed value; also highlighted in the calendar."
+    },
+    {
+      "name": "variant",
+      "type": "\"full\" | \"underline\"",
+      "required": false,
+      "description": "",
+      "default": "\"full\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "DayPicker": [
+    {
+      "name": "setResult",
+      "type": "(value: string | number) => void",
+      "required": true,
+      "description": "Receives the selection (see `Calendar` for formats)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a clear (×) button when a value is set. Clearing emits `\"\"`.",
+      "default": "false"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "compact",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the compact calendar in the popup.",
+      "default": "false"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also marks the field invalid)."
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "0 | 1",
+      "required": false,
+      "description": "First column of the week: `0` Sunday, `1` Monday.",
+      "default": "0"
+    },
+    {
+      "name": "formatValue",
+      "type": "((value: string | number) => string)",
+      "required": false,
+      "description": "Format the displayed value (e.g. to show \"5 Oct 2026\")."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "monthBase",
+      "type": "0 | 1",
+      "required": false,
+      "description": "",
+      "default": "0 (legacy)"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionEndDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionStartDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "value",
+      "type": "string | number | null",
+      "required": false,
+      "description": "Displayed value; also highlighted in the calendar."
+    },
+    {
+      "name": "variant",
+      "type": "\"full\" | \"underline\"",
+      "required": false,
+      "description": "",
+      "default": "\"full\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "Dialog": [
+    {
+      "name": "isOpen",
+      "type": "boolean",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "items",
+      "type": "DialogItem[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "activeKey",
+      "type": "string | null",
+      "required": false,
+      "description": "Controlled active tab key."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "closeOnEscape",
+      "type": "boolean",
+      "required": false,
+      "description": "",
+      "default": "true"
+    },
+    {
+      "name": "closeOnOverlayClick",
+      "type": "boolean",
+      "required": false,
+      "description": "",
+      "default": "true"
+    },
+    {
+      "name": "defaultActiveKey",
+      "type": "string",
+      "required": false,
+      "description": "Initial tab when uncontrolled.",
+      "default": "first item"
+    },
+    {
+      "name": "footer",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Optional footer (e.g. Save / Cancel buttons)."
+    },
+    {
+      "name": "lockScroll",
+      "type": "boolean",
+      "required": false,
+      "description": "Prevent the page behind from scrolling while open.",
+      "default": "true"
+    },
+    {
+      "name": "onActiveKeyChange",
+      "type": "((key: string) => void)",
+      "required": false,
+      "description": "Called when the user selects a tab. Use it (with `activeKey`) to sync the tab to the URL with your router, e.g. `?tab=security`."
+    },
+    {
+      "name": "showLabels",
+      "type": "boolean",
+      "required": false,
+      "description": "Show text labels next to the tab icons (otherwise labels are tooltips).",
+      "default": "false"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "Panel width (any CSS length).",
+      "default": "\"min(720px, 92vw)\""
+    }
+  ],
+  "Dropdown": [
+    {
+      "name": "options",
+      "type": "(string | DropdownOption)[]",
+      "required": true,
+      "description": "Options: plain strings (value = label) or `DropdownOption` objects."
+    },
+    {
+      "name": "setResult",
+      "type": "(selected: string[]) => void",
+      "required": true,
+      "description": "Receives the full selection array (option values)."
+    },
+    {
+      "name": "addNew",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow adding new options."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name when there is no visible label/placeholder text."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width (overrides `width`)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour.",
+      "default": "var(--irt-color-primary)"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Text when no option matches.",
+      "default": "\"No options\""
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also sets the invalid state)."
+    },
+    {
+      "name": "floatingLabel",
+      "type": "boolean",
+      "required": false,
+      "description": "Float the label above the field once a value is selected. Set `false` when the field already has an external label.",
+      "default": "true"
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label shown once something is selected.",
+      "default": "placeholder"
+    },
+    {
+      "name": "maxMenuHeight",
+      "type": "number",
+      "required": false,
+      "description": "Maximum menu height in px.",
+      "default": "300"
+    },
+    {
+      "name": "multiple",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow multiple selections.",
+      "default": "false"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "required": false,
+      "description": "Called when the menu opens or closes."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Shown when empty; also the floating label when `label` is not set.",
+      "default": "\"Select...\""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "searchable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the search box in the menu.",
+      "default": "true"
+    },
+    {
+      "name": "searchPlaceholder",
+      "type": "string",
+      "required": false,
+      "description": "Placeholder of the search box.",
+      "default": "\"Search...\""
+    },
+    {
+      "name": "setAddedOptions",
+      "type": "((options: string[]) => void)",
+      "required": false,
+      "description": "Receives the full option list (values) after an option is added."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Control height preset.",
+      "default": "theme `components.input.size`"
+    },
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": false,
+      "description": "Selected values. Re-syncs when changed by the parent."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "DropdownSimple": [
+    {
+      "name": "items",
+      "type": "DropdownItem[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible menu name."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isOpen",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onClose",
+      "type": "(() => void)",
+      "required": false,
+      "description": "Called on Escape (and Tab) so the owner can close the menu."
+    },
+    {
+      "name": "onSelect",
+      "type": "((key: string | number) => void)",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "DynamicPopover": [
+    {
+      "name": "anchorRef",
+      "type": "RefObject<HTMLElement | null>",
+      "required": true,
+      "description": "Element the popover is positioned against."
+    },
+    {
+      "name": "children",
+      "type": "(args: { placement: PopoverPlacement; }) => ReactNode",
+      "required": true,
+      "description": "Render prop receiving the resolved placement."
+    },
+    {
+      "name": "isOpen",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the popover is shown."
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": "Called on outside click or Escape."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "closeOnEscape",
+      "type": "boolean",
+      "required": false,
+      "description": "Close on Escape.",
+      "default": "true"
+    },
+    {
+      "name": "closeOnOutsideClick",
+      "type": "boolean",
+      "required": false,
+      "description": "Close when clicking outside.",
+      "default": "true"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "description": "Gap between anchor and popover in px."
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "required": false,
+      "description": "ARIA role of the floating element (e.g. `\"dialog\"`, `\"listbox\"`, `\"tooltip\"`)."
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "EmailInput": [
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label when no visible label is present."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message (marks the field invalid)."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Hint shown under the field."
+    },
+    {
+      "name": "iconLeft",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "iconRight",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label (also used as placeholder while empty)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Shows a busy indicator and disables interaction."
+    },
+    {
+      "name": "radius",
+      "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "description": "Corner radius.",
+      "default": "\"md\""
+    },
+    {
+      "name": "responsive",
+      "type": "boolean",
+      "required": false,
+      "description": "Enables responsive (container-width aware) styling."
+    },
+    {
+      "name": "setResult",
+      "type": "((value: string) => void)",
+      "required": false,
+      "description": "Called with the new string value on every change."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Visual size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "tooltip",
+      "type": "string",
+      "required": false,
+      "description": "Tooltip content shown on hover/focus."
+    },
+    {
+      "name": "variant",
+      "type": "\"outline\" | \"ghost\" | \"underline\" | \"filled\"",
+      "required": false,
+      "description": "",
+      "default": "theme `components.input.variant` (\"outline\")"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "ErrorMsg": [
+    {
+      "name": "message",
+      "type": "string",
+      "required": true,
+      "description": "Error text."
+    },
+    {
+      "name": "bold",
+      "type": "boolean",
+      "required": false,
+      "description": "Semi-bold text.",
+      "default": "true"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "fontSize",
+      "type": "number",
+      "required": false,
+      "description": "Font size as a multiple of the base font size.",
+      "default": "0.8"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "padding",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"10px\""
+    },
+    {
+      "name": "textAlign",
+      "type": "\"left\" | \"center\" | \"right\" | \"justify\"",
+      "required": false,
+      "description": "",
+      "default": "\"left\""
+    }
+  ],
+  "ErrorPage": [
+    {
+      "name": "handleNavigate",
+      "type": "string | MouseEventHandler<HTMLButtonElement>",
+      "required": true,
+      "description": "Where the recovery link goes: a URL/path, or a click handler. With a URL, `onNavigate` (e.g. your router's `navigate`) is used when given; otherwise a normal link is rendered."
+    },
+    {
+      "name": "actions",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Extra actions under the text (e.g. a \"Try again\" Button)."
+    },
+    {
+      "name": "as",
+      "type": "\"main\" | \"div\" | \"section\"",
+      "required": false,
+      "description": "Root element. Use `\"section\"`/`\"div\"` when the page already has a `<main>`.",
+      "default": "\"main\""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour of the code and icon.",
+      "default": "var(--irt-color-danger)"
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Override the explanatory sentence (\"The page you are looking for was …\")."
+    },
+    {
+      "name": "errorMsg",
+      "type": "string",
+      "required": false,
+      "description": "Completes \"The page you are looking for was …\".",
+      "default": "\"not found\""
+    },
+    {
+      "name": "fullHeight",
+      "type": "boolean",
+      "required": false,
+      "description": "Fill the viewport height. Set `false` to embed in a container.",
+      "default": "true"
+    },
+    {
+      "name": "navigateTo",
+      "type": "string",
+      "required": false,
+      "description": "Link label.",
+      "default": "\"Home Page\""
+    },
+    {
+      "name": "onNavigate",
+      "type": "((href: string) => void)",
+      "required": false,
+      "description": "Client-side navigation for string `handleNavigate` values."
+    },
+    {
+      "name": "responseCode",
+      "type": "string | number | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "statusCode",
+      "type": "string | number",
+      "required": false,
+      "description": "HTTP status code.",
+      "default": "\"404\""
+    },
+    {
+      "name": "statusDetail",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Override the heading (defaults to a title derived from the status code)."
+    }
+  ],
+  "FileUpload": [
+    {
+      "name": "setResult",
+      "type": "(files: File[]) => void",
+      "required": true,
+      "description": "Receives the full file list after every change."
+    },
+    {
+      "name": "allowedTypes",
+      "type": "string[]",
+      "required": false,
+      "description": "Allowed MIME types (empty = any)."
+    },
+    {
+      "name": "allowPreview",
+      "type": "boolean",
+      "required": false,
+      "description": "Open files in a new tab on click.",
+      "default": "true"
+    },
+    {
+      "name": "backendError",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "dropzoneText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Text inside the drop zone.",
+      "default": "label"
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"200px\""
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Hint under the drop zone text.",
+      "default": "derived from types / size / count limits"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Upload File\""
+    },
+    {
+      "name": "maxFiles",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "Infinity"
+    },
+    {
+      "name": "maxSizeMb",
+      "type": "number",
+      "required": false,
+      "description": "Max size per file in MB.",
+      "default": "Infinity"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "setIsFieldValid",
+      "type": "((isValid: boolean) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "File[]",
+      "required": false,
+      "description": "Files to show. Re-syncs when changed by the parent."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "FoldingLoader": [
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Loader colour.",
+      "default": "var(--irt-color-primary)"
+    }
+  ],
+  "Icon": [
+    {
+      "name": "as",
+      "type": "IconComponent",
+      "required": false,
+      "description": "Render a specific component instead of a registry entry."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"currentColor\""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label. Without it the icon is decorative (`aria-hidden`)."
+    },
+    {
+      "name": "name",
+      "type": "\"info\" | \"activity\" | \"alertCircle\" | \"alertTriangle\" | \"arrowUpDown\" | \"bell\" | \"calendar\" | \"check\" | \"checkboxOff\" | \"checkboxOn\" | \"checkCircle\" | \"chevronDown\" | \"chevronLeft\" | \"chevronRight\" | \"chevronUp\" | \"clock\" | \"clockAlert\" | \"close\" | \"closeCircle\" | \"cloudUpload\" | \"columns\" | \"copy\" | \"download\" | \"edit\" | \"externalLink\" | \"eye\" | \"eyeOff\" | \"file\" | \"fileText\" | \"filter\" | \"folder\" | \"heart\" | \"home\" | \"image\" | \"imageOff\" | \"inbox\" | \"key\" | \"link\" | \"loader\" | \"lock\" | \"logout\" | \"mail\" | \"menu\" | \"minus\" | \"moon\" | \"moreHorizontal\" | \"music\" | \"pause\" | \"phone\" | \"play\" | \"plus\" | \"radioOff\" | \"radioOn\" | \"refresh\" | \"search\" | \"settings\" | \"share\" | \"star\" | \"sun\" | \"target\" | \"trash\" | \"upload\" | \"user\" | \"userCircle\" | \"users\" | \"video\" | \"videoOff\" | \"volume\" | \"volumeOff\" | \"wifiOff\" | \"ActivityIcon\" | \"BellIcon\" | \"DocumentIcon\" | \"LeadIcon\" | \"LinkIcon\" | \"MailIcon\" | \"arrowDownIcon\" | \"arrowLeftIcon\" | \"arrowRightIcon\" | \"arrowUpIcon\" | \"bellIcon\" | \"callIcon\" | \"circleThikIcon\" | \"cirlceFilledIcon\" | \"crossIcon\" | \"eyeCrossIcon\" | \"eyeIcon\" | \"homeIcon\" | \"imageNotIcon\" | \"keyIcon\" | \"linesIcon\" | \"lockIcon\" | \"logoutIcon\" | \"minusIcon\" | \"pauseIcon\" | \"playIcon\" | \"plusIcon\" | \"profileIcon\" | \"resetFieldIcon\" | \"searchIcon\" | \"speakerOffIcon\" | \"speakerOnIcon\" | \"squareFilledIcon\" | \"squareIcon\" | \"userIcon\" | \"videoNotIcon\" | \"warningIcon\" | \"warningTimeIcon\" | \"warningWifiIcon\"",
+      "required": false,
+      "description": "Semantic icon name (legacy `xxxIcon` names are accepted but deprecated)."
+    },
+    {
+      "name": "size",
+      "type": "string | number",
+      "required": false,
+      "description": "Pixel size or CSS length.",
+      "default": "20 (theme `components.icon.size`)"
+    },
+    {
+      "name": "strokeWidth",
+      "type": "string | number",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "IconButton": [
+    {
+      "name": "icon",
+      "type": "IconLike",
+      "required": true,
+      "description": "Icon: registry name (`\"close\"`), any React node, or an image URL (`http…`, `/…`, `data:`)."
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "required": false,
+      "description": "Highlight as active/selected (sets `aria-pressed`)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Icon colour.",
+      "default": "var(--irt-color-primary)"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "hoverBackground",
+      "type": "boolean",
+      "required": false,
+      "description": "Fill the background with the icon colour on hover."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isBorder",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a border in the icon colour."
+    },
+    {
+      "name": "label",
+      "type": "string | null",
+      "required": false,
+      "description": "Accessible name; also shown as a tooltip."
+    },
+    {
+      "name": "onClick",
+      "type": "((event: MouseEvent<HTMLButtonElement>) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "shape",
+      "type": "\"square\" | \"circle\" | \"rounded\"",
+      "required": false,
+      "description": "Corner shape.",
+      "default": "\"rounded\""
+    },
+    {
+      "name": "size",
+      "type": "string | number",
+      "required": false,
+      "description": "Size multiplier of the base font size.",
+      "default": "1"
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style for the `<button>`."
+    },
+    {
+      "name": "type",
+      "type": "\"button\" | \"submit\" | \"reset\"",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "variant",
+      "type": "\"soft\" | \"solid\" | \"outline\" | \"ghost\" | \"plain\"",
+      "required": false,
+      "description": "Visual treatment: - `ghost` (default): transparent, tinted background on hover - `soft`: tinted background at rest - `solid`: filled with `color`, icon in the background colour - `outline`: border in `color` (same as `isBorder`) - `plain`: no background or padding at all (legacy look)",
+      "default": "\"ghost\" (or \"outline\" when `isBorder`)"
+    }
+  ],
+  "IconError": [
+    {
+      "name": "icon",
+      "type": "IconLike",
+      "required": true,
+      "description": "Icon: registry name or node."
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"100%\""
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "required": false,
+      "description": "Icon size in rem.",
+      "default": "2"
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"100%\""
+    }
+  ],
+  "IconProvider": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Default `color`.",
+      "default": "\"currentColor\""
+    },
+    {
+      "name": "icons",
+      "type": "Partial<Record<\"info\" | \"activity\" | \"alertCircle\" | \"alertTriangle\" | \"arrowUpDown\" | \"bell\" | \"calendar\" | \"check\" | \"checkboxOff\" | \"checkboxOn\" | \"checkCircle\" | \"chevronDown\" | \"chevronLeft\" | \"chevronRight\" | \"chevronUp\" | \"clock\" | \"clockAlert\" | \"close\" | \"closeCircle\" | \"cloudUpload\" | \"columns\" | \"copy\" | \"download\" | \"edit\" | \"externalLink\" | \"eye\" | \"eyeOff\" | \"file\" | \"fileText\" | \"filter\" | \"folder\" | \"heart\" | \"home\" | \"image\" | \"imageOff\" | \"inbox\" | \"key\" | \"link\" | \"loader\" | \"lock\" | \"logout\" | \"mail\" | \"menu\" | \"minus\" | \"moon\" | \"moreHorizontal\" | \"music\" | \"pause\" | \"phone\" | \"play\" | \"plus\" | \"radioOff\" | \"radioOn\" | \"refresh\" | \"search\" | \"settings\" | \"share\" | \"star\" | \"sun\" | \"target\" | \"trash\" | \"upload\" | \"user\" | \"userCircle\" | \"users\" | \"video\" | \"videoOff\" | \"volume\" | \"volumeOff\" | \"wifiOff\", IconComponent>>",
+      "required": false,
+      "description": "Replace registry icons by semantic name, e.g. `{ close: MyCloseIcon }`."
+    },
+    {
+      "name": "size",
+      "type": "string | number",
+      "required": false,
+      "description": "Default `size` for icons that don't specify one."
+    },
+    {
+      "name": "strokeWidth",
+      "type": "string | number",
+      "required": false,
+      "description": "Default `strokeWidth`."
+    }
+  ],
+  "ImagePreview": [
+    {
+      "name": "image",
+      "type": "string | File | null",
+      "required": true,
+      "description": "Image URL or `File`."
+    },
+    {
+      "name": "alt",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Preview\""
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Message shown when there is no image.",
+      "default": "\"Image not available\""
+    },
+    {
+      "name": "fit",
+      "type": "\"cover\" | \"contain\"",
+      "required": false,
+      "description": "",
+      "default": "\"cover\""
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"200px\""
+    },
+    {
+      "name": "radius",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"8px\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"200px\""
+    }
+  ],
+  "ImageUpload": [
+    {
+      "name": "setResult",
+      "type": "(file: File | null) => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "allowedTypes",
+      "type": "string[]",
+      "required": false,
+      "description": "",
+      "default": "[\"image/jpeg\", \"image/png\", \"image/gif\"]"
+    },
+    {
+      "name": "backendError",
+      "type": "string",
+      "required": false,
+      "description": "Server-side error message."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "dropzoneText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Text inside the drop zone.",
+      "default": "\"Drop an image here\""
+    },
+    {
+      "name": "fit",
+      "type": "\"cover\" | \"contain\"",
+      "required": false,
+      "description": "Preview object-fit.",
+      "default": "\"cover\""
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"auto\""
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Hint under the drop zone text.",
+      "default": "derived from types / size"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Upload Image\""
+    },
+    {
+      "name": "maxSizeMb",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "5"
+    },
+    {
+      "name": "previewBorderRadius",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "var(--irt-radius-md)"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "requireSquare",
+      "type": "boolean",
+      "required": false,
+      "description": "Reject non-square images.",
+      "default": "true"
+    },
+    {
+      "name": "setIsFieldValid",
+      "type": "((isValid: boolean) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "string | File | Blob | null",
+      "required": false,
+      "description": "Existing image (URL or file)."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "JsonField": [
+    {
+      "name": "setIsFieldValid",
+      "type": "(isValid: boolean) => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "setResult",
+      "type": "(json: string) => void",
+      "required": true,
+      "description": "Called with pretty-printed JSON after successful validation."
+    },
+    {
+      "name": "backendError",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "hideOnSave",
+      "type": "boolean",
+      "required": false,
+      "description": "Replace the editor with a success message after saving."
+    },
+    {
+      "name": "indent",
+      "type": "number",
+      "required": false,
+      "description": "Indentation used when formatting.",
+      "default": "2"
+    },
+    {
+      "name": "isBorder",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "saveLabel",
+      "type": "string",
+      "required": false,
+      "description": "Label of the save button.",
+      "default": "\"Validate & Save\""
+    },
+    {
+      "name": "showCharacterCount",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "showWordCount",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "Loading": [
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "display",
+      "type": "\"center\" | \"top\"",
+      "required": false,
+      "description": "`\"top\"` overlays from the top-left of the positioned parent.",
+      "default": "\"top\""
+    },
+    {
+      "name": "position",
+      "type": "\"relative\" | \"absolute\"",
+      "required": false,
+      "description": "",
+      "default": "\"relative\""
+    },
+    {
+      "name": "showText",
+      "type": "boolean",
+      "required": false,
+      "description": "Show `text` with animated dots.",
+      "default": "false"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Loading\""
+    },
+    {
+      "name": "type",
+      "type": "\"CubesLoader\" | \"FoldingLoader\" | \"BounceLoader\" | \"PulseLoader\" | \"LoadingChat\"",
+      "required": false,
+      "description": "",
+      "default": "\"CubesLoader\""
+    },
+    {
+      "name": "windowHeight",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"100%\""
+    },
+    {
+      "name": "windowWidth",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"100%\""
+    }
+  ],
+  "LoadingBorder": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Animate the border.",
+      "default": "false"
+    }
+  ],
+  "LoadingChat": [
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "MarkdownRenderer": [
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "description": "Markdown source (GitHub-flavoured). Raw HTML is not rendered."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "components",
+      "type": "Components",
+      "required": false,
+      "description": "Override or add element renderers."
+    }
+  ],
+  "MobileInput": [
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label when no visible label is present."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message (marks the field invalid)."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Hint shown under the field."
+    },
+    {
+      "name": "iconLeft",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "iconRight",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label (also used as placeholder while empty)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Shows a busy indicator and disables interaction."
+    },
+    {
+      "name": "radius",
+      "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "description": "Corner radius.",
+      "default": "\"md\""
+    },
+    {
+      "name": "responsive",
+      "type": "boolean",
+      "required": false,
+      "description": "Enables responsive (container-width aware) styling."
+    },
+    {
+      "name": "setResult",
+      "type": "((value: string) => void)",
+      "required": false,
+      "description": "Called with the new string value on every change."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Visual size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "tooltip",
+      "type": "string",
+      "required": false,
+      "description": "Tooltip content shown on hover/focus."
+    },
+    {
+      "name": "variant",
+      "type": "\"outline\" | \"ghost\" | \"underline\" | \"filled\"",
+      "required": false,
+      "description": "",
+      "default": "theme `components.input.variant` (\"outline\")"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "Modal": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "isOpen",
+      "type": "boolean",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name of the dialog (when there is no `title`)."
+    },
+    {
+      "name": "ariaLabelledBy",
+      "type": "string",
+      "required": false,
+      "description": "id of an element inside `children` that labels the dialog."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Class for the overlay (backdrop)."
+    },
+    {
+      "name": "closeOnEscape",
+      "type": "boolean",
+      "required": false,
+      "description": "",
+      "default": "true"
+    },
+    {
+      "name": "closeOnOverlayClick",
+      "type": "boolean",
+      "required": false,
+      "description": "",
+      "default": "true"
+    },
+    {
+      "name": "contentClassName",
+      "type": "string",
+      "required": false,
+      "description": "Class for the dialog panel."
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Secondary line under the title."
+    },
+    {
+      "name": "footer",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Footer content, typically action buttons (right-aligned)."
+    },
+    {
+      "name": "lockScroll",
+      "type": "boolean",
+      "required": false,
+      "description": "Prevent the page behind from scrolling while open.",
+      "default": "true"
+    },
+    {
+      "name": "showCloseButton",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the close (×) button.",
+      "default": "true"
+    },
+    {
+      "name": "size",
+      "type": "\"auto\" | \"sm\" | \"md\" | \"lg\" | \"full\" | \"xl\"",
+      "required": false,
+      "description": "Width preset. `auto` sizes to the content (legacy behaviour).",
+      "default": "\"auto\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Style for the overlay (backdrop)."
+    },
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Heading rendered in the modal header; also labels the dialog."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "Explicit width (any CSS length); overrides `size`."
+    }
+  ],
+  "MonthPicker": [
+    {
+      "name": "setResult",
+      "type": "(value: string | number) => void",
+      "required": true,
+      "description": "Receives the selection (see `Calendar` for formats)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a clear (×) button when a value is set. Clearing emits `\"\"`.",
+      "default": "false"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "compact",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the compact calendar in the popup.",
+      "default": "false"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also marks the field invalid)."
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "0 | 1",
+      "required": false,
+      "description": "First column of the week: `0` Sunday, `1` Monday.",
+      "default": "0"
+    },
+    {
+      "name": "formatValue",
+      "type": "((value: string | number) => string)",
+      "required": false,
+      "description": "Format the displayed value (e.g. to show \"5 Oct 2026\")."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "monthBase",
+      "type": "0 | 1",
+      "required": false,
+      "description": "",
+      "default": "0 (legacy)"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionEndDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionStartDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "value",
+      "type": "string | number | null",
+      "required": false,
+      "description": "Displayed value; also highlighted in the calendar."
+    },
+    {
+      "name": "variant",
+      "type": "\"full\" | \"underline\"",
+      "required": false,
+      "description": "",
+      "default": "\"full\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "MonthYearPicker": [
+    {
+      "name": "setResult",
+      "type": "(value: string | number) => void",
+      "required": true,
+      "description": "Receives the selection (see `Calendar` for formats)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a clear (×) button when a value is set. Clearing emits `\"\"`.",
+      "default": "false"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "compact",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the compact calendar in the popup.",
+      "default": "false"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also marks the field invalid)."
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "0 | 1",
+      "required": false,
+      "description": "First column of the week: `0` Sunday, `1` Monday.",
+      "default": "0"
+    },
+    {
+      "name": "formatValue",
+      "type": "((value: string | number) => string)",
+      "required": false,
+      "description": "Format the displayed value (e.g. to show \"5 Oct 2026\")."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "monthBase",
+      "type": "0 | 1",
+      "required": false,
+      "description": "",
+      "default": "0 (legacy)"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionEndDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionStartDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "value",
+      "type": "string | number | null",
+      "required": false,
+      "description": "Displayed value; also highlighted in the calendar."
+    },
+    {
+      "name": "variant",
+      "type": "\"full\" | \"underline\"",
+      "required": false,
+      "description": "",
+      "default": "\"full\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "MultipleDropdown": [
+    {
+      "name": "options",
+      "type": "(string | DropdownOption)[]",
+      "required": true,
+      "description": "Options: plain strings (value = label) or `DropdownOption` objects."
+    },
+    {
+      "name": "setResult",
+      "type": "(selected: string[]) => void",
+      "required": true,
+      "description": "Receives the full selection array (option values)."
+    },
+    {
+      "name": "addNew",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow adding new options."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name when there is no visible label/placeholder text."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width (overrides `width`)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour.",
+      "default": "var(--irt-color-primary)"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Text when no option matches.",
+      "default": "\"No options\""
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also sets the invalid state)."
+    },
+    {
+      "name": "floatingLabel",
+      "type": "boolean",
+      "required": false,
+      "description": "Float the label above the field once a value is selected. Set `false` when the field already has an external label.",
+      "default": "true"
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label shown once something is selected.",
+      "default": "placeholder"
+    },
+    {
+      "name": "maxMenuHeight",
+      "type": "number",
+      "required": false,
+      "description": "Maximum menu height in px.",
+      "default": "300"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "required": false,
+      "description": "Called when the menu opens or closes."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Shown when empty; also the floating label when `label` is not set.",
+      "default": "\"Select...\""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "searchable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the search box in the menu.",
+      "default": "true"
+    },
+    {
+      "name": "searchPlaceholder",
+      "type": "string",
+      "required": false,
+      "description": "Placeholder of the search box.",
+      "default": "\"Search...\""
+    },
+    {
+      "name": "setAddedOptions",
+      "type": "((options: string[]) => void)",
+      "required": false,
+      "description": "Receives the full option list (values) after an option is added."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Control height preset.",
+      "default": "theme `components.input.size`"
+    },
+    {
+      "name": "value",
+      "type": "string[]",
+      "required": false,
+      "description": "Selected values. Re-syncs when changed by the parent."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "NumberInput": [
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label when no visible label is present."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message (marks the field invalid)."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Hint shown under the field."
+    },
+    {
+      "name": "iconLeft",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "iconRight",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label (also used as placeholder while empty)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Shows a busy indicator and disables interaction."
+    },
+    {
+      "name": "radius",
+      "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "description": "Corner radius.",
+      "default": "\"md\""
+    },
+    {
+      "name": "responsive",
+      "type": "boolean",
+      "required": false,
+      "description": "Enables responsive (container-width aware) styling."
+    },
+    {
+      "name": "setResult",
+      "type": "((value: string) => void)",
+      "required": false,
+      "description": "Called with the new string value on every change."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Visual size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "tooltip",
+      "type": "string",
+      "required": false,
+      "description": "Tooltip content shown on hover/focus."
+    },
+    {
+      "name": "variant",
+      "type": "\"outline\" | \"ghost\" | \"underline\" | \"filled\"",
+      "required": false,
+      "description": "",
+      "default": "theme `components.input.variant` (\"outline\")"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "OtpField": [
+    {
+      "name": "setResult",
+      "type": "(otp: string | null) => void",
+      "required": true,
+      "description": "Called with the code once it is complete and (if `verify` is given) verified; called with `null` when verification fails."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible group label.",
+      "default": "\"One-time code\""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "invalidMessage",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Invalid Code, Try Again!\""
+    },
+    {
+      "name": "isNumeric",
+      "type": "boolean",
+      "required": false,
+      "description": "Digits only.",
+      "default": "true"
+    },
+    {
+      "name": "length",
+      "type": "number",
+      "required": false,
+      "description": "Number of digits.",
+      "default": "6"
+    },
+    {
+      "name": "onComplete",
+      "type": "((otp: string) => void)",
+      "required": false,
+      "description": "Called whenever all digits are filled, before verification."
+    },
+    {
+      "name": "resetDelay",
+      "type": "number",
+      "required": false,
+      "description": "Delay before clearing a rejected code, in ms.",
+      "default": "3000"
+    },
+    {
+      "name": "setError",
+      "type": "((err: string) => void)",
+      "required": false,
+      "description": "Receives error messages (\"\" clears)."
+    },
+    {
+      "name": "verify",
+      "type": "((otp: string) => OtpVerifyResult | Promise<OtpVerifyResult>)",
+      "required": false,
+      "description": "Optional verifier (e.g. your API call). Return `true`/`{ success: true }` to accept. Replaces the former `verificationEndpoint`/`userId` props, so the field no longer performs network requests itself."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "Pagination": [
+    {
+      "name": "currentPage",
+      "type": "number",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "onPageChange",
+      "type": "(page: number) => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "totalPages",
+      "type": "number",
+      "required": true,
+      "description": ""
+    }
+  ],
+  "PasswordInput": [
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label when no visible label is present."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message (marks the field invalid)."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Hint shown under the field."
+    },
+    {
+      "name": "iconLeft",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "iconRight",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label (also used as placeholder while empty)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Shows a busy indicator and disables interaction."
+    },
+    {
+      "name": "radius",
+      "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "description": "Corner radius.",
+      "default": "\"md\""
+    },
+    {
+      "name": "responsive",
+      "type": "boolean",
+      "required": false,
+      "description": "Enables responsive (container-width aware) styling."
+    },
+    {
+      "name": "setResult",
+      "type": "((value: string) => void)",
+      "required": false,
+      "description": "Called with the new string value on every change."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Visual size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "tooltip",
+      "type": "string",
+      "required": false,
+      "description": "Tooltip content shown on hover/focus."
+    },
+    {
+      "name": "variant",
+      "type": "\"outline\" | \"ghost\" | \"underline\" | \"filled\"",
+      "required": false,
+      "description": "",
+      "default": "theme `components.input.variant` (\"outline\")"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "PlainButton": [
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name when the visible text is not descriptive."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Text colour.",
+      "default": "var(--irt-color-primary) (was `accent` before 0.2 — low contrast on light backgrounds)"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "fontSize",
+      "type": "number",
+      "required": false,
+      "description": "Font size in rem.",
+      "default": "1"
+    },
+    {
+      "name": "fontWeight",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "400"
+    },
+    {
+      "name": "iconLeft",
+      "type": "IconLike",
+      "required": false,
+      "description": "Icon before the label (registry name or node)."
+    },
+    {
+      "name": "iconRight",
+      "type": "IconLike",
+      "required": false,
+      "description": "Icon after the label (registry name or node)."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isUnderline",
+      "type": "boolean",
+      "required": false,
+      "description": "Underlined at rest (and not on hover) instead of the reverse."
+    },
+    {
+      "name": "onClick",
+      "type": "((event: MouseEvent<HTMLButtonElement>) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "required": false,
+      "description": "Label (kept for backwards compatibility; `children` takes precedence)."
+    },
+    {
+      "name": "type",
+      "type": "\"button\" | \"submit\" | \"reset\"",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "Popover": [
+    {
+      "name": "anchorRef",
+      "type": "RefObject<HTMLElement | null>",
+      "required": true,
+      "description": "Element the popover is positioned against."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "isOpen",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the popover is shown."
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": true,
+      "description": "Called on outside click or Escape."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "closeOnEscape",
+      "type": "boolean",
+      "required": false,
+      "description": "Close on Escape.",
+      "default": "true"
+    },
+    {
+      "name": "closeOnOutsideClick",
+      "type": "boolean",
+      "required": false,
+      "description": "Close when clicking outside.",
+      "default": "true"
+    },
+    {
+      "name": "flip",
+      "type": "boolean",
+      "required": false,
+      "description": "Flip above the anchor when there's no room below.",
+      "default": "false"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "description": "Gap between anchor and popover in px."
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "required": false,
+      "description": "ARIA role of the floating element (e.g. `\"dialog\"`, `\"listbox\"`, `\"tooltip\"`)."
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "PulseLoader": [
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Loader colour.",
+      "default": "var(--irt-color-primary)"
+    }
+  ],
+  "RadioGroup": [
+    {
+      "name": "options",
+      "type": "RadioOption[]",
+      "required": true,
+      "description": "Options; plain strings are used as both label and value."
+    },
+    {
+      "name": "setResult",
+      "type": "(value: SelectionValue | null) => void",
+      "required": true,
+      "description": "Receives the chosen value."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "customStyles",
+      "type": "SelectionCustomStyles",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also marks the group invalid)."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the group."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "layout",
+      "type": "\"horizontal\" | \"vertical\"",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "SelectionValue",
+      "required": false,
+      "description": "Selected value."
+    },
+    {
+      "name": "variant",
+      "type": "\"default\" | \"card\"",
+      "required": false,
+      "description": "`default`: inline controls. `card`: each option is a bordered, clickable card.",
+      "default": "\"default\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "SearchBox": [
+    {
+      "name": "setResult",
+      "type": "(value: string | number) => void",
+      "required": true,
+      "description": "Called with the chosen suggestion's `code`."
+    },
+    {
+      "name": "suggestions",
+      "type": "Suggestion[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name.",
+      "default": "placeholder"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a clear (×) button while there is text.",
+      "default": "true"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "defaultQuery",
+      "type": "string",
+      "required": false,
+      "description": "Initial query text."
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Text shown when nothing matches.",
+      "default": "\"No suggestions\""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "minChars",
+      "type": "number",
+      "required": false,
+      "description": "Characters required before suggestions show.",
+      "default": "3"
+    },
+    {
+      "name": "onQueryChange",
+      "type": "((query: string) => void)",
+      "required": false,
+      "description": "Called with the raw query on every keystroke (e.g. to fetch remote suggestions)."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Search...\""
+    },
+    {
+      "name": "renderSuggestion",
+      "type": "((suggestion: Suggestion, query: string) => ReactNode)",
+      "required": false,
+      "description": "Custom suggestion renderer (defaults to the name with the match highlighted)."
+    },
+    {
+      "name": "variant",
+      "type": "\"outline\" | \"underline\"",
+      "required": false,
+      "description": "`outline` (bordered field) or `underline` (legacy look).",
+      "default": "\"outline\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "SelectionBox": [
+    {
+      "name": "options",
+      "type": "SelectionOption[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "setResult",
+      "type": "(value: SelectionValue[] | SelectionValue | null) => void",
+      "required": true,
+      "description": "Multiple: receives the new array. Single: receives the chosen value."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "customStyles",
+      "type": "SelectionCustomStyles",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also marks the group invalid)."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the group."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "layout",
+      "type": "\"horizontal\" | \"vertical\"",
+      "required": false,
+      "description": "",
+      "default": "\"vertical\""
+    },
+    {
+      "name": "multiple",
+      "type": "boolean",
+      "required": false,
+      "description": "Checkbox (`true`) or radio (`false`) behaviour.",
+      "default": "true"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Form field name (radio groups get a generated one by default)."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "SelectionValue[]",
+      "required": false,
+      "description": "Selected values."
+    },
+    {
+      "name": "variant",
+      "type": "\"default\" | \"card\"",
+      "required": false,
+      "description": "`default`: inline controls. `card`: each option is a bordered, clickable card.",
+      "default": "\"default\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "Sidebar": [
+    {
+      "name": "config",
+      "type": "SidebarItem[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "position",
+      "type": "string",
+      "required": true,
+      "description": "Slot it is rendered in (decides the border side)."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name of the navigation.",
+      "default": "\"Sidebar\""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isRouteActive",
+      "type": "((route?: string) => boolean)",
+      "required": false,
+      "description": "Override route matching (defaults to the surrounding `Workspace`)."
+    },
+    {
+      "name": "onAction",
+      "type": "OnTabAction",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "SingleDropdown": [
+    {
+      "name": "options",
+      "type": "(string | DropdownOption)[]",
+      "required": true,
+      "description": "Options: plain strings (value = label) or `DropdownOption` objects."
+    },
+    {
+      "name": "setResult",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "addNew",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow adding new options."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name when there is no visible label/placeholder text."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width (overrides `width`)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour.",
+      "default": "var(--irt-color-primary)"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Text when no option matches.",
+      "default": "\"No options\""
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also sets the invalid state)."
+    },
+    {
+      "name": "floatingLabel",
+      "type": "boolean",
+      "required": false,
+      "description": "Float the label above the field once a value is selected. Set `false` when the field already has an external label.",
+      "default": "true"
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label shown once something is selected.",
+      "default": "placeholder"
+    },
+    {
+      "name": "maxMenuHeight",
+      "type": "number",
+      "required": false,
+      "description": "Maximum menu height in px.",
+      "default": "300"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "((open: boolean) => void)",
+      "required": false,
+      "description": "Called when the menu opens or closes."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "Shown when empty; also the floating label when `label` is not set.",
+      "default": "\"Select...\""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "searchable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the search box in the menu.",
+      "default": "true"
+    },
+    {
+      "name": "searchPlaceholder",
+      "type": "string",
+      "required": false,
+      "description": "Placeholder of the search box.",
+      "default": "\"Search...\""
+    },
+    {
+      "name": "setAddedOptions",
+      "type": "((options: string[]) => void)",
+      "required": false,
+      "description": "Receives the full option list (values) after an option is added."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Control height preset.",
+      "default": "theme `components.input.size`"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "Slider": [
+    {
+      "name": "setResult",
+      "type": "(val: number) => void",
+      "required": true,
+      "description": "Called with every new value (drag and ± buttons)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "formatValue",
+      "type": "((value: number) => string)",
+      "required": false,
+      "description": "Format the displayed value and range labels (e.g. `(v) => \\`${v}%\\``)."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Helper text under the slider."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "100"
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "0"
+    },
+    {
+      "name": "precision",
+      "type": "number",
+      "required": false,
+      "description": "Rounding factor: values are rounded to `1 / precision`.",
+      "default": "10"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "showButtons",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the − / + step buttons.",
+      "default": "true"
+    },
+    {
+      "name": "showRange",
+      "type": "boolean",
+      "required": false,
+      "description": "Show min/max labels.",
+      "default": "true"
+    },
+    {
+      "name": "showValueSide",
+      "type": "\"none\" | \"left\" | \"right\" | \"top\" | \"bottom\"",
+      "required": false,
+      "description": "Where to show the current value.",
+      "default": "\"none\""
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "1"
+    },
+    {
+      "name": "value",
+      "type": "number",
+      "required": false,
+      "description": "Current value. Re-syncs when changed by the parent.",
+      "default": "0"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "Stepper": [
+    {
+      "name": "setResult",
+      "type": "(val: number) => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "align",
+      "type": "\"start\" | \"center\"",
+      "required": false,
+      "description": "Horizontal alignment of the label and control inside `width`.",
+      "default": "\"center\""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "var(--irt-color-primary)"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "formatValue",
+      "type": "((value: number) => string)",
+      "required": false,
+      "description": "Format the displayed value (e.g. `(v) => \\`${v} kg\\``)."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Helper text under the control."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "100"
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "0"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Control size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "5"
+    },
+    {
+      "name": "value",
+      "type": "number",
+      "required": false,
+      "description": "Current value. Re-syncs when changed by the parent.",
+      "default": "0"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "Switch": [
+    {
+      "name": "setResult",
+      "type": "(value: boolean) => void",
+      "required": true,
+      "description": "Called with the new state on toggle."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name when there is no visible `label`."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Track colour when on.",
+      "default": "var(--irt-color-primary)"
+    },
+    {
+      "name": "customStyles",
+      "type": "SwitchCustomStyles",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Secondary text under the label."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "labelPosition",
+      "type": "\"end\" | \"start\"",
+      "required": false,
+      "description": "Label before (`start`) or after (`end`) the switch.",
+      "default": "\"start\""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Track size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "spread",
+      "type": "boolean",
+      "required": false,
+      "description": "Push the label and switch to opposite ends of `width` (settings-row layout).",
+      "default": "false"
+    },
+    {
+      "name": "value",
+      "type": "boolean",
+      "required": false,
+      "description": "Checked state. Re-syncs when changed by the parent.",
+      "default": "false"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "TabBar": [
+    {
+      "name": "config",
+      "type": "TabBarConfig",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isRouteActive",
+      "type": "((route?: string) => boolean)",
+      "required": false,
+      "description": "Override route matching (defaults to the surrounding `Workspace`)."
+    },
+    {
+      "name": "onAction",
+      "type": "OnTabAction",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "TabDropdown": [
+    {
+      "name": "items",
+      "type": "DropdownItem[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "trigger",
+      "type": "ReactNode",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible menu name."
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onSelect",
+      "type": "((key: string | number) => void)",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "TabIcon": [
+    {
+      "name": "icon",
+      "type": "\"info\" | \"activity\" | \"alertCircle\" | \"alertTriangle\" | \"arrowUpDown\" | \"bell\" | \"calendar\" | \"check\" | \"checkboxOff\" | \"checkboxOn\" | \"checkCircle\" | \"chevronDown\" | \"chevronLeft\" | \"chevronRight\" | \"chevronUp\" | \"clock\" | \"clockAlert\" | \"close\" | \"closeCircle\" | \"cloudUpload\" | \"columns\" | \"copy\" | \"download\" | \"edit\" | \"externalLink\" | \"eye\" | \"eyeOff\" | \"file\" | \"fileText\" | \"filter\" | \"folder\" | \"heart\" | \"home\" | \"image\" | \"imageOff\" | \"inbox\" | \"key\" | \"link\" | \"loader\" | \"lock\" | \"logout\" | \"mail\" | \"menu\" | \"minus\" | \"moon\" | \"moreHorizontal\" | \"music\" | \"pause\" | \"phone\" | \"play\" | \"plus\" | \"radioOff\" | \"radioOn\" | \"refresh\" | \"search\" | \"settings\" | \"share\" | \"star\" | \"sun\" | \"target\" | \"trash\" | \"upload\" | \"user\" | \"userCircle\" | \"users\" | \"video\" | \"videoOff\" | \"volume\" | \"volumeOff\" | \"wifiOff\" | \"ActivityIcon\" | \"BellIcon\" | \"DocumentIcon\" | \"LeadIcon\" | \"LinkIcon\" | \"MailIcon\" | \"arrowDownIcon\" | \"arrowLeftIcon\" | \"arrowRightIcon\" | \"arrowUpIcon\" | \"bellIcon\" | \"callIcon\" | \"circleThikIcon\" | \"cirlceFilledIcon\" | \"crossIcon\" | \"eyeCrossIcon\" | \"eyeIcon\" | \"homeIcon\" | \"imageNotIcon\" | \"keyIcon\" | \"linesIcon\" | \"lockIcon\" | \"logoutIcon\" | \"minusIcon\" | \"pauseIcon\" | \"playIcon\" | \"plusIcon\" | \"profileIcon\" | \"resetFieldIcon\" | \"searchIcon\" | \"speakerOffIcon\" | \"speakerOnIcon\" | \"squareFilledIcon\" | \"squareIcon\" | \"userIcon\" | \"videoNotIcon\" | \"warningIcon\" | \"warningTimeIcon\" | \"warningWifiIcon\"",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Icon colour override. By default inactive icons are muted and the active icon uses the primary colour."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isActive",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onClick",
+      "type": "(() => void)",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "TabLabel": [
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "background",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "border",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "leftIcons",
+      "type": "TabIconItem[]",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onClick",
+      "type": "(() => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "rightIcons",
+      "type": "TabIconItem[]",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "tokens",
+      "type": "TabToken[]",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "TabText": [
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Text colour override. By default inactive tabs are muted and the active tab uses the primary colour."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "isActive",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onClick",
+      "type": "(() => void)",
+      "required": false,
+      "description": ""
+    }
+  ],
+  "Table": [
+    {
+      "name": "columns",
+      "type": "TableColumn<T>[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "data",
+      "type": "T[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "required": false,
+      "description": "Accessible table caption (visually hidden)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "controls",
+      "type": "TableControlsConfig",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "density",
+      "type": "\"compact\" | \"comfortable\"",
+      "required": false,
+      "description": "Row height.",
+      "default": "\"comfortable\""
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Text when there are no rows.",
+      "default": "\"No records\""
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a loading overlay over the rows."
+    },
+    {
+      "name": "maxHeight",
+      "type": "string",
+      "required": false,
+      "description": "Max height of the scrollable body area (any CSS length)."
+    },
+    {
+      "name": "onCellClick",
+      "type": "((row: T, column: TableColumn<T>) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onSearch",
+      "type": "((query: string) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "pageSize",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "10"
+    },
+    {
+      "name": "rowActions",
+      "type": "TableAction<T>[]",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "rowKey",
+      "type": "((row: T, index: number) => string | number)",
+      "required": false,
+      "description": "Stable row key.",
+      "default": "row index"
+    },
+    {
+      "name": "searchPlaceholder",
+      "type": "string",
+      "required": false,
+      "description": "Placeholder of the search box.",
+      "default": "\"Search...\""
+    },
+    {
+      "name": "showRowDetails",
+      "type": "boolean",
+      "required": false,
+      "description": "Open the record drawer when a cell is clicked.",
+      "default": "true"
+    },
+    {
+      "name": "stickyHeader",
+      "type": "boolean",
+      "required": false,
+      "description": "Keep the header visible while the body scrolls (set `maxHeight`).",
+      "default": "false"
+    },
+    {
+      "name": "striped",
+      "type": "boolean",
+      "required": false,
+      "description": "Alternate row backgrounds.",
+      "default": "false"
+    },
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Optional title rendered at the start of the toolbar."
+    },
+    {
+      "name": "toolbar",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Extra toolbar content (e.g. an \"Add\" button), rendered at the end."
+    },
+    {
+      "name": "visibleColumns",
+      "type": "string[] | null",
+      "required": false,
+      "description": "Keys of the initially visible columns (others hidden). `null` = all."
+    }
+  ],
+  "Tabs": [
+    {
+      "name": "items",
+      "type": "TabItem[]",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name of the tab list."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "required": false,
+      "description": "Initial key when uncontrolled.",
+      "default": "first enabled item"
+    },
+    {
+      "name": "fitted",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch tabs to fill the width."
+    },
+    {
+      "name": "keepMounted",
+      "type": "boolean",
+      "required": false,
+      "description": "Keep inactive panels mounted (hidden) to preserve their state.",
+      "default": "false"
+    },
+    {
+      "name": "onChange",
+      "type": "((key: string) => void)",
+      "required": false,
+      "description": "Called with the newly selected key."
+    },
+    {
+      "name": "panelClassName",
+      "type": "string",
+      "required": false,
+      "description": "Class applied to the panel wrapper."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\"",
+      "required": false,
+      "description": "",
+      "default": "\"medium\""
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Controlled active key."
+    },
+    {
+      "name": "variant",
+      "type": "\"underline\" | \"pills\" | \"enclosed\"",
+      "required": false,
+      "description": "`underline` (default), `pills` or `enclosed` (segmented)."
+    }
+  ],
+  "TextArea": [
+    {
+      "name": "setResult",
+      "type": "(value: string) => void",
+      "required": true,
+      "description": "Called with the text on blur."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible name when there is no visible `label`."
+    },
+    {
+      "name": "backendError",
+      "type": "string",
+      "required": false,
+      "description": "Server-side validation error (cleared when the user types)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Focus colour.",
+      "default": "var(--irt-color-primary)"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "External error message (same as `backendError`, but not cleared on typing)."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text shown under the field when there is no error."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "maxLength",
+      "type": "number",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "maxTextAreaHeight",
+      "type": "number",
+      "required": false,
+      "description": "Auto-grow limit in px.",
+      "default": "200"
+    },
+    {
+      "name": "minLength",
+      "type": "number",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "minRows",
+      "type": "number",
+      "required": false,
+      "description": "Minimum visible rows.",
+      "default": "3"
+    },
+    {
+      "name": "onValueChange",
+      "type": "((value: string) => void)",
+      "required": false,
+      "description": "Called on every keystroke (`setResult` fires on blur)."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Enter text here...\""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "resizable",
+      "type": "boolean",
+      "required": false,
+      "description": "Let the user resize vertically (disables auto-grow limit handling).",
+      "default": "false"
+    },
+    {
+      "name": "setIsFieldValid",
+      "type": "((isValid: boolean) => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "showCharacterCount",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "showLabelAlways",
+      "type": "boolean",
+      "required": false,
+      "description": "",
+      "deprecated": true
+    },
+    {
+      "name": "showWordCount",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "Current text. Re-syncs when changed by the parent."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "TextInput": [
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label when no visible label is present."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message (marks the field invalid)."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Hint shown under the field."
+    },
+    {
+      "name": "iconLeft",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "iconRight",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label (also used as placeholder while empty)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Shows a busy indicator and disables interaction."
+    },
+    {
+      "name": "radius",
+      "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "description": "Corner radius.",
+      "default": "\"md\""
+    },
+    {
+      "name": "responsive",
+      "type": "boolean",
+      "required": false,
+      "description": "Enables responsive (container-width aware) styling."
+    },
+    {
+      "name": "setResult",
+      "type": "((value: string) => void)",
+      "required": false,
+      "description": "Called with the new string value on every change."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Visual size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "textType",
+      "type": "\"number\" | \"search\" | \"text\" | \"password\" | \"email\" | \"tel\" | \"url\"",
+      "required": false,
+      "description": "Native input type.",
+      "default": "\"text\""
+    },
+    {
+      "name": "tooltip",
+      "type": "string",
+      "required": false,
+      "description": "Tooltip content shown on hover/focus."
+    },
+    {
+      "name": "variant",
+      "type": "\"outline\" | \"ghost\" | \"underline\" | \"filled\"",
+      "required": false,
+      "description": "",
+      "default": "theme `components.input.variant` (\"outline\")"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "ThemeProvider": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "defaultMode",
+      "type": "\"light\" | \"dark\" | \"system\"",
+      "required": false,
+      "description": "Initial mode preference when uncontrolled.",
+      "default": "\"light\""
+    },
+    {
+      "name": "mode",
+      "type": "\"light\" | \"dark\" | \"system\"",
+      "required": false,
+      "description": "Controlled mode preference."
+    },
+    {
+      "name": "onModeChange",
+      "type": "((mode: ThemeModePreference) => void)",
+      "required": false,
+      "description": "Called when `setMode` is invoked from `useTheme()`."
+    },
+    {
+      "name": "scope",
+      "type": "\"local\" | \"global\"",
+      "required": false,
+      "description": "`\"global\"` writes variables to `:root` (portals anywhere inherit them); `\"local\"` scopes them to this subtree. Defaults to `\"global\"` for the outermost provider and `\"local\"` for nested providers."
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "theme",
+      "type": "ThemeConfig",
+      "required": false,
+      "description": "Theme overrides (TypeScript object or parsed JSON). Deep-merged over the default theme."
+    },
+    {
+      "name": "validate",
+      "type": "boolean",
+      "required": false,
+      "description": "Report invalid theme keys/values with `console.warn`.",
+      "default": "true outside production"
+    }
+  ],
+  "TimePicker": [
+    {
+      "name": "setResult",
+      "type": "(time: string) => void",
+      "required": true,
+      "description": "Called once per change with `\"hh:mm AM|PM\"` when the time is complete and valid."
+    },
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label when no visible label is present."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message; overrides the built-in out-of-range message."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "hourStep",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "1"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "maxTime",
+      "type": "string",
+      "required": false,
+      "description": "Latest allowed time, e.g. `\"06:00 PM\"`."
+    },
+    {
+      "name": "minTime",
+      "type": "string",
+      "required": false,
+      "description": "Earliest allowed time, e.g. `\"08:30 AM\"`."
+    },
+    {
+      "name": "minuteStep",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "1"
+    },
+    {
+      "name": "radius",
+      "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "description": "Corner radius.",
+      "default": "\"md\""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Visual size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "description": "`\"hh:mm AM\"`.",
+      "default": "\"--:-- --\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element.",
+      "default": "\"300px\""
+    }
+  ],
+  "Tooltip": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Trigger element. A single element receives the hover/focus handlers directly."
+    },
+    {
+      "name": "content",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Tooltip content. Nothing is rendered when empty."
+    },
+    {
+      "name": "backgroundColor",
+      "type": "string",
+      "required": false,
+      "description": "Background colour.",
+      "default": "var(--irt-color-tooltip-background)"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Text colour.",
+      "default": "var(--irt-color-tooltip-text)"
+    },
+    {
+      "name": "delay",
+      "type": "number",
+      "required": false,
+      "description": "Hover delay in ms.",
+      "default": "theme `components.tooltip.delay` (1500)"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "Max width.",
+      "default": "theme `components.tooltip.maxWidth`"
+    }
+  ],
+  "UrlInput": [
+    {
+      "name": "ariaLabel",
+      "type": "string",
+      "required": false,
+      "description": "Accessible label when no visible label is present."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "required": false,
+      "description": "Stretch to the container width."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "required": false,
+      "description": "Error message (marks the field invalid)."
+    },
+    {
+      "name": "faviconResolver",
+      "type": "FaviconResolver",
+      "required": false,
+      "description": "Show a favicon for valid URLs. No external request is made unless provided."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "string",
+      "required": false,
+      "description": "Hint shown under the field."
+    },
+    {
+      "name": "iconLeft",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "iconRight",
+      "type": "IconLike",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "invalidMessage",
+      "type": "string",
+      "required": false,
+      "description": "Message shown for invalid URLs.",
+      "default": "\"Invalid URL\""
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "Floating label (also used as placeholder while empty)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "description": "Shows a busy indicator and disables interaction."
+    },
+    {
+      "name": "radius",
+      "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+      "required": false,
+      "description": "Corner radius.",
+      "default": "\"md\""
+    },
+    {
+      "name": "responsive",
+      "type": "boolean",
+      "required": false,
+      "description": "Enables responsive (container-width aware) styling."
+    },
+    {
+      "name": "setResult",
+      "type": "((value: string) => void)",
+      "required": false,
+      "description": "Called with the new string value on every change."
+    },
+    {
+      "name": "size",
+      "type": "\"small\" | \"medium\" | \"large\"",
+      "required": false,
+      "description": "Visual size.",
+      "default": "\"medium\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "tooltip",
+      "type": "string",
+      "required": false,
+      "description": "Tooltip content shown on hover/focus."
+    },
+    {
+      "name": "variant",
+      "type": "\"outline\" | \"ghost\" | \"underline\" | \"filled\"",
+      "required": false,
+      "description": "",
+      "default": "theme `components.input.variant` (\"outline\")"
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ],
+  "VideoPlayer": [
+    {
+      "name": "videoFile",
+      "type": "string | File | Blob | null",
+      "required": true,
+      "description": "Video `File`/`Blob` or URL."
+    },
+    {
+      "name": "autoPlay",
+      "type": "boolean",
+      "required": false,
+      "description": "",
+      "default": "true"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "emptyText",
+      "type": "string",
+      "required": false,
+      "description": "Message shown when there is no playable source.",
+      "default": "\"Video not available\""
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"200px\""
+    },
+    {
+      "name": "muted",
+      "type": "boolean",
+      "required": false,
+      "description": "",
+      "default": "true"
+    },
+    {
+      "name": "onRemove",
+      "type": "(() => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "onReupload",
+      "type": "(() => void)",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"400px\""
+    }
+  ],
+  "VideoUpload": [
+    {
+      "name": "setResult",
+      "type": "(file: File | null) => void",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "allowedTypes",
+      "type": "string[]",
+      "required": false,
+      "description": "",
+      "default": "[\"video/mp4\", \"video/webm\"]"
+    },
+    {
+      "name": "backendError",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "dropzoneText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Text inside the drop zone.",
+      "default": "\"Drop a video here\""
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"200px\""
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Hint under the drop zone text.",
+      "default": "derived from types / size"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"Upload Video\""
+    },
+    {
+      "name": "maxSizeMb",
+      "type": "number",
+      "required": false,
+      "description": "",
+      "default": "50"
+    },
+    {
+      "name": "preview",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a player instead of the file summary.",
+      "default": "false"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "setIsFieldValid",
+      "type": "((isValid: boolean | null) => void)",
+      "required": false,
+      "description": "`null` after removal."
+    },
+    {
+      "name": "value",
+      "type": "string | File | Blob | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"300px\""
+    }
+  ],
+  "Workspace": [
+    {
+      "name": "config",
+      "type": "WorkspaceConfig",
+      "required": true,
+      "description": "Tabs and sidebars per slot."
+    },
+    {
+      "name": "barSize",
+      "type": "string",
+      "required": false,
+      "description": "Thickness of every bar (any CSS length).",
+      "default": "theme `layout.workspace.barSize`"
+    },
+    {
+      "name": "basePath",
+      "type": "string",
+      "required": false,
+      "description": "Base path relative tab routes are resolved against.",
+      "default": "first path segment"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Main content (e.g. your router outlet / Next.js `children`)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "contentClassName",
+      "type": "string",
+      "required": false,
+      "description": "Class for the `<main>` content region."
+    },
+    {
+      "name": "contentStyle",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Style for the `<main>` content region (e.g. padding)."
+    },
+    {
+      "name": "currentPath",
+      "type": "string",
+      "required": false,
+      "description": "Current path for active-tab highlighting (e.g. `usePathname()`)."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"100vh\""
+    },
+    {
+      "name": "isRouteActive",
+      "type": "((route?: string) => boolean)",
+      "required": false,
+      "description": "Custom active-route matcher (overrides `currentPath`/`basePath`)."
+    },
+    {
+      "name": "leftSidebarOpen",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the left sidebar (controlled).",
+      "default": "true"
+    },
+    {
+      "name": "onAction",
+      "type": "((payload: TabActionPayload) => void)",
+      "required": false,
+      "description": "Called for every tab activation (with or without route)."
+    },
+    {
+      "name": "onNavigate",
+      "type": "((route: string, payload: TabActionPayload) => void)",
+      "required": false,
+      "description": "Navigate to a tab route (e.g. `router.push`). Without it, routes are reported via `onAction` only."
+    },
+    {
+      "name": "onSidebarOpenChange",
+      "type": "((side: \"left\" | \"right\", open: boolean) => void)",
+      "required": false,
+      "description": "Called when the workspace wants to close a sidebar (overlay backdrop click / Escape)."
+    },
+    {
+      "name": "overlayBreakpoint",
+      "type": "number",
+      "required": false,
+      "description": "Below this workspace width (px) open sidebars float over the content as drawers with a backdrop instead of pushing it. `0` disables.",
+      "default": "0"
+    },
+    {
+      "name": "rightSidebarOpen",
+      "type": "boolean",
+      "required": false,
+      "description": "Show the right sidebar (controlled).",
+      "default": "true"
+    },
+    {
+      "name": "sidebarWidth",
+      "type": "string",
+      "required": false,
+      "description": "Width of both sidebars (any CSS length).",
+      "default": "theme `layout.workspace.sidebarSize`"
+    },
+    {
+      "name": "skipLinkLabel",
+      "type": "string | false",
+      "required": false,
+      "description": "Render a \"Skip to content\" link for keyboard users (`false` disables).",
+      "default": "\"Skip to content\""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "topPrimaryStart",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Content prepended to the top-primary bar (e.g. the signed-in user's name)."
+    },
+    {
+      "name": "visibility",
+      "type": "WorkspaceVisibility",
+      "required": false,
+      "description": "Optional context-aware visibility rules."
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "",
+      "default": "\"100vw\""
+    }
+  ],
+  "YearPicker": [
+    {
+      "name": "setResult",
+      "type": "(value: string | number) => void",
+      "required": true,
+      "description": "Receives the selection (see `Calendar` for formats)."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "description": "Extra class name merged onto the root element."
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "required": false,
+      "description": "Show a clear (×) button when a value is set. Clearing emits `\"\"`.",
+      "default": "false"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Accent colour override (any CSS colour or `var(--irt-…)`)."
+    },
+    {
+      "name": "compact",
+      "type": "boolean",
+      "required": false,
+      "description": "Use the compact calendar in the popup.",
+      "default": "false"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Disables interaction."
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Error message (also marks the field invalid)."
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "0 | 1",
+      "required": false,
+      "description": "First column of the week: `0` Sunday, `1` Monday.",
+      "default": "0"
+    },
+    {
+      "name": "formatValue",
+      "type": "((value: string | number) => string)",
+      "required": false,
+      "description": "Format the displayed value (e.g. to show \"5 Oct 2026\")."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "required": false,
+      "description": "CSS height of the control."
+    },
+    {
+      "name": "helperText",
+      "type": "ReactNode",
+      "required": false,
+      "description": "Helper text under the field."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "description": "Element id."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "monthBase",
+      "type": "0 | 1",
+      "required": false,
+      "description": "",
+      "default": "0 (legacy)"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionEndDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "restrictionStartDate",
+      "type": "string | null",
+      "required": false,
+      "description": ""
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "description": "Inline style overrides (highest precedence)."
+    },
+    {
+      "name": "value",
+      "type": "string | number | null",
+      "required": false,
+      "description": "Displayed value; also highlighted in the calendar."
+    },
+    {
+      "name": "variant",
+      "type": "\"full\" | \"underline\"",
+      "required": false,
+      "description": "",
+      "default": "\"full\""
+    },
+    {
+      "name": "width",
+      "type": "string",
+      "required": false,
+      "description": "CSS width of the root element."
+    }
+  ]
+}

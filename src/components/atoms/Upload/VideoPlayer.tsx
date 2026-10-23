@@ -20,6 +20,9 @@ export interface VideoPlayerProps {
   autoPlay?: boolean;
   /** @default true */
   muted?: boolean;
+  /** Message shown when there is no playable source. @default "Video not available" */
+  emptyText?: string;
+  className?: string;
 }
 
 /** Video preview with native controls and optional replace/remove actions. */
@@ -32,27 +35,33 @@ export function VideoPlayer({
   height = "200px",
   autoPlay = true,
   muted = true,
+  emptyText = "Video not available",
+  className,
 }: VideoPlayerProps) {
   // Object URLs are created once per file and revoked on change/unmount (fixes a per-render leak).
   const src = useObjectUrl(videoFile);
 
   return (
     <div
-      className={style.videoContainer}
+      className={className ? `${style.videoContainer} ${className}` : style.videoContainer}
       style={cssVars({ "--irt-c-color": color ?? "var(--irt-color-primary)", "--irt-c-width": width, "--irt-c-height": height })}
     >
       {src ? (
         <div className={style.videoPreview}>
           <video controls controlsList="nodownload" muted={muted} autoPlay={autoPlay} src={src} className={style.videoPlayer} />
-          <div className={style.resetRemove}>
-            {onReupload && (
-              <IconButton icon="refresh" onClick={onReupload} color={color ?? "var(--irt-color-primary)"} label="Re-Upload" />
-            )}
-            {onRemove && <IconButton icon="close" onClick={onRemove} color="var(--irt-color-danger)" label="Remove video" />}
-          </div>
+          {(onReupload || onRemove) && (
+            <div className={style.resetRemove}>
+              {onReupload && (
+                <IconButton icon="refresh" variant="solid" shape="circle" color="var(--irt-color-surface-raised)" className={style.overlayButton} onClick={onReupload} label="Re-Upload" />
+              )}
+              {onRemove && (
+                <IconButton icon="close" variant="solid" shape="circle" color="var(--irt-color-surface-raised)" className={style.overlayButton} onClick={onRemove} label="Remove video" />
+              )}
+            </div>
+          )}
         </div>
       ) : (
-        <IconError icon="videoOff" message="Ah!! Looks like the video was not found" size={2.5} />
+        <IconError icon="videoOff" message={emptyText} size={2} />
       )}
     </div>
   );

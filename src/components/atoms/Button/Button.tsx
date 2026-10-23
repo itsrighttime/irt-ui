@@ -89,6 +89,7 @@ function ButtonInner<C extends ElementType = "button">(
         block && styles.block,
         iconOnly && styles.iconOnly,
         isDisabled && styles.disabled,
+        loading && styles.loading,
         className,
       )}
       disabled={isNativeButton ? isDisabled : undefined}

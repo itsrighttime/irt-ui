@@ -85,7 +85,15 @@ export function Tooltip({ children, content, color, backgroundColor, width, dela
     },
     onFocus: (event: FocusEvent<HTMLElement>) => {
       child.props.onFocus?.(event);
-      open();
+      // Only keyboard focus opens the tooltip — not programmatic focus (e.g. a
+      // dialog focusing its close button) or a mouse click.
+      let keyboard = true;
+      try {
+        keyboard = event.currentTarget.matches(":focus-visible");
+      } catch {
+        /* selector unsupported (old browsers / jsdom) */
+      }
+      if (keyboard) open();
     },
     onBlur: (event: FocusEvent<HTMLElement>) => {
       child.props.onBlur?.(event);

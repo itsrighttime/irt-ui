@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { cssVars } from "../../../utils/cssVars";
 import { cx } from "../../../utils/cx";
 import { AudioPlayer } from "./AudioPlayer";
 import { pickFiles } from "./pickFiles";
-import { useDropZone } from "./useDropZone";
 import { useObjectUrl } from "./useObjectUrl";
-import style from "./AudioUpload.module.css";
+import shared from "./Upload.module.css";
+import { UploadDropzone, UploadFieldHeader, uploadHint } from "./UploadDropzone";
 
 export interface AudioUploadProps {
   label?: string;
@@ -25,6 +25,14 @@ export interface AudioUploadProps {
   value?: string | File | Blob | null;
   backendError?: string;
   required?: boolean;
+  /** Text inside the drop zone. @default "Drop an audio file here" */
+  dropzoneText?: ReactNode;
+  /** Hint under the drop zone text. @default derived from types / size */
+  hint?: ReactNode;
+  /** Helper text under the field. */
+  helperText?: ReactNode;
+  disabled?: boolean;
+  className?: string;
 }
 
 const DEFAULT_TYPES = ["audio/mpeg", "audio/wav"];
@@ -42,21 +50,31 @@ export function AudioUpload({
   backendError = "",
   value = null,
   required = false,
+  dropzoneText = "Drop an audio file here",
+  hint,
+  helperText,
+  disabled = false,
+  className,
 }: AudioUploadProps) {
+  const messageId = useId();
   const [source, setSource] = useState<string | File | Blob | null>(value);
   const [error, setError] = useState<string | null>(null);
   const audio = useObjectUrl(source);
   const validRef = useRef(setIsFieldValid);
-  validRef.current = setIsFieldValid;
+  useEffect(() => {
+    validRef.current = setIsFieldValid;
+  });
   const accept = allowedTypes.join(",");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- re-sync from the value prop
     setSource(value);
     setError(null);
   }, [value]);
 
   useEffect(() => {
     if (backendError) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- mirror an external error prop
       setError(backendError);
       validRef.current?.(false);
     }
@@ -86,34 +104,27 @@ export function AudioUpload({
     validRef.current?.(false);
   };
 
-  const { isDragging, handlers } = useDropZone<HTMLDivElement>((files) => handleFile(files[0]));
   const vars = cssVars({ "--irt-c-color": color ?? "var(--irt-color-primary)", "--irt-c-width": width, "--irt-c-height": height });
+  const message = error ?? helperText;
 
   return (
-    <div className={style.audioUploadContainer} style={vars}>
-      {label && <p className={style.label}>{label}</p>}
-      {required && (
-        <p className={style.required} aria-hidden="true">
-          *
-        </p>
-      )}
+    <div className={cx(shared.field, className)} style={vars}>
+      <UploadFieldHeader label={label} required={required} />
 
       {!audio ? (
-        <div className={cx(style.audioUpload, isDragging && style.dragging)} {...handlers}>
-          <input
-            type="file"
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              handleFile(event.target.files?.[0]);
-              event.target.value = "";
-            }}
-            className={style.formControl}
-            accept={accept}
-            aria-label={label ?? "Upload audio"}
-            aria-required={required || undefined}
-          />
-          <span className={style.label}>{label}</span>
-          <span className={style.label}>{`(Max Size: ${maxSizeMb}MB)`}</span>
-        </div>
+        <UploadDropzone
+          inputLabel={label ?? "Upload audio"}
+          title={dropzoneText}
+          hint={hint ?? uploadHint({ types: allowedTypes, maxSizeMb })}
+          icon="music"
+          accept={accept}
+          required={required}
+          invalid={Boolean(error)}
+          disabled={disabled}
+          compact
+          describedBy={message ? messageId : undefined}
+          onFiles={(files) => handleFile(files[0])}
+        />
       ) : (
         <AudioPlayer
           audioSrc={audio}
@@ -123,9 +134,9 @@ export function AudioUpload({
           width="100%"
         />
       )}
-      {error && (
-        <p className={style.error} role="alert">
-          {error}
+      {message && (
+        <p id={messageId} className={error ? shared.error : shared.message} role={error ? "alert" : undefined}>
+          {message}
         </p>
       )}
     </div>

@@ -1,4 +1,5 @@
 export * from "./Alert";
+export * from "./Badge";
 export * from "./Button";
 export * from "./Calendar";
 export * from "./DataSnapshotViewer";
@@ -12,6 +13,7 @@ export * from "./Slider";
 export * from "./Stepper";
 export * from "./Switch";
 export * from "./Table";
+export * from "./Tabs";
 export * from "./TextInput";
 export * from "./TimePicker";
 export * from "./Tooltip";

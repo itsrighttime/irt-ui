@@ -14,10 +14,22 @@ export interface ImagePreviewProps {
   height?: string;
   /** @default "Preview" */
   alt?: string;
+  /** Message shown when there is no image. @default "Image not available" */
+  emptyText?: string;
+  /** @default "cover" */
+  fit?: "cover" | "contain";
 }
 
 /** Shows an image from a URL or `File`, with a placeholder when missing/invalid. */
-export function ImagePreview({ image, radius = "8px", width = "200px", height = "200px", alt = "Preview" }: ImagePreviewProps) {
+export function ImagePreview({
+  image,
+  radius = "8px",
+  width = "200px",
+  height = "200px",
+  alt = "Preview",
+  emptyText = "Image not available",
+  fit = "cover",
+}: ImagePreviewProps) {
   const isValidFile = image instanceof File ? image.type.startsWith("image/") : true;
   const url = useObjectUrl(isValidFile ? image : null);
 
@@ -32,13 +44,15 @@ export function ImagePreview({ image, radius = "8px", width = "200px", height = 
         alignItems: "center",
         justifyContent: "center",
         background: "var(--irt-color-surface-muted)",
-        border: "var(--irt-border-width-thin) solid var(--irt-color-gray3)",
+        border: "var(--irt-border-width-thin) solid var(--irt-color-border)",
+        boxSizing: "border-box",
+        maxWidth: "100%",
       }}
     >
       {url ? (
-        <img src={url} alt={alt} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: radius }} />
+        <img src={url} alt={alt} style={{ width: "100%", height: "100%", objectFit: fit, borderRadius: radius }} />
       ) : (
-        <IconError icon="imageOff" message="Ah! Looks like the image is not found." size={2} />
+        <IconError icon="imageOff" message={emptyText} size={1.75} style={{ border: "none", borderRadius: 0 }} />
       )}
     </div>
   );

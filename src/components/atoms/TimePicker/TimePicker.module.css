@@ -1,26 +1,22 @@
-/* Container */
 .timeInputContainer {
   display: flex;
   flex-direction: column;
-  margin: var(--irt-space-sm) 0;
   width: 100%;
   gap: var(--irt-space-xs);
+  color: var(--irt-color-text);
+  --irt-c-control: var(--irt-control-height-medium, 40px);
 }
 
-/* Label */
 .label {
-  padding-left: var(--irt-space-xs);
   font-size: var(--irt-font-size-sm);
-  color: var(--irt-color-text-subtle);
+  font-weight: var(--irt-font-weight-medium);
+  color: var(--irt-color-text);
 }
 
-/* Required */
 .required {
-  padding-right: var(--irt-space-xs);
+  margin-left: 2px;
   color: var(--irt-color-danger);
   font-weight: var(--irt-font-weight-bold);
-  text-align: end;
-  font-size: var(--irt-font-size-sm);
 }
 
 .timeHeader {
@@ -28,23 +24,45 @@
   justify-content: space-between;
 }
 
-/* Time Selectors */
 .timeSelectors {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--irt-space-sm);
+  gap: 2px;
+  height: var(--irt-c-control);
+  padding: 0 6px 0 10px;
+  box-sizing: border-box;
+  border: var(--irt-border-width-thin) solid var(--irt-color-border);
+  background: var(--irt-color-surface);
+  transition: border-color var(--irt-duration-fast) var(--irt-easing-standard);
 }
 
-.timeSelectors > span {
-  margin: 0 var(--irt-space-xs);
+.timeSelectors:hover {
+  border-color: var(--irt-color-border-strong);
+}
+
+.timeSelectors:focus-within {
+  border-color: var(--irt-color-primary);
+}
+
+.timeSelectors.invalid {
+  border-color: var(--irt-color-danger);
+}
+
+.clockIcon {
+  display: inline-flex;
+  margin-right: 4px;
   color: var(--irt-color-text-muted);
 }
 
-/* ---------------- Sizes ---------------- */
+.colon {
+  color: var(--irt-color-text-muted);
+  font-weight: var(--irt-font-weight-semibold);
+}
 
+/* Sizes */
 .small {
   font-size: var(--irt-font-size-sm);
+  --irt-c-control: var(--irt-control-height-small, 32px);
 }
 
 .medium {
@@ -53,10 +71,10 @@
 
 .large {
   font-size: var(--irt-font-size-lg);
+  --irt-c-control: var(--irt-control-height-large, 48px);
 }
 
-/* ---------------- Radius ---------------- */
-
+/* Radius */
 .radius-none {
   border-radius: var(--irt-radius-none);
 }
@@ -73,31 +91,23 @@
   border-radius: var(--irt-radius-lg);
 }
 
-/* ---------------- States ---------------- */
-
 .disabled {
-  opacity: 0.5;
+  opacity: var(--irt-opacity-disabled);
   pointer-events: none;
 }
 
-/* Optional hover polish */
-.outlined:hover {
-  border-color: var(--irt-color-text-muted);
-}
-
-.colon svg {
-  height: 30px;
-  width: 30px;
-  color: var(--irt-color-text);
+.message {
+  font-size: var(--irt-font-size-xs);
+  line-height: var(--irt-line-height-normal);
+  color: var(--irt-color-text-muted);
 }
 
 .error {
   color: var(--irt-color-danger);
-  font-size: var(--irt-font-size-sm);
 }
 
 /* <p> elements: no reliance on a host-app CSS reset */
-.error,
-.required {
+.message,
+.error {
   margin: 0;
 }

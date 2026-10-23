@@ -1,34 +1,118 @@
 .tableWrapper {
+  --irt-c-cell-py: 10px;
+  --irt-c-cell-px: 12px;
   width: 100%;
-  overflow-x: auto;
+  min-width: 0;
+  box-sizing: border-box;
   border: var(--irt-border-width-thin) solid var(--irt-color-border);
-  border-radius: var(--irt-radius-md);
-  background-color: var(--irt-color-surface-muted);
-  padding: var(--irt-space-sm);
-  display: grid;
-  gap: var(--irt-space-sm);
+  border-radius: var(--irt-radius-lg);
+  background-color: var(--irt-color-surface);
+  color: var(--irt-color-text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: var(--irt-font-size-sm);
+  container-type: inline-size;
 }
 
-@container (min-width: 600px) {
-  .table {
-    font-size: var(--irt-font-size-md);
+.compact {
+  --irt-c-cell-py: 6px;
+  --irt-c-cell-px: 10px;
+}
+
+/* Toolbar */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--irt-space-sm);
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: var(--irt-border-width-thin) solid var(--irt-color-border-muted);
+}
+
+.tableTitle {
+  font-size: var(--irt-font-size-md);
+  font-weight: var(--irt-font-weight-semibold);
+  margin-right: auto;
+}
+
+.searchSlot {
+  flex: 1 1 200px;
+  max-width: 320px;
+  min-width: 0;
+}
+
+.controlsEnd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--irt-space-sm);
+  margin-left: auto;
+}
+
+@container (max-width: 520px) {
+  .searchSlot {
+    max-width: none;
+    flex-basis: 100%;
   }
+
+  .controlsEnd {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .controlsEnd > * {
+    flex: 1 1 auto;
+  }
+}
+
+/* Table */
+.scrollArea {
+  position: relative;
+  overflow: auto;
+  min-height: 0;
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .table th,
 .table td {
-  padding: var(--irt-space-xs);
-  border: var(--irt-border-width-thin) solid var(--irt-color-border-muted);
+  padding: var(--irt-c-cell-py) var(--irt-c-cell-px);
+  border-bottom: var(--irt-border-width-thin) solid var(--irt-color-border-muted);
   text-align: left;
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .table th {
+  background: var(--irt-color-surface-muted);
+  color: var(--irt-color-text-muted);
+  font-size: var(--irt-font-size-xs);
   font-weight: var(--irt-font-weight-semibold);
+  letter-spacing: var(--irt-letter-spacing-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sticky th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.alignCenter {
+  text-align: center !important;
+}
+
+.alignRight {
+  text-align: right !important;
 }
 
 .sortButton {
@@ -36,7 +120,23 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: var(--irt-space-xs);
+  gap: 4px;
+  border-radius: var(--irt-radius-sm);
+}
+
+.sortButton:hover,
+.sortActive {
+  color: var(--irt-color-text);
+}
+
+.sortIcon {
+  opacity: 0.35;
+  transition: opacity var(--irt-duration-fast);
+}
+
+.sortButton:hover .sortIcon,
+.sortActive .sortIcon {
+  opacity: 1;
 }
 
 .sortButton:focus-visible,
@@ -46,7 +146,8 @@
 }
 
 .empty {
-  text-align: center;
+  text-align: center !important;
+  padding: var(--irt-space-xl) var(--irt-space-md) !important;
   color: var(--irt-color-text-subtle);
 }
 
@@ -55,54 +156,46 @@
   transition: background-color var(--irt-duration-fast);
 }
 
+.striped tbody tr:nth-child(even) td {
+  background-color: var(--irt-color-surface-muted);
+}
+
+.table tbody tr:hover td {
+  background-color: var(--irt-color-hover);
+}
+
 .clickable td {
   cursor: pointer;
 }
 
-.clickable td:hover {
-  background-color: var(--irt-color-gray2);
+.clickable td.actionCell {
+  cursor: default;
 }
 
-.controls {
+.actionCell {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.actionButton {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--irt-space-sm);
+  justify-content: flex-end;
+  gap: var(--irt-space-xs);
+}
+
+/* Footer */
+.footer {
+  display: flex;
   align-items: center;
-  justify-content: flex-start;
-}
-
-.desktopControls {
-  display: flex;
+  justify-content: space-between;
   gap: var(--irt-space-sm);
-  align-items: center;
+  padding: 8px 12px;
+  border-top: var(--irt-border-width-thin) solid var(--irt-color-border-muted);
 }
 
-.mobileControls {
-  display: none;
-}
-
-.mobileMenu {
-  display: flex;
-  flex-direction: column;
-  gap: var(--irt-space-sm);
-  padding: var(--irt-space-sm);
-  background: var(--irt-color-surface-muted);
-  border: var(--irt-border-width-thin) solid var(--irt-color-border);
-  border-radius: var(--irt-radius-md);
-  min-width: 220px;
-}
-
-@container (max-width: 600px) {
-  .desktopControls {
-    display: none;
-  }
-
-  .mobileControls {
-    display: block;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
+.rangeText {
+  color: var(--irt-color-text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .pagination {
@@ -112,30 +205,41 @@
   justify-content: center;
 }
 
-.actionButton button {
-  margin-right: var(--irt-space-sm);
-  padding: 2px 5px;
-  border: none;
+.pageIndicator {
+  min-width: 4ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--irt-color-text);
 }
 
-.actionButton button:hover {
-  text-decoration: underline;
+/* Loading */
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--irt-color-surface) 65%, transparent);
 }
 
-/* Container Query Upgrade */
-.tableWrapper {
-  container-type: inline-size;
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--irt-color-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: irt-table-spin 0.7s linear infinite;
 }
 
-/* Small container */
-@container (max-width: 500px) {
-  .controls {
-    flex-direction: column;
-    align-items: stretch;
+@keyframes irt-table-spin {
+  to {
+    transform: rotate(360deg);
   }
+}
 
-  .table th,
-  .table td {
-    font-size: var(--irt-font-size-sm);
-  }
+/* Legacy hooks kept for compatibility */
+.desktopControls,
+.mobileControls,
+.mobileMenu {
+  display: contents;
 }

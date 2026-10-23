@@ -1,31 +1,44 @@
 .selectionGroup {
-  width: var(--irt-c-width);
+  width: var(--irt-c-width, 300px);
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--irt-space-sm);
+  font-size: var(--irt-font-size-md);
+  color: var(--irt-color-text);
 }
 
 .horizontal {
   flex-direction: row;
-  gap: var(--irt-space-lg);
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 var(--irt-space-sm);
+  flex-wrap: wrap;
+  column-gap: var(--irt-space-lg);
+  row-gap: var(--irt-space-sm);
+  align-items: flex-start;
+}
+
+.horizontal > .label,
+.horizontal > .helperText {
+  flex-basis: 100%;
 }
 
 .label {
-  font-weight: var(--irt-font-weight-bold);
+  font-size: var(--irt-font-size-sm);
+  font-weight: var(--irt-font-weight-semibold);
   text-align: left;
-  color: var(--irt-color-gray4);
+  color: var(--irt-color-text);
+  margin-bottom: 2px;
+}
+
+.required {
+  margin-left: 2px;
+  color: var(--irt-color-danger);
+  font-weight: var(--irt-font-weight-bold);
 }
 
 .selectionItem {
   display: flex;
   flex-direction: column;
-  align-items: left;
-  justify-content: left;
   position: relative;
-  gap: 0px;
   cursor: default;
 }
 
@@ -33,12 +46,44 @@
   display: flex;
   gap: var(--irt-space-sm);
 }
+
 .selectionLabel {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
-  color: var(--irt-color-gray5);
-  font-weight: var(--irt-font-weight-bold);
+  color: var(--irt-color-text);
+  font-weight: var(--irt-font-weight-regular);
+  line-height: var(--irt-line-height-normal);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  /* centre a 1.25em icon on the first line */
+  height: 1lh;
+  color: var(--irt-color-text-subtle);
+  border-radius: var(--irt-radius-sm);
+  transition: color var(--irt-duration-fast) var(--irt-easing-standard);
+}
+
+.selectionLabel:hover .icon {
+  color: var(--irt-c-color);
+}
+
+.selected .icon {
+  color: var(--irt-c-color);
+}
+
+.optionText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.inlineHelp {
+  font-size: var(--irt-font-size-sm);
+  color: var(--irt-color-text-muted);
 }
 
 .selectionLabel.disabled,
@@ -46,34 +91,74 @@
   cursor: not-allowed;
 }
 
-.selected {
-  color: var(--irt-c-color);
+.selectionLabel.disabled {
+  color: var(--irt-color-text-subtle);
 }
 
-.inlineHelp {
-  opacity: 0.7;
-  padding-left: 30px;
+.selectionLabel.disabled .icon {
+  color: var(--irt-color-on-disabled);
 }
 
-.disabled {
-  color: var(--irt-color-border);
-}
-
-.required {
-  padding-top: 5px;
-  margin: 0 5px;
-  color: var(--irt-color-danger);
-  font-weight: var(--irt-font-weight-bold);
-  text-align: end;
-}
-
-.icon {
-  display: inline-flex;
-  align-items: center;
+.selectionLabel.disabled:hover .icon {
+  color: var(--irt-color-on-disabled);
 }
 
 .labelIcon:has(input:focus-visible) .icon {
   outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
   outline-offset: 1px;
-  border-radius: var(--irt-radius-sm);
+}
+
+/* Card variant */
+.cards .selectionLabel {
+  padding: 10px 12px;
+  border: var(--irt-border-width-thin) solid var(--irt-color-border);
+  border-radius: var(--irt-radius-md);
+  background: var(--irt-color-surface);
+  transition:
+    border-color var(--irt-duration-fast) var(--irt-easing-standard),
+    background-color var(--irt-duration-fast) var(--irt-easing-standard);
+}
+
+.cards .selectionLabel:hover:not(.disabled) {
+  border-color: var(--irt-color-border-strong);
+}
+
+.cards .selectionLabel.selected {
+  border-color: var(--irt-c-color);
+  background: color-mix(in srgb, var(--irt-c-color) 6%, var(--irt-color-surface));
+}
+
+.cards .labelIcon:has(input:focus-visible) {
+  box-shadow: var(--irt-shadow-focus);
+}
+
+.cards .labelIcon:has(input:focus-visible) .icon {
+  outline: none;
+}
+
+.cards.horizontal .selectionItem {
+  flex: 1 1 160px;
+}
+
+.helperText {
+  font-size: var(--irt-font-size-xs);
+  line-height: var(--irt-line-height-normal);
+  color: var(--irt-color-text-muted);
+}
+
+.errorText {
+  color: var(--irt-color-danger);
+}
+
+.invalid .icon {
+  color: var(--irt-color-danger);
+}
+
+.invalid .selected .icon {
+  color: var(--irt-c-color);
+}
+
+/* kept for consumers targeting the old class */
+.selected {
+  color: inherit;
 }

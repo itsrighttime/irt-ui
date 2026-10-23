@@ -70,6 +70,16 @@ export function CustomDropdown({
     }
   };
 
+  /** ↑/↓ on the closed segment steps through the options without opening the list. */
+  const onTriggerKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    const index = options.indexOf(value);
+    const delta = event.key === "ArrowUp" ? 1 : -1;
+    const next = options[index === -1 ? 0 : (index + delta + options.length) % options.length];
+    if (next !== undefined) onChange(next);
+  };
+
   return (
     <div
       className={styles.dropdown}
@@ -80,6 +90,7 @@ export function CustomDropdown({
         type="button"
         className={cx(styles.dropdownSelected, error && styles.error)}
         onClick={() => (isOpen ? setIsOpen(false) : open())}
+        onKeyDown={onTriggerKeyDown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-controls={isOpen ? listId : undefined}
@@ -97,7 +108,7 @@ export function CustomDropdown({
               role="option"
               tabIndex={-1}
               aria-selected={option === value}
-              className={styles.dropdownOption}
+              className={cx(styles.dropdownOption, option === value && styles.optionSelected)}
               onClick={() => choose(option)}
               onKeyDown={(event) => onOptionKeyDown(event, option)}
             >

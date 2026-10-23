@@ -23,8 +23,8 @@
 
 .loadingText,
 .text {
-  font-weight: var(--irt-font-weight-bold);
-  color: var(--irt-c-color);
+  font-weight: var(--irt-font-weight-medium);
+  color: var(--irt-color-text-muted);
   font-size: calc(var(--irt-font-size-md));
   text-wrap: nowrap;
   text-align: center;
@@ -39,4 +39,10 @@
 .loadingText,
 .text {
   margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading * {
+    animation-duration: 1.6s !important;
+  }
 }

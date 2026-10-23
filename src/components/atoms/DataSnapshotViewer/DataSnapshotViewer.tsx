@@ -4,6 +4,7 @@ import { useId, useMemo, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useEscapeKey } from "../../../hooks/useEscapeKey";
 import { useFocusTrap } from "../../../hooks/useFocusTrap";
+import { useScrollLock } from "../../../hooks/useScrollLock";
 import { useIsMounted } from "../../../hooks/useIsMounted";
 import { usePortalContainer } from "../../../theme/useTheme";
 import { IconButton } from "../Button/IconButton";
@@ -86,11 +87,17 @@ export function DataSnapshotViewer<T extends object>({
 
   useEscapeKey(onClose, isOpen);
   useFocusTrap(drawerRef, isOpen && mounted);
+  useScrollLock(isOpen && mounted);
 
   if (!isOpen || !mounted || !container) return null;
 
   return createPortal(
-    <div className={styles.overlay} onClick={onClose}>
+    <div
+      className={styles.overlay}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
       <div
         ref={drawerRef}
         role="dialog"
@@ -98,15 +105,13 @@ export function DataSnapshotViewer<T extends object>({
         aria-labelledby={titleId}
         tabIndex={-1}
         className={styles.drawer}
-        onClick={(event) => event.stopPropagation()}
       >
         <div className={styles.header}>
           <h3 id={titleId} className={styles.title}>
             {title}
           </h3>
-          <IconButton onClick={onClose} size={1.2} color="var(--irt-color-danger)" icon="close" label="Close" />
+          <IconButton onClick={onClose} size={1.1} color="var(--irt-color-text-muted)" icon="close" label="Close" />
         </div>
-        <hr className={styles.separator} />
         <dl className={styles.list}>
           {Object.entries(flat).map(([key, value]) => (
             <div key={key} className={styles.row}>

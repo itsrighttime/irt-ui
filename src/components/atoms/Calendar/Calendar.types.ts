@@ -30,6 +30,17 @@ export interface CalendarProps {
   locale?: string;
   /** Weekday column headers, Sunday first. @default ["S","M","T","W","T","F","S"] */
   weekdayLabels?: readonly string[];
+  /** First column of the week: `0` Sunday, `1` Monday. @default 0 */
+  firstDayOfWeek?: 0 | 1;
+  /**
+   * Currently selected value, in the same format `setResult` emits for the
+   * `mode` (e.g. `"05-10-2026"` for dates). Highlights that cell and opens the
+   * calendar on it. Today is always marked with a ring.
+   */
+  value?: string | number | null;
+  /** Mark today's cell. @default true */
+  highlightToday?: boolean;
+  className?: string;
 }
 
 export type Period = "month" | "year";
@@ -42,6 +53,9 @@ export type ViewType = CalendarView;
 export interface RenderCalendarProps {
   isSmall?: boolean;
   date: Date;
+  selected?: Date | null;
+  firstDayOfWeek?: 0 | 1;
+  highlightToday?: boolean;
   handleDateClick: (date: Date) => void;
   restrictionStartDate: Date | null;
   restrictionEndDate: Date | null;
@@ -51,6 +65,8 @@ export interface RenderCalendarProps {
 
 export interface RenderMonthsProps {
   isSmall?: boolean;
+  /** Selected month index (0–11) in `year`, if any. */
+  selectedMonth?: number | null;
   year: number;
   handleMonthClick: (monthIndex: number, year: number) => void;
   restrictionStartDate: Date | null;
@@ -60,6 +76,7 @@ export interface RenderMonthsProps {
 
 export interface RenderYearsProps {
   isSmall?: boolean;
+  selectedYear?: number | null;
   startYear: number;
   endYear: number;
   handleYearClick: (year: number) => void;

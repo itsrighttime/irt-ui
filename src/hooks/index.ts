@@ -6,3 +6,4 @@ export { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 export { useSmartPosition, type SmartPosition } from "./useSmartPosition";
 export { useFocusTrap } from "./useFocusTrap";
 export { useSyncedState, shallowEqual } from "./useSyncedState";
+export { useScrollLock } from "./useScrollLock";

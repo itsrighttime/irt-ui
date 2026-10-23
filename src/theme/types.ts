@@ -27,6 +27,8 @@ export interface ThemeColors {
   textInverse: string;
   border: string;
   borderMuted: string;
+  /** Hover/emphasis border for controls. */
+  borderStrong: string;
   success: string;
   onSuccess: string;
   warning: string;

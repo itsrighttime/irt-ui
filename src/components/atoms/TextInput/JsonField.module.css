@@ -2,23 +2,51 @@
   display: flex;
   flex-direction: column;
   gap: var(--irt-space-sm);
+  max-width: 100%;
+}
+
+.code textarea {
+  font-family: var(--irt-font-family-mono);
+  font-size: var(--irt-font-size-sm);
+  tab-size: 2;
 }
 
 .errBtn {
   display: flex;
   justify-content: space-between;
-  /* padding: 0 10px; */
+  align-items: flex-start;
+  gap: var(--irt-space-sm);
 }
+
 .error {
   color: var(--irt-color-danger);
-  text-overflow: ellipsis;
+  font-size: var(--irt-font-size-xs);
+  line-height: var(--irt-line-height-normal);
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
-/* .btn {
-  width: 200px;
-} */
+.btn {
+  flex-shrink: 0;
+}
 
 .onDataSave {
-  text-align: center;
-  font-weight: var(--irt-font-weight-bold);
+  display: flex;
+  align-items: center;
+  gap: var(--irt-space-sm);
+  padding: 10px 12px;
+  border: var(--irt-border-width-thin) solid color-mix(in srgb, var(--irt-color-success) 35%, var(--irt-color-border));
+  border-radius: var(--irt-radius-md);
+  background: color-mix(in srgb, var(--irt-color-success) 8%, var(--irt-color-surface));
+  color: var(--irt-color-text);
+  font-weight: var(--irt-font-weight-medium);
+}
+
+.savedIcon {
+  display: inline-flex;
+  color: var(--irt-color-success);
+}
+
+.onDataSave > :last-child {
+  margin-left: auto;
 }

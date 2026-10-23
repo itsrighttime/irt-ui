@@ -1,25 +1,100 @@
 .alertContainer {
   position: fixed;
-  right: var(--irt-space-lg);
-  top: var(--irt-space-lg);
   z-index: var(--irt-z-toast);
   display: flex;
   flex-direction: column;
-  gap: var(--irt-space-xs);
-  max-width: 300px;
-  /* 10px gap between alerts */
+  gap: var(--irt-space-sm);
+  width: min(380px, calc(100vw - 2 * var(--irt-space-md)));
+  pointer-events: none;
+}
+
+.alertContainer > * {
+  pointer-events: auto;
+}
+
+.top-right {
+  top: var(--irt-space-lg);
+  right: var(--irt-space-lg);
+}
+
+.top-left {
+  top: var(--irt-space-lg);
+  left: var(--irt-space-lg);
+}
+
+.top-center {
+  top: var(--irt-space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom-right {
+  bottom: var(--irt-space-lg);
+  right: var(--irt-space-lg);
+  flex-direction: column-reverse;
+}
+
+.bottom-left {
+  bottom: var(--irt-space-lg);
+  left: var(--irt-space-lg);
+  flex-direction: column-reverse;
+}
+
+.bottom-center {
+  bottom: var(--irt-space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column-reverse;
+}
+
+@media (max-width: 640px) {
+  .alertContainer {
+    left: var(--irt-space-md);
+    right: var(--irt-space-md);
+    transform: none;
+    width: auto;
+  }
 }
 
 .alert {
+  --irt-c-alert-color: var(--irt-color-info);
   position: relative;
-  padding: 5px 20px 10px 20px;
-  border-radius: var(--irt-radius-sm);
-  opacity: 1;
-  transition: opacity var(--irt-duration-slow) ease, transform var(--irt-duration-slow) ease;
-  background-color: var(--irt-color-surface);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--irt-space-sm);
+  padding: 12px 8px 14px 14px;
+  border-radius: var(--irt-radius-md);
+  border: var(--irt-border-width-thin) solid color-mix(in srgb, var(--irt-c-alert-color) 30%, var(--irt-color-border));
+  border-left: 4px solid var(--irt-c-alert-color);
+  background-color: var(--irt-color-surface-raised);
+  background-image: linear-gradient(
+    color-mix(in srgb, var(--irt-c-alert-color) 7%, transparent),
+    color-mix(in srgb, var(--irt-c-alert-color) 7%, transparent)
+  );
   box-shadow: var(--irt-shadow-md);
+  color: var(--irt-color-text);
   font-size: var(--irt-font-size-sm);
+  line-height: var(--irt-line-height-normal);
   overflow: hidden;
+  opacity: 1;
+  animation: irt-alert-in var(--irt-duration-normal) var(--irt-easing-standard);
+  transition:
+    opacity var(--irt-duration-slow) ease,
+    transform var(--irt-duration-slow) ease;
+}
+
+@keyframes irt-alert-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alert {
+    animation: none;
+    transition: none;
+  }
 }
 
 .fadeOut {
@@ -27,58 +102,57 @@
   transform: translateX(40px);
   pointer-events: none;
 }
-.crossIcon {
-  position: absolute;
-  top: 2px;
-  right: 3px;
-  opacity: 0.8;
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--irt-c-alert-color);
+  /* optically centre a 1.25em icon on the first text line */
+  margin-top: calc((1lh - 1.25em) / 2);
 }
 
-.alert.success {
-  border: var(--irt-border-width-thin) solid var(--irt-color-primary);
-  color: var(--irt-color-primary);
+.icon svg {
+  color: var(--irt-c-alert-color);
 }
 
-.alert.error {
-  border: var(--irt-border-width-thin) solid var(--irt-color-danger);
-  color: var(--irt-color-danger);
+.body {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
-.alert.info {
-  border: var(--irt-border-width-thin) solid var(--irt-color-info);
-  color: var(--irt-color-info);
+.title {
+  font-weight: var(--irt-font-weight-semibold);
+  margin-bottom: 2px;
 }
 
-.alert.warning {
-  border: var(--irt-border-width-thin) solid var(--irt-color-warning);
-  color: var(--irt-color-warning);
+.message {
+  color: var(--irt-color-text-muted);
+}
+
+.title + .message {
+  color: var(--irt-color-text-muted);
+}
+
+.body > .message:first-child {
+  color: var(--irt-color-text);
+}
+
+.action {
+  margin-top: var(--irt-space-sm);
+}
+
+.closeButton {
+  flex-shrink: 0;
+  margin-top: -4px;
 }
 
 .statusBar {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 4px;
+  height: 3px;
+  background-color: var(--irt-c-alert-color);
+  opacity: 0.7;
   transition: width 1s linear;
-}
-
-.error .statusBar {
-  background-color: var(--irt-color-danger);
-}
-
-.success .statusBar {
-  background-color: var(--irt-color-primary);
-}
-
-.info .statusBar {
-  background-color: var(--irt-color-info);
-}
-
-.warning .statusBar {
-  background-color: var(--irt-color-warning);
-}
-
-.closeButton {
-  border-radius: var(--irt-radius-full);
-  background-color: var(--irt-color-danger);
 }

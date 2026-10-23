@@ -1,4 +1,5 @@
 import type { MouseEvent, ReactNode } from "react";
+import type { IconLike } from "../../../icons/renderIcon";
 
 export interface TableColumn<T> {
   /** Property of the row (or any unique id when `render` is used). */
@@ -13,11 +14,25 @@ export interface TableColumn<T> {
   render?: (row: T) => ReactNode;
   /** Custom comparator for sorting. */
   compare?: (a: T, b: T) => number;
+  /** Cell text alignment. @default "left" */
+  align?: "left" | "center" | "right";
+  /** Column width (any CSS length), e.g. `"120px"` or `"20%"`. */
+  width?: string;
 }
 
 export interface TableAction<T> {
   label: string;
   onClick: (row: T, e: MouseEvent<HTMLElement>) => void;
+  /** Leading icon (registry name or node). */
+  icon?: IconLike;
+  /** Button style. `danger` renders a destructive action. @default "secondary" */
+  variant?: "secondary" | "ghost" | "danger";
+  /** Show the icon only (label becomes the tooltip / accessible name). */
+  iconOnly?: boolean;
+  /** Hide the action for some rows. */
+  hidden?: (row: T) => boolean;
+  /** Disable the action for some rows. */
+  disabled?: (row: T) => boolean;
 }
 
 export interface TableControlsConfig {
@@ -50,4 +65,21 @@ export interface TableProps<T extends object> {
   caption?: string;
   /** Text when there are no rows. @default "No records" */
   emptyText?: string;
+  /** Row height. @default "comfortable" */
+  density?: "compact" | "comfortable";
+  /** Alternate row backgrounds. @default false */
+  striped?: boolean;
+  /** Keep the header visible while the body scrolls (set `maxHeight`). @default false */
+  stickyHeader?: boolean;
+  /** Max height of the scrollable body area (any CSS length). */
+  maxHeight?: string;
+  /** Show a loading overlay over the rows. */
+  loading?: boolean;
+  /** Optional title rendered at the start of the toolbar. */
+  title?: ReactNode;
+  /** Extra toolbar content (e.g. an "Add" button), rendered at the end. */
+  toolbar?: ReactNode;
+  /** Placeholder of the search box. @default "Search..." */
+  searchPlaceholder?: string;
+  className?: string;
 }

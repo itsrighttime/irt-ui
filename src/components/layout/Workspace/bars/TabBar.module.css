@@ -5,7 +5,9 @@
   width: 100% !important;
   height: 100%;
   gap: var(--irt-space-sm);
-  background: var(--irt-color-surface-muted);
+  box-sizing: border-box;
+  background: var(--irt-color-surface);
+  color: var(--irt-color-text);
   border-bottom: none;
 
   --irt-c-padding-tab: var(--irt-workspace-tab-padding);
@@ -29,8 +31,7 @@
 
 .horizontal {
   flex-direction: row;
-  padding: 0 var(--irt-c-padding-tab);
-
+  padding: 0 calc(var(--irt-c-padding-tab) + 4px);
 }
 
 .vertical {
@@ -45,8 +46,14 @@
 .section {
   display: flex;
   align-items: center;
+  gap: var(--irt-space-xs);
+  min-width: 0;
+}
+
+.custom {
+  display: inline-flex;
   align-items: center;
-  gap: var(--irt-space-sm);
+  min-width: 0;
 }
 
 .vertical .section {

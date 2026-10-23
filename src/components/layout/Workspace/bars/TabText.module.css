@@ -3,29 +3,47 @@
   align-items: center;
   justify-content: center;
   gap: var(--irt-space-sm);
+  height: calc(var(--irt-c-bar-size, var(--irt-workspace-bar-size, 40px)) - 10px);
+  min-height: 28px;
+  padding: 0 10px;
   outline: none;
-
   border: none;
+  border-radius: var(--irt-radius-md);
   cursor: pointer;
   user-select: none;
-
+  font: inherit;
   font-weight: var(--irt-font-weight-medium);
   font-size: var(--irt-font-size-sm);
+  color: var(--irt-color-text-muted);
   background-color: transparent;
-  padding: 0 var(--irt-space-xs);
+  transition:
+    background-color var(--irt-duration-fast) var(--irt-easing-standard),
+    color var(--irt-duration-fast) var(--irt-easing-standard);
+}
+
+.tabText:hover:not(:disabled) {
+  background-color: var(--irt-color-hover);
+  color: var(--irt-color-text);
 }
 
 .tabText:focus-visible {
   outline: var(--irt-border-width-thick) solid var(--irt-color-focus);
-  outline-offset: 2px;
+  outline-offset: 1px;
 }
 
-.active {
-  border-bottom: var(--irt-border-width-thick) solid var(--irt-color-primary);
+.tabText:disabled {
+  cursor: not-allowed;
+  opacity: var(--irt-opacity-disabled);
+}
+
+.active,
+.active:hover:not(:disabled) {
+  color: var(--irt-color-primary);
+  background-color: var(--irt-color-primary-subtle);
 }
 
 .label {
-  max-width: 15ch;
+  max-width: 18ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
