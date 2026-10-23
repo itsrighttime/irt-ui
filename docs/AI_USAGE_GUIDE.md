@@ -472,10 +472,53 @@ Helpers: `formatFileSize(bytes)`, `getFileTypeLabel(mime)`.
 ```
 Props: `items: { key; label; content?; icon?; badge?; disabled? }[]`, `value?` / `defaultValue?` / `onChange?(key)`, `variant?: "underline" | "pills" | "enclosed"`, `size?: "small" | "medium"`, `fitted?`, `keepMounted?`, `ariaLabel?`, `className?`, `panelClassName?`. Arrow keys / Home / End move between enabled tabs.
 
-### 4.11 Layout — `Workspace` app shell
+### 4.11 Layout — `Workspace` app shell (config reference)
 
-Ten slots: `topPrimary`, `topSecondary`, `bottomPrimary`, `bottomSecondary`, `leftPrimary`, `leftSecondary`,
-`rightPrimary`, `rightSecondary` (bars with `start` / `center` / `end` tab arrays) and `leftSidebar`, `rightSidebar` (nested items).
+The whole app shell is driven by one plain object, `WorkspaceConfig`. Build it from state, permissions or
+server data; the layout re-renders when it changes (wrap it in `useMemo`). The playground has an interactive
+version of this reference at **Layout › Workspace config** (`#/guides/workspace`).
+
+```ts
+import { Workspace, type WorkspaceConfig } from "@itsrighttime/irt-ui/layout";
+```
+
+#### Slots
+
+| Slot | Position | Value | Allowed tabs |
+|---|---|---|---|
+| `topPrimary` | top edge, full width | `BarTabs` | all |
+| `topSecondary` | above the content, between the sidebars | `BarTabs` | all |
+| `bottomSecondary` | below the content, between the sidebars | `BarTabs` | all |
+| `bottomPrimary` | bottom edge, full width | `BarTabs` | all |
+| `leftPrimary` / `leftSecondary` | outer / inner left column | `BarTabs` | `icon`, icon-trigger `dropdown`, `custom` |
+| `rightSecondary` / `rightPrimary` | inner / outer right column | `BarTabs` | `icon`, icon-trigger `dropdown`, `custom` |
+| `leftSidebar` / `rightSidebar` | beside the content | `SidebarItem[]` | `label` items and `group`s |
+
+All slots are optional; an omitted or empty slot takes no space. Names are also exported as `WORKSPACE_SLOTS.*`.
+`BarTabs = { start?: TabConfig[]; center?: TabConfig[]; end?: TabConfig[] }` — left/middle/right (horizontal) or top/middle/bottom (vertical).
+
+#### Tab types (`TabConfig`)
+
+Every tab has `id: string` (unique across the config), `type`, and optional `route` (navigate on activation + active highlighting).
+
+| `type` | Fields | Where |
+|---|---|---|
+| `"text"` | `text` (truncated ~18 ch), `onClick?`, `disabled?` | horizontal bars |
+| `"icon"` | `icon: IconName`, `label?` (accessible name + tooltip — always set), `onClick?`, `disabled?` | any bar |
+| `"label"` | `text`, `leftIcons?` / `rightIcons?: TabIconItem[]`, `tokens?: TabToken[]`, `background?`, `border?`, `onClick?` | horizontal bars, sidebars |
+| `"dropdown"` | `trigger: { type: "text" \| "icon"; text?; icon?; label? }`, `items: DropdownItem[]`, `onSelect?(key)` | any bar (vertical: icon trigger only) |
+| `"custom"` | `render: () => ReactNode` | any bar |
+
+- `TabIconItem = { icon; label?; color?; onClick?; disabled?; clickable? }` — with `onClick` the icon is its own button (does not activate the item).
+- `TabToken = { text; color?; background? }` — badges/counts.
+- `DropdownItem = string | { key; value; route?; icon?; description?; box?: string[]; danger?; disabled? }` — an item with `route` navigates; otherwise `onAction` gets `{ id: <tab id>, key: <item key> }`.
+
+#### Sidebar items (`SidebarItem`)
+
+- Label: `{ id, type: "label", text, route?, leftIcons?, rightIcons?, tokens?, background?, border?, onClick? }` (`onClick` runs when there is no `route`).
+- Group: `{ id, type: "group", title?, icon?, children: SidebarItem[], collapsible?: boolean /* true */, defaultOpen?: boolean /* false */ }`. Groups nest to any depth; a collapsed group containing the active route is highlighted.
+
+#### Full example
 
 ```tsx
 "use client";
@@ -484,11 +527,16 @@ import { Workspace, type WorkspaceConfig } from "@itsrighttime/irt-ui/layout";
 
 const config: WorkspaceConfig = {
   topPrimary: {
-    center: [{ id: "dashboard", type: "text", text: "Dashboard", route: "/app" }],
+    start: [{ id: "brand", type: "custom", render: () => <Logo /> }],
+    center: [
+      { id: "dashboard", type: "text", text: "Dashboard", route: "/app" },
+      { id: "reports", type: "text", text: "Reports", route: "/app/reports" },
+    ],
     end: [
       { id: "notifications", type: "icon", icon: "bell", label: "Notifications" },
       { id: "account", type: "dropdown", trigger: { type: "icon", icon: "userCircle", label: "Account" },
-        items: [{ key: "profile", value: "Profile", route: "/app/profile" }, { key: "logout", value: "Log out" }] },
+        items: [{ key: "profile", value: "Profile", icon: "user", route: "/app/profile" },
+                { key: "logout", value: "Log out", icon: "logout", danger: true }] },
     ],
   },
   leftPrimary: {
@@ -496,10 +544,9 @@ const config: WorkspaceConfig = {
     end: [{ id: "settings", type: "icon", icon: "settings", label: "Settings", route: "/app/settings" }],
   },
   leftSidebar: [
-    { id: "crm", type: "group", title: "CRM", defaultOpen: true, children: [
-      { id: "leads", type: "label", text: "Leads", route: "/app/leads",
-        leftIcons: [{ icon: "target" }], tokens: [{ text: "12", background: "var(--irt-color-primary)", color: "var(--irt-color-on-primary)" }] },
-      { id: "contacts", type: "label", text: "Contacts", route: "/app/contacts" },
+    { id: "crm", type: "group", title: "CRM", icon: "target", defaultOpen: true, children: [
+      { id: "leads", type: "label", text: "Leads", route: "/app/leads", leftIcons: [{ icon: "inbox" }], tokens: [{ text: "12" }] },
+      { id: "contacts", type: "label", text: "Contacts", route: "/app/contacts", leftIcons: [{ icon: "users" }] },
     ] },
   ],
 };
@@ -515,18 +562,65 @@ export function AppShell({ children, userName }: { children: React.ReactNode; us
   );
 }
 ```
-- Tab types: `text` (`text`), `icon` (`icon`, `label`), `label` (`text`, `leftIcons`, `rightIcons`, `tokens`, `background`, `border`), `dropdown` (`trigger: { type: "text" | "icon", text?, icon?, label? }`, `items`), `custom` (`render: () => ReactNode`). All have `id` and optional `route`.
-- **Vertical bars (`left*`/`right*Primary/Secondary`) accept only `icon`, icon-triggered `dropdown` and `custom` tabs** — anything else throws "Invalid Workspace Config".
-- Sidebar items: `{ type: "label", … }` or `{ type: "group", id, title, children, collapsible?, defaultOpen? }` (nestable).
-- Routing: `currentPath` drives highlighting. Absolute routes (`"/app/leads"`) match by prefix; a route that is only the base (`"/app"`) matches exactly; relative routes (`"leads"`) resolve after `basePath` (default: first path segment). Override with `isRouteActive`.
-- `onNavigate(route, payload)` fires for tabs/items with `route`; `onAction(payload)` fires for every activation (`{ id, route?, key? }` — `key` is the dropdown item key).
-- react-router: `currentPath={useLocation().pathname}`, `onNavigate={useNavigate()}`, children = `<Outlet />`.
-- Size: `height?` (100vh), `width?` (100vw), `barSize?` and `sidebarWidth?` (default from `layout.workspace.*` tokens).
-- Sidebars: `leftSidebarOpen?` / `rightSidebarOpen?` (controlled, default true) + `onSidebarOpenChange?(side, open)`; `overlayBreakpoint?` (px of the workspace's own width) turns open sidebars into drawers with a backdrop (Escape/backdrop click call `onSidebarOpenChange(side, false)`).
-- `contentClassName?` / `contentStyle?` style the `<main>`; a "Skip to content" link is rendered for keyboard users (`skipLinkLabel={false}` disables).
-- Bars are ARIA toolbars (←/→ or ↑/↓ move focus); active text/icon tabs get a tinted background. Text/icon tabs accept `disabled`; sidebar groups accept `icon`.
-- Optional context visibility: `visibility={{ alwaysVisible: ["home"], map: { crm: ["leads", "contacts"] }, initialTab: "home" }}`.
-- Standalone pieces: `<TabBar config={{ start: [...], end: [...] }} onAction={…} isRouteActive={…} />`, `<Sidebar config={items} position="leftSidebar" onAction={…} />`. Inside custom tabs use `useWorkspaceRoute()` for `{ currentPath, isRouteActive }`.
+
+#### Routing & actions
+
+- The Workspace never navigates by itself: `onNavigate(route, payload)` fires for tabs/items/dropdown items with a `route`; `onAction(payload)` fires for every activation (`payload = { id, route?, key? }`).
+- Highlighting uses `currentPath` (`usePathname()`, `useLocation().pathname`). Matching (`matchRoute`, exported):
+  absolute routes (`"/app/leads"`) match by path-segment prefix (`/app/leads/42` keeps Leads active); a route that is only the base (`"/app"`) matches exactly;
+  relative routes (`"leads"`) match after `basePath` (default: first path segment); query/hash are ignored. Replace the matcher with `isRouteActive(route)`.
+- react-router: `currentPath={useLocation().pathname}`, `onNavigate={useNavigate()}`, children `<Outlet />`.
+- Inside `custom` tabs or pages: `const { currentPath, isRouteActive } = useWorkspaceRoute()`.
+
+#### Context-aware visibility
+
+```ts
+visibility={{
+  alwaysVisible: ["brand", "crm", "hr", "settings"],
+  map: { crm: ["crm-leads", "crm-deals"], hr: ["hr-people", "hr-leave"] },  // activating "crm" reveals its ids
+  initialTab: "crm",
+}}
+```
+Activating any id that is a key of `map` makes it the active parent; only `alwaysVisible` + its mapped ids render (groups stay while a child is visible).
+For permission-based menus use `filterWorkspace(config, new Set(allowedIds))` (or `filterSidebar(items, ids)`), or build the config conditionally.
+
+#### Workspace props
+
+`config` (required), `children`, `currentPath?`, `basePath?`, `isRouteActive?`, `onNavigate?`, `onAction?`, `topPrimaryStart?` (node prepended to `topPrimary.start`),
+`visibility?`, `height?` (100vh), `width?` (100vw), `barSize?` / `sidebarWidth?` (any CSS length; defaults from `layout.workspace.*` tokens),
+`leftSidebarOpen?` / `rightSidebarOpen?` (true) + `onSidebarOpenChange?(side, open)`, `overlayBreakpoint?` (px of the workspace's own width; below it open sidebars become drawers with a backdrop — Escape/backdrop click call `onSidebarOpenChange(side, false)`),
+`skipLinkLabel?` ("Skip to content"; `false` disables), `contentClassName?` / `contentStyle?` (the scrollable `<main>`), `className?`, `style?`.
+
+Mobile drawer pattern:
+```tsx
+const [navOpen, setNavOpen] = useState(true);
+const config = useMemo<WorkspaceConfig>(() => ({
+  topPrimary: { start: [{ id: "nav", type: "custom", render: () =>
+    <IconButton icon={navOpen ? "close" : "menu"} label="Toggle navigation" onClick={() => setNavOpen((o) => !o)} /> }] },
+  leftSidebar: sidebar,
+}), [navOpen]);
+<Workspace config={config} leftSidebarOpen={navOpen} onSidebarOpenChange={(_, open) => setNavOpen(open)} overlayBreakpoint={900} … />
+```
+
+#### Validation (throws on render)
+
+- Vertical slots reject `text` and `label` tabs; a `dropdown` there must use `trigger.type: "icon"`. An invalid config throws `"Invalid Workspace Config"` (details logged).
+- Check ahead of time: `validateWorkspaceConfig(config)` → `{ slot, tabId, message }[]`.
+- Keep every `id` unique (actions, visibility and React keys depend on it). Tab arrays need stable `id`s, not indexes.
+
+#### Exports (`@itsrighttime/irt-ui/layout`)
+
+Types `WorkspaceConfig`, `BarTabs`, `TabConfig` (`TextTab | IconTab | LabelTab | DropdownTab | CustomTab`), `SidebarItem`, `SidebarGroup`, `SidebarTab`, `TabIconItem`, `TabToken`, `TabActionPayload`, `WorkspaceVisibility`;
+constants `WORKSPACE_SLOTS`, `TAB_TYPE`, `TAB_ORIENTATION`; functions `matchRoute`, `validateWorkspaceConfig`, `filterWorkspace`, `filterSidebar`;
+hooks `useWorkspace(config, visibility?)` (visibility engine for custom shells), `useWorkspaceRoute()`;
+components `TabBar` (`<TabBar config={{ start, center, end, orientation? }} onAction isRouteActive />`) and `Sidebar` (`<Sidebar config={items} position="leftSidebar" onAction />`) for standalone use.
+
+#### Agent rules for Workspace
+
+- Render one Workspace in the root (client) layout; pages go in `children`. Do not nest Workspaces.
+- Put only icon tabs (always with `label`) in vertical bars; use sidebars for text navigation.
+- Derive dynamic parts (badges, user name, permissions, nav toggle) inside `useMemo` and pass the result as `config`.
+- Never call the router from inside tab configs — set `route` and handle `onNavigate`; use `onAction` for non-route actions (logout, open panel).
 
 ---
 

@@ -8,6 +8,7 @@ import { HomePage } from "./pages/HomePage";
 import { IconsPage } from "./pages/IconsPage";
 import { OverviewPage } from "./pages/OverviewPage";
 import { ThemePage } from "./pages/ThemePage";
+import { WorkspaceGuidePage } from "./pages/WorkspaceGuidePage";
 import { navigate, useHashPath } from "./router";
 import { usePlaygroundTheme } from "./state/themeStore";
 
@@ -46,9 +47,24 @@ const sidebar: SidebarItem[] = [
     title: group,
     icon: GROUP_ICONS[group],
     defaultOpen: true,
-    children: entries
-      .filter((e) => e.group === group)
-      .map<SidebarItem>((e) => ({ id: e.id, type: "label", route: `/components/${e.id}`, text: e.title })),
+    children: [
+      // Layout › Workspace config: dedicated configuration guide.
+      ...(group === "Layout"
+        ? [
+          {
+            id: "workspace-config",
+            type: "label" as const,
+            route: "/guides/workspace",
+            text: "Workspace config",
+            leftIcons: [{ icon: "fileText" as const }],
+            tokens: [{ text: "guide" }],
+          },
+        ]
+        : []),
+      ...entries
+        .filter((e) => e.group === group)
+        .map<SidebarItem>((e) => ({ id: e.id, type: "label", route: `/components/${e.id}`, text: e.title })),
+    ],
   })),
 ];
 
@@ -73,6 +89,7 @@ function Page({ path }: { path: string }) {
   if (path === "/theme") return <ThemePage />;
   if (path === "/icons") return <IconsPage />;
   if (path === "/catalog") return <OverviewPage />;
+  if (path === "/guides/workspace") return <WorkspaceGuidePage />;
   const match = /^\/components\/([\w-]+)/.exec(path);
   if (match?.[1]) {
     const entry = findEntry(match[1]);
@@ -99,7 +116,7 @@ export function App() {
 
   useEffect(() => {
     const entry = /^\/components\/([\w-]+)/.exec(path)?.[1];
-    const title = entry ? findEntry(entry)?.title : path === "/theme" ? "Theme builder" : path === "/icons" ? "Icons" : path === "/catalog" ? "All components" : undefined;
+    const title = entry ? findEntry(entry)?.title : path === "/theme" ? "Theme builder" : path === "/icons" ? "Icons" : path === "/catalog" ? "All components" : path === "/guides/workspace" ? "Workspace configuration" : undefined;
     document.title = title ? `${title} · irt-ui` : "irt-ui — React component library";
   }, [path]);
 
@@ -125,9 +142,12 @@ export function App() {
             type: "custom",
             render: () => (
               <a href="#/" className="pg-brand">
-                <span className="pg-logo" aria-hidden="true">
-                  irt
-                </span>
+                <img
+                  src="./favicon.ico"
+                  alt=""
+                  className="pg-logo"
+                  aria-hidden="true"
+                />
                 <span>irt-ui</span>
                 <small>v{__LIB_VERSION__}</small>
               </a>

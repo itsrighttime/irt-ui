@@ -67,7 +67,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "tokens": "vitest run src/theme/tokens.test.ts",
-    "check:exports": "publint && attw --pack . --profile esm-only",
+    "check:exports": "publint --pack npm && attw --pack . --profile esm-only",
     "validate": "npm run typecheck && npm run typecheck:playground && npm run lint && npm run test && npm run build && npm run check:exports",
     "prepublishOnly": "npm run validate",
     "pack:local": "npm run build && node scripts/pack-local.mjs",

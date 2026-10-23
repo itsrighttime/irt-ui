@@ -226,6 +226,12 @@ export const layoutEntries: DocEntry[] = [
       "Application shell with ten slots (top/bottom/left/right primary & secondary bars plus two sidebars). Router- and auth-agnostic: pass `currentPath`, `onNavigate` and your page as `children`. Sizes are props (`barSize`, `sidebarWidth`); sidebars can be toggled and float as drawers below `overlayBreakpoint`. Includes a skip link. This playground itself is built with it.",
     imports: 'import { Workspace, type WorkspaceConfig } from "@itsrighttime/irt-ui/layout";',
     controls: workspaceControls,
+    notes: (
+      <p>
+        Every config field — slots, tab types, sidebar items, routing, visibility, validation and recipes — is covered in the{" "}
+        <a href="#/guides/workspace">Workspace configuration guide</a>.
+      </p>
+    ),
     align: "stretch",
     render: (v) => <WorkspaceDemo v={v} />,
     code: (v) =>
