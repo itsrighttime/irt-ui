@@ -54,14 +54,20 @@ pushed or published.
 - [x] Workspace utils: consts, `filterWorkspace`, `validateWorkspaceConfig`, `useWorkspace`, `matchRoute` (SSR-safe)
 - [x] App-specific nav config moved to `examples/react/src/workspace.config.ts`
 
-## Validation (all run on 2026-10-22)
+## Production polish (2026-10-22/23)
+
+Audit → component polish → layout → playground redesign, all additive. Details in `CHANGELOG.md`.
+New: `Tabs`, `Badge`, `useScrollLock`, `borderStrong` token, 17 icons. 165 tests (was 139), lint warnings 25 → 10.
+
+## Validation (re-run on 2026-10-23 after the polish pass)
 - [x] TypeScript strict (`npm run typecheck`) — 0 errors
-- [x] Lint (`npm run lint`) — 0 errors, 25 warnings (React-Compiler rules, see ARCHITECTURE "Lint policy")
-- [x] Tests (`npm test`) — 21 files, 139 tests passing
+- [x] Lint (`npm run lint`) — 0 errors, 10 warnings (React-Compiler rules, see ARCHITECTURE "Lint policy")
+- [x] Tests (`npm test`) — 22 files, 165 tests passing
 - [x] Build + `.d.ts` (`npm run build`)
 - [x] Package exports — `publint`: all good; `attw --profile esm-only`: no problems (bundler + node16)
 - [x] React integration — `examples/react` (React 18.3, Vite) installed from tarball: typecheck incl. `@ts-expect-error` type assertions, build, browser run (theme, dark toggle, icon override, modal, dropdown, table sort) with no console errors
 - [x] Next.js integration — `examples/nextjs` (Next 16.4 App Router, React 19) installed from tarball: `next build` (static prerender), server HTML contains theme CSS + components, browser hydration in light and dark color schemes with no hydration warnings; interactions verified
+- [x] Playground — `typecheck:playground` clean; production build; all 47 routes rendered in Chromium (light, dark, 390 px) with no console errors; dropdown, modal, dialog, date picker, menu, time picker, toasts, record drawer and mobile drawer navigation exercised
 
 ## Playground (GitHub Pages)
 - [x] `playground/` app: getting started, theme builder (presets, colours light/dark, typography, radius/spacing, component defaults, JSON import, TS/JSON export + download, persisted), 41 component pages with live controls, generated usage code and prop tables, icon catalogue

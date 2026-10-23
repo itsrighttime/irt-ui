@@ -145,6 +145,8 @@ npm run validate    # all of the above (also runs before publish)
 
 ## Playground
 
+Every component page has grouped controls, a preview toolbar (background, viewport), generated prop tables (`npm run docs:props`, run automatically by `playground:build`), an events log and example galleries. See `CHANGELOG.md` for the latest component changes.
+
 `playground/` is a Vite + React app (built with the library itself) that documents every component,
 lets you tweak props with live controls, and includes a theme builder that exports `theme.ts` /
 `theme.json`. It imports the library **source** through the public package paths, so it always
